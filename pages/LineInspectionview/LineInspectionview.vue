@@ -714,7 +714,6 @@ const getselList1 = () => {
 const getselList2 = () => {
   let obj = {
     WorkCode: Product1.value
-    // 'WorkCode':'005',
   }
   GetLineByWork(obj).then((res) => {
     Productrange2.value = res.data
@@ -722,7 +721,6 @@ const getselList2 = () => {
 }
 const getselList3 = () => {
   let obj = {
-    // 'LineCode':'CX0143',
     LineCode: Product2.value
   }
   GetPositionByLine(obj).then((res) => {
@@ -732,10 +730,8 @@ const getselList3 = () => {
 const getselList4 = () => {
   console.log(Product2.value, '--Product2.value')
   let obj = {
-    // 'LineCode':'CX0143',
     LineCode: Product2.value,
-    // 'PositionCode':'G0123',
-    PositionCode: gwVal.value
+    PositionCode: Productrange3.value[0].cPositionCode
   }
   GetProgramByPosition(obj).then((res) => {
     Productrange4.value = res.data
