@@ -164,7 +164,7 @@
       </view>
       <view class="listMain">
         <scroll-view
-          :style="'height:' + (h - 330) + 'px'"
+          :style="'height:' + (h - 430) + 'px'"
           scroll-y="true"
           lower-threshold="50"
           show-scrollbar="true"
@@ -260,8 +260,8 @@ const Checkorange = ref([])
 const Product = ref()
 const Productrange = ref([])
 const PeofocusType = ref(false)
-const Checknum = ref(0)
-const Badnum = ref(0)
+const Checknum = ref()
+const Badnum = ref()
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // #ifdef APP-PLUS
@@ -420,13 +420,14 @@ const AddList = () => {
 //Commit
 //提交
 const PUTARR = () => {
-  if (ListArr.value.length == 0) {
-    uni.showToast({
-      icon: 'none',
-      title: '请添加数据！'
-    })
-    return
-  }
+  // #2406 无需列表数据
+  // if (ListArr.value.length == 0) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请添加数据！'
+  //   })
+  //   return
+  // }
   Commit({
     MID: Info.value.UID,
     list_m: ListArr.value,
