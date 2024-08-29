@@ -508,6 +508,7 @@ const GetData = () => {
           title: '该包不属于此产线，请重新扫描！'
         })
         Station.value = ''
+        return
       }
       ScanInfo.value = res.data
     } else {
