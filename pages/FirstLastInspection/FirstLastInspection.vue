@@ -367,10 +367,17 @@ const changeGroup = (value) => {
   // GroupVal.value=value.detail.value
 }
 const clickAdd = () => {
-  if (!cpObj?.cInvCode) {
+  if (!cpObj.value.cInvCode) {
     uni.showToast({
       icon: 'error',
       title: '请选择工位和产品'
+    })
+    return false
+  }
+  if (!gwObj.value.cPositionCode) {
+    uni.showToast({
+      icon: 'error',
+      title: '请选择产品'
     })
     return false
   }
