@@ -91,10 +91,10 @@
             style="display: flex"
           >
             <uni-col :span="14">
-              <view class="demo-uni-col dark">工位名称：{{ cpObj?.cInvName }}</view>
+              <view class="demo-uni-col dark">工位名称：{{ gwObj?.cPositionName }}</view>
             </uni-col>
             <uni-col :span="14">
-              <view class="demo-uni-col dark">工位编码：{{ cpObj?.cInvCode }}</view>
+              <view class="demo-uni-col dark">工位编码：{{ gwObj?.cPositionCode }}</view>
             </uni-col>
           </uni-row>
           <uni-row
@@ -320,6 +320,13 @@ const selList = () => {
 }
 //扫描工位
 const GetDataGW = () => {
+  if (!gwVal.value) {
+    uni.showToast({
+      icon: 'error',
+      title: '请扫描工位'
+    })
+    return false
+  }
   uni.showLoading({
     title: '加载中......'
   })
@@ -360,17 +367,6 @@ const changeGroup = (value) => {
   // GroupVal.value=value.detail.value
 }
 const clickAdd = () => {
-  uni.showLoading({
-    title: '加载中......'
-  })
-  console.log(Line.value, '--Line.value')
-  // if (!cpVal.value || !gwVal.value) {
-  //   uni.showToast({
-  //     icon: 'error',
-  //     title: '请输入工位/产品'
-  //   })
-  //   return false
-  // }
   if (!cpObj?.cInvCode) {
     uni.showToast({
       icon: 'error',
@@ -385,6 +381,17 @@ const clickAdd = () => {
     })
     return false
   }
+  uni.showLoading({
+    title: '加载中......'
+  })
+  console.log(Line.value, '--Line.value')
+  // if (!cpVal.value || !gwVal.value) {
+  //   uni.showToast({
+  //     icon: 'error',
+  //     title: '请输入工位/产品'
+  //   })
+  //   return false
+  // }
   let obj = {
     // ...gwObj.value,
     // ...cpObj.value,
