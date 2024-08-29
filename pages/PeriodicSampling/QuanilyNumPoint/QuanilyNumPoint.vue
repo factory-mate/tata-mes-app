@@ -440,13 +440,17 @@ const PUTARR = () => {
     list_m: ListArr.value,
     nQuantity: Badnum.value
   }).then((res) => {
-    if (res.status == 200) {
+    if (res.success) {
       ListArr.value = []
       uni.showToast({
         icon: 'none',
         title: '提交成功！'
       })
     } else {
+      uni.showToast({
+        icon: 'none',
+        title: '提交失败！'
+      })
     }
   })
 }
