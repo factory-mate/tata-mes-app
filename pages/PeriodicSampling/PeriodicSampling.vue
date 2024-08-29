@@ -404,7 +404,7 @@
                     <view class="demo-uni-col dark">检验日期：{{ item.dDate }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">判定结果：{{ item.IsOKName }}</view>
+                    <view class="demo-uni-col dark">判定结果：{{ item.IsOKName_PC }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
