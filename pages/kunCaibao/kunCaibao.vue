@@ -281,7 +281,7 @@ onBackPress(() => {
 //加载页面
 onLoad((option) => {
   h.value = uni.getSystemInfoSync().windowHeight
-  getList()
+  //  getList()
 })
 //货位输入框聚焦
 const setfocus = () => {
