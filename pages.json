@@ -1,0 +1,2369 @@
+{
+  "easycom": {
+    "autoscan": true,
+    // 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+    "custom": {
+      "^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
+      "^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+      "^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue"
+    }
+  },
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "FactoryMate",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundColor": "#fff",
+        "navigationBarShadow": {
+          "colorType": "grey"
+        }
+      }
+    },
+    {
+      "path": "pages/tabbar/home/index",
+      "style": {
+        "navigationBarTitleText": "FactoryMate",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#000"
+      }
+    },
+    {
+      "path": "pages/tabbar/equipment/index",
+      "style": {}
+    },
+    {
+      "path": "pages/tabbar/workHome/index",
+      "style": {
+        "navigationBarTitleText": "FactoryMate",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundColor": "#fff",
+        "navigationBarShadow": {
+          "colorType": "grey"
+        }
+      }
+    },
+    {
+      "path": "pages/tabbar/scan/index",
+      "style": {}
+    },
+    {
+      "path": "pages/tabbar/arguments/index",
+      "style": {}
+    },
+    {
+      "path": "pages/tabbar/my/index",
+      "style": {
+        "navigationBarTitleText": "FactoryMate",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#971e23",
+        "backgroundColor": "#971e23"
+      }
+    },
+    //消息通知页面
+    {
+      "path": "pages/tabbar/home/components/news/news"
+    },
+    //消息通知详情页面
+    {
+      "path": "pages/tabbar/home/components/deatil/detail"
+    },
+
+    // 待办页面
+    {
+      "path": "pages/todo/pages/todo/todo",
+      "style": {
+        "navigationBarTitleText": "代办11",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom" //设置自定义导航栏  隐藏
+      }
+    },
+    //待办执行详情页
+    {
+      "path": "pages/todo/pages/components/detail/detail"
+    },
+    // 已办页面
+    {
+      "path": "pages/finished/pages/finished/finished",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
+      }
+    },
+    // 已执行详情页面
+    {
+      "path": "pages/finished/pages/components/detail/detail",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    //设备看板
+    {
+      "path": "pages/KanBan/KanBan"
+    },
+    {
+      "path": "pages/inStorage/pages/inStorage/inStorage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/allOutStorage/pages/allOutStorage/allOutStorage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/IssueQuality/IssueQuality",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/inStorage/pages/components/scanWulIst/scanWulIst",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/inStorage/pages/components/listStation/listStation",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/StorageOut/pages/inWare/inWare",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 500
+      }
+    },
+    {
+      "path": "pages/StorageOut/pages/detail/detail",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/detail/detail",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/storeManage/pages/storeManage/storeManage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/shipSpace/pages/shipSpace/shipSpace",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/shipSpace/pages/newAdd/newAdd",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/shipSpace/pages/principal/principal",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/shipSpace/pages/Storage/Storage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/storeManage/pages/addStorage/addStorage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/storeManage/pages/StorageClassify/StorageClassify",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/methods/methods",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/reasons/reasons",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/stations/stations",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/personal/personal",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/baseSetting/baseSetting",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/methodSetting/methodSetting",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/IssueQuality/pages/stationSetting/stationSetting",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/PDAgoods/PDAgoods/PDAgoods",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAput/PDAput/PDAput",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/WireSideRequest/WireSideRequest",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnMaterInfo/ReturnMaterInfo",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnMaterInfoSQ/ReturnMaterInfoSQ",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/applicationSQ/applicationSQ",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnWarehouse/ReturnWarehouse",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnWarehouse/ReturnWarehouseView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnWarehouse/ReturnWarehouseViewRK",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnWarehouse/ReturnWarehouseViewCKan",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReturnMaterINPUT/ReturnMaterINPUT",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/HandelMaterInfo/HandelMaterInfo",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/MaterOut/MaterOut",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ReceiveMater/ReceiveMater",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SendError/SendError",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/InSendPDA/InSendPDA",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/InSendPDA/Reason",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/InSendPDA/ReturnReapir",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/FinshiedProductInfo/FinshiedProductInfo",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwarePut/ProductInwarePut",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwarePut/ProductDetail/ProductDetail",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwarePut/PutInWare/PutInWare",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwarePut/inWareList/inWareList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwareOut/ProductInwareOut",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwareOut/ProductOutDetail/ProductOutDetail",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwareOut/ProductOut/ProductOut",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductInwareOut/OutWareList/OutWareList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/EqupementCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/PointCheck/PointCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/LookEquipment/LookEquipment",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/LookTarget/LookTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/PointTarget/PointTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/EquipFile/EquipFile",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/EquipmentRepair/EquipmentRepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/EqupementCheck/TackPicture/TackPicture",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/DeviceMantin",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/WaitMantain/WaitMantain",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/AddPicture/AddPicture",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/DevFile/DevFile",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/DevRepair/DevRepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/ManTainTarget/ManTainTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/ReadyPart/ReadyPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/LOOKDevice/LOOKDevice",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/LOOKTarget/LOOKTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/TargetList/TargetList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceMantin/LOOKPart/LOOKPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProEquipmentCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProEquipFile/ProEquipFile",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProEquipmentRepair/ProEquipmentRepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProLookEquipment/ProLookEquipment",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProLookTarget/ProLookTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProPointCheck/ProPointCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProPointTarget/ProPointTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProEquipmentCheck/ProTackPicture/ProTackPicture",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProDeviceMantin",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProAddPicture/ProAddPicture",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProDevFile/ProDevFile",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProDevRepair/ProDevRepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProLOOKDevice/ProLOOKDevice",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProLOOKPart/ProLOOKPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProLOOKTarget/ProLOOKTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProManTainTarget/ProManTainTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProReadyPart/ProReadyPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProTargetList/ProTargetList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProDeviceMantin/ProWaitMantain/ProWaitMantain",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DeviceRepair/DeviceRepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/checkBills/checkBills", //物料盘点
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/checkBills/checkView/checkView", //物料盘点-待盘点详情
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/warehouseBills/warehouseBills", //仓库盘点
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAPonit/PDAPonit",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/PDARepair",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/RepairPage/RepairPage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/PDAFile/PDAFile",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/PDAPart/PDAPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/PDAPic/PDAPic",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAPonit/ViewPage/ViewPage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAPonit/Person/Person",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/RepairCheck/RepairCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDARepair/CheckPart/CheckPart",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/checkBills/checkPage/checkPage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/checkBills/CheckList/CheckList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/warehouseBills/wareCheckPage/wareCheckPage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/warehouseBills/wareList/wareList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorage/ToolAllotInStorage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorage/OpearAllotIn/OpearAllotIn",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorage/ToolList/ToolList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorageCK/ToolAllotOutStorageCK",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorageCK/List/List",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolAllotOutStorageCK/Opear/Opear",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolByuInStorage/ToolByuInStorage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolByuInStorage/ToolBuyOpear/ToolBuyOpear",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolByuInStorage/BuyList/BuyList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAshangdao/PDAshangdao",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PDAxiadao/PDAxiadao",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolScarp/ToolScarp",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolScarp/ScarpOpear/ScarpOpear",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolScarp/ScarpList/ScarpList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PurchaseReturnsShelves/PurchaseReturnsShelves",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PurchaseReturnsShelves/PurchaseReturnsShelvesView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+
+    {
+      "path": "pages/PurchaseReturnsShelves/PurchaseReturnsShelvesXJ",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/kunCaibao/kunCaibao",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/kunYidong/kunYidong",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PurchaseReturnsShelves/PurchaseReturnsShelvesCK",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+
+    {
+      "path": "pages/ToolGrindOut/ToolGrindOut",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolGrindOut/GrindOpear/GrindOpear",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolGrindOut/GrindList/GrindList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolGrindIn/ToolGrindIn",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolGrindIn/ToolGrindOpear/ToolGrindOpear",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ToolGrindIn/ToolGrindList/ToolGrindList",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PackBagCheck/PackBagCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DanCheck/DanCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/DailyCheck/DailyCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/PeriodicSampling",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/SamplingCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/CheckPoint/CheckPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/QualityPonit/QualityPonit",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/QuanilyNumPoint/QuanilyNumPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/CheckEndPoint/CheckEndPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/EndQuaniltyPoint/EndQuaniltyPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/PeriodicSampling/EndQuanilyNumPoint/EndQuanilyNumPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/CheckPoint/CheckPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/CheckEndPoint/CheckEndPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/EndQuaniltyPoint/EndQuaniltyPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/EndQuanilyNumPoint/EndQuanilyNumPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/QualityPonit/QualityPonit",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SamplingCheck/QuanilyNumPoint/QuanilyNumPoint",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料检验单
+      "path": "pages/incomingInspection/incomingInspection",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包
+      "path": "pages/incomingInspection/InspectingPackingView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/incomingInspection/InspectingPackingViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/incomingInspection/InspectingPackingViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/incomingInspection/InspectingPackingViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  已检 检验包
+      "path": "pages/incomingInspection/InspectingPackingYJView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/incomingInspection/InspectingPackingYJViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/incomingInspection/InspectingPackingYJViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/incomingInspection/InspectingPackingYJViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    // ------- 库存检验
+    {
+      //来料检验单
+      "path": "pages/kuIncomingInspection/incomingInspection",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包
+      "path": "pages/kuIncomingInspection/InspectingPackingView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/kuIncomingInspection/InspectingPackingViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/kuIncomingInspection/InspectingPackingViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/kuIncomingInspection/InspectingPackingViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  已检 检验包
+      "path": "pages/kuIncomingInspection/InspectingPackingYJView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/kuIncomingInspection/InspectingPackingYJViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/kuIncomingInspection/InspectingPackingYJViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/kuIncomingInspection/InspectingPackingYJViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    // 不良单处理
+    {
+      "path": "pages/BadOrderTreatment/BadOrderTreatment",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/BadOrderTreatment/BadOrderTreatmentCL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh": true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/BadOrderTreatmentBao/BadOrderTreatment",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/BadOrderTreatmentBao/BadOrderTreatmentCL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh": true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductProcessCheck/ProductProcessCheck",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ProductProcessCheck/CheckTarget/CheckTarget",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/SweepSampling/SweepSampling",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/ManualSampleDelivery/ManualSampleDelivery",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //实验室检验
+      "path": "pages/laboratoryInspection/laboratoryInspection",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //实验室检验
+      "path": "pages/laboratoryInspection/laboratoryInspectionView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //实验室检验
+      "path": "pages/laboratoryInspection/laboratoryInspectionViewJG",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //实验室检验
+      "path": "pages/laboratoryInspection/laboratoryInspectionYJView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //实验室检验
+      "path": "pages/laboratoryInspection/laboratoryInspectionYJViewJG",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //报检
+      "path": "pages/FirstLastInspection/FirstLastInspection",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料检验单
+      "path": "pages/FirstLastInspectionJY/FirstLastInspectionJY",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包
+      "path": "pages/FirstLastInspectionJY/InspectingPackingView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/FirstLastInspectionJY/InspectingPackingViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/FirstLastInspectionJY/InspectingPackingViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/FirstLastInspectionJY/InspectingPackingViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  已检 检验包
+      "path": "pages/FirstLastInspectionJY/InspectingPackingYJView",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标
+      "path": "pages/FirstLastInspectionJY/InspectingPackingYJViewZB",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定量
+      "path": "pages/FirstLastInspectionJY/InspectingPackingYJViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //来料  检验包 指标 定性
+      "path": "pages/FirstLastInspectionJY/InspectingPackingYJViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      //
+      "path": "pages/LineInspectionview/LineInspectionview",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //
+      "path": "pages/LineInspectionview/LineInspectionviewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //
+      "path": "pages/LineInspectionview/LineInspectionviewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //
+      "path": "pages/LineInspectionview/LineInspectionviewViewDX",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      //
+      "path": "pages/LineInspectionview/LineInspectionviewViewDL",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        // "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-out/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-out/material",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-out/submit",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-out/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-in/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-in/material",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-in/submit",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/wms/other-storage-in/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/product-move/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTitleText": "FactoryMate",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#000",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      "titleView": false //不启用系统导航
+    },
+    "navigationStyle": "default", //custom 取消导航 default打开导航
+    "enablePullDownRefresh": false // 全局的下拉
+  },
+  "tabBar": {
+    "height": "60px",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "color": "#8F8F94",
+    "selectedColor": "#f33e54",
+    "list": [
+      {
+        "pagePath": "pages/tabbar/home/index",
+        "iconPath": "static/img/icons/home_w.png",
+        "selectedIconPath": "static/img/icons/home.png",
+        "text": "首页"
+      },
+      // {
+      // 	"pagePath": "pages/tabbar/equipment/index",
+      // 	"iconPath": "static/img/icons/sbwxz.png",
+      // 	"selectedIconPath": "static/img/icons/sbxz.png",
+      // 	"text": "设备"
+      // },
+      {
+        "pagePath": "pages/tabbar/workHome/index",
+        "iconPath": "static/img/icons/work.png",
+        "selectedIconPath": "static/img/icons/work_h.png",
+        "text": "工作台"
+      },
+      // {
+      // 	"pagePath": "",
+      // 	"iconPath": "static/img/imgs/扫码.png",
+      // 	"selectedIconPath": "static/img/tabbar/addactive.png",
+      // 	"text": ""
+      // },
+      // {
+      // 	"pagePath": "pages/tabbar/scan/index",
+      // 	"iconPath": "static/img/imgs/扫码.png",
+      // 	"selectedIconPath": "static/img/imgs/扫码 (1).png"
+      // },
+      // {
+      // 	"pagePath": "pages/tabbar/arguments/index",
+      // 	"iconPath": "static/img/icons/set_w.png",
+      // 	"selectedIconPath": "static/img/icons/set.png",
+      // 	"text": "设置"
+      // },
+      {
+        "pagePath": "pages/tabbar/my/index",
+        "iconPath": "static/img/icons/me_w.png",
+        "selectedIconPath": "static/img/icons/me.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

@@ -1,0 +1,178 @@
+<template>
+  <view class="scanCode"> </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      nfcFlag: false,
+      barcode: null,
+      lightIsShow: false, //是否打开摄像头
+    };
+  },
+  onLoad() {
+    this.nfcFlag = uni.getStorageSync("isNFCFlag");
+    let currentWebview = this.$scope.$getAppWebview();
+    this.createBarcode(currentWebview); //开启扫码
+    this.createView(currentWebview); // 创建打开手电筒
+  },
+  onHide() {
+    //页面隐藏时手电筒打开关闭
+    if (this.lightIsShow) {
+      this.lightIsShow = false;
+      this.barcode.setFlash(false);
+    }
+  },
+  onShow() {
+    var that = this;
+    // 页面展示时，重新启动扫描检测
+    if (this.barcode) {
+      setTimeout(function () {
+        let currentWebview = that.$scope.$getAppWebview();
+        that.createBarcode(currentWebview); //开启扫码
+        that.createView(currentWebview); // 创建打开手电筒
+      }, 300);
+    }
+  },
+  methods: {
+    //从跳转后的页面返回
+    navigationTap() {
+      this.barcode = null;
+      let currentWebview = this.$scope.$getAppWebview();
+      this.createBarcode(currentWebview); //开启扫码
+      this.createView(currentWebview); // 创建打开手电筒
+    },
+    // 扫描二维码
+    createBarcode(currentWebview) {
+      if (!this.barcode) {
+        this.barcode = plus.barcode.create("barcode", [plus.barcode.QR], {
+          top: `0px`,
+          left: "0px",
+          height: `100%`,
+          width: "100%",
+          position: "absolute",
+          background: "#000000",
+          frameColor: "#008EFF",
+          scanbarColor: "#008EFF",
+        });
+        this.barcode.onmarked = this.onmarked; //成功回调
+        this.barcode.onerror = this.onerror; //失败回调
+        currentWebview.append(this.barcode);
+      }
+      this.barcode.start();
+    },
+    // 创建打开手电筒
+    createView(currentWebview) {
+      var scanBarVew = new plus.nativeObj.View(
+        "scanBarVew",
+        {
+          top: "60%",
+          left: "40%",
+          height: "10%",
+          width: "20%",
+        },
+        [
+          //图片
+          {
+          	tag: 'img',
+          	id: 'scanBar',
+          	src: 'static/scanBar.png',//图片路径自选
+          	position: {
+          		width: '28%',
+          		left: '36%',
+          		height: '30%'
+          	}
+          },
+          //文字
+          {
+            tag: "font",
+            id: "font",
+            text: "轻触照亮",
+            textStyles: {
+              size: "10px",
+              color: "#ffffff",
+            },
+            position: {
+              width: "80%",
+              left: "10%",
+            },
+          },
+        ]
+      );
+      scanBarVew.interceptTouchEvent(true);
+      currentWebview.append(scanBarVew);
+      //点击事件
+      var that = this;
+      scanBarVew.addEventListener(
+        "click",
+        function (e) {
+          that.lightIsShow = !that.lightIsShow;
+          if (that.lightIsShow) {
+            scanBarVew.draw([
+              {
+                tag: "font",
+                id: "font",
+                text: "轻触照亮",
+                textStyles: {
+                  size: "10px",
+                  color: "#ffffff",
+                },
+                position: {
+                  width: "80%",
+                  left: "10%",
+                },
+              },
+            ]);
+          } else {
+            scanBarVew.draw([
+              {
+                tag: "font",
+                id: "font",
+                text: "轻触照亮",
+                textStyles: {
+                  size: "10px",
+                  color: "#ffffff",
+                },
+                position: {
+                  width: "80%",
+                  left: "10%",
+                },
+              },
+            ]);
+          }
+          if (that.barcode) {
+            that.barcode.setFlash(that.lightIsShow);
+          }
+        },
+        false
+      );
+    },
+    // 扫码成功回调
+    onmarked(type, result) {
+      this.barcode.cancel();
+      var that = this;
+      console.log(result);
+      // type==0 意味着扫码成功(二维码,如要扫描其它需自行判定)
+      if (type == 0) {
+      } else {
+        uni.showToast({
+          title: `请扫描二维码`,
+          duration: 2000,
+          icon: "none",
+        });
+        let that = this;
+        setTimeout(function () {
+          that.barcode.start();
+        }, 2000);
+      }
+    },
+    // 失败回调
+    onerror(type, result) {
+      console.log(result);
+    },
+  },
+};
+</script>
+
+<style></style>

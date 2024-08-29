@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      var coverSupport =
+        'CSS' in window &&
+        typeof CSS.supports === 'function' &&
+        (CSS.supports('top: env(a)') || CSS.supports('top: constant(a)'))
+      document.write(
+        '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +
+          (coverSupport ? ', viewport-fit=cover' : '') +
+          '" />'
+      )
+    </script>
+    <title>智能制造</title>
+    <style>
+      /* uni-page-wrapper{
+			border: 1px solid rgba(0,0,0,0)
+		} */
+    </style>
+    <link
+      rel="stylesheet"
+      href="//at.alicdn.com/t/c/font_3664235_7qnwiey2exi.css"
+    />
+    <!--preload-links-->
+    <!--app-context-->
+    <!-- <script type="text/javascript" src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+	<script>
+		// 初始化
+		var vConsole = new VConsole();
+		console.log('调试');
+	</script> -->
+    <!-- <script language="javascript">
+	      document.write('<script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js" ><\/script><script>eruda.init();          <\/script>')
+	    </script> -->
+  </head>
+  <body>
+    <div id="app"><!--app-html--></div>
+    <script
+      type="module"
+      src="/main.js"
+    ></script>
+  </body>
+</html>

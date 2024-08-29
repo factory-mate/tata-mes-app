@@ -1,0 +1,170 @@
+.scan-container {
+	width: 750rpx;
+	background-color: rgba(245, 245, 245, 1);
+}
+
+.basic-information {
+	margin-top: 30rpx;
+	width: 690rpx;
+	margin-left: 30rpx;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 10px;
+}
+
+.basic-information-content {
+	width: 630rpx;
+	margin-left: 30rpx;
+}
+
+.basic-information-title {
+	height: 46rpx;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 40rpx;
+	margin-bottom: 40rpx;
+}
+
+.information-title-stick {
+	width: 8rpx;
+	height: 32rpx;
+	background-color: rgba(0, 141, 235, 1);
+	margin-right: 20rpx;
+}
+
+.information-title-text {
+	width: 128rpx;
+	line-height: 46rpx;
+	font-size: 32rpx;
+	font-weight: 500;
+	color: rgba(51, 51, 51, 1);
+}
+
+.basic-information-personal {
+	margin-bottom: 40rpx;
+	flex-wrap: wrap;
+	height: 250rpx;
+}
+
+.information-personal-img {
+	width: 188rpx;
+	height: 250rpx;
+	margin-right: 40rpx;
+}
+
+.information-personal-name {
+	width: 402rpx;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.information-personal-name1 {
+	width: 200rpx;
+	height: 250rpx;
+	justify-content: space-between;
+}
+
+.information-personal-name1a {
+	height: 40rpx;
+	line-height: 40rpx;
+	font-size: 28rpx;
+	color: rgba(51, 51, 51, 1);
+}
+
+.information-personal-name2 {
+	width: 202rpx;
+	justify-content: space-between;
+}
+
+.information-personal-name2a {
+	height: 40rpx;
+	line-height: 40rpx;
+	font-size: 28rpx;
+	color: rgba(102, 102, 102, 1);
+	text-align: right;
+}
+
+.basic-information-identity {
+	margin-bottom: 40rpx;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.information-identity-title {
+	width: 140rpx;
+	line-height: 40rpx;
+	color: rgba(51, 51, 51, 1);
+	font-size: 28rpx;
+	text-align: left;
+	margin-right: 40rpx;
+}
+
+.information-identity-content {
+	width: 450rpx;
+	line-height: 40rpx;
+	font-size: 28rpx;
+	color: rgba(102, 102, 102, 1);
+	text-align: right;
+}
+
+.work-information {
+	margin-top: 20rpx;
+	width: 690rpx;
+	margin-left: 30rpx;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 10rpx;
+}
+
+.work-information-content {
+	width: 630rpx;
+	margin-left: 30rpx;
+}
+
+.company-profile {
+	margin-top: 40rpx;
+	height: 40rpx;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.company-profile-number {
+	width: 109rpx;
+	line-height: 34rpx;
+	color: rgba(153, 153, 153, 1);
+	font-size: 24rpx;
+}
+
+.company-profile-c {
+	border-radius: 50rpx;
+	color: rgba(153, 153, 153, 1);
+	font-size: 24rpx;
+	line-height: 20rpx;
+	width: 28rpx;
+	height: 28rpx;
+	border-style: solid;
+	border-width: 2rpx;
+	border-color: rgba(153, 153, 153, 1);
+	text-align: center;
+	margin-right: 1rpx;
+}
+
+.company-profile-name {
+	color: rgba(153, 153, 153, 1);
+	font-size: 24rpx;
+	width: 384rpx;
+	line-height: 34rpx;
+}
+
+.worker-information-title {
+	width: 210rpx;
+}
+
+.worker-information-content {
+	width: 380rpx;
+}
+
+.work-information1 {
+	margin-bottom: 30rpx;
+}

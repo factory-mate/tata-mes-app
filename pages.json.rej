@@ -1,0 +1,17 @@
+diff a/pages.json b/pages.json	(rejected hunks)
+@@ -55,6 +55,15 @@
+             }
+             
+         }
++        ,{
++            "path" : "pages/finished/pages/finished/finished",
++            "style" :                                                                                    
++            {
++                "navigationBarTitleText": "",
++                "enablePullDownRefresh": false
++            }
++            
++        }
+     ],
+ 	"globalStyle": {
+ 		"navigationBarTextStyle": "black",
