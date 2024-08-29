@@ -428,6 +428,13 @@ const PUTARR = () => {
   //   })
   //   return
   // }
+  if (!Badnum.value?.toString()) {
+    uni.showToast({
+      icon: 'none',
+      title: '请填写不良数量！'
+    })
+    return
+  }
   Commit({
     MID: Info.value.UID,
     list_m: ListArr.value,
