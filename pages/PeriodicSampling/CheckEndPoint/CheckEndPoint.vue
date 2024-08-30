@@ -54,7 +54,7 @@
                   <view class="demo-uni-col dark">检验数量：{{ item.nCheckQuantity }}</view>
                 </uni-col>
                 <uni-col :span="12">
-                  <view class="demo-uni-col dark">合格数量：{{ item.iPARM11 }}</view>
+                  <view class="demo-uni-col dark">不良数量：{{ item.nNoPassQuantity }}</view>
                 </uni-col>
               </uni-row>
               <uni-row class="demo-uni-row">
