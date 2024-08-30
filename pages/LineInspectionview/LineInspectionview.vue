@@ -106,7 +106,10 @@
             </view>
           </view>
 
-          <view class="form_sty_item">
+          <view
+            class="form_sty_item"
+            v-if="false"
+          >
             <view style="width: 60px">检验项目：</view>
             <view style="flex: 1">
               <uni-section
@@ -306,7 +309,10 @@
               </uni-section>
             </view>
           </view>
-          <view class="form_sty_item">
+          <view
+            class="form_sty_item"
+            v-if="false"
+          >
             <view style="width: 60px">检验项目：</view>
             <view style="flex: 1">
               <uni-section
