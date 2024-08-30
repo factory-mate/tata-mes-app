@@ -35,34 +35,20 @@
                   class="search-inpt"
                   style="width: 60%"
                 >
-                  <!-- 搜索框 -->
-                  <!-- v-if="branch!='alps'" -->
-                  <uni-section
-                    title=""
-                    type="line"
+                  <up-input
+                    @confirm="getXiangMa"
+                    v-model="xmVal"
+                    placeholder="请扫描箱码"
                   >
-                    <uni-search-bar
-                      radius="100"
-                      cancelButton="none"
-                      @blur="setXMfocus"
-                      @confirm="getXiangMa"
-                      v-model="xmVal"
-                      placeholder="请输入箱码"
-                    >
-                    </uni-search-bar>
-                  </uni-section>
-                  <!-- <input v-else class="inputSty" v-model="xmVal" @input="getXiangMa"
-										:focus="focusXM" @blur="setXMfocus"  placeholder="请扫描箱码"
-										placeholder-style="font-size:12px" /> -->
+                  </up-input>
                 </view>
               </view>
             </uni-col>
-            <!-- <uni-col :span="6">
-							<view class="demo-uni-col light">
-							</view>
-						</uni-col> -->
           </uni-row>
-          <uni-row class="demo-uni-row">
+          <uni-row
+            class="demo-uni-row"
+            style="margin-top: 4px"
+          >
             <uni-col :span="18">
               <view
                 style="
@@ -73,25 +59,11 @@
                 "
               >
                 <view style="width: 50px">数量：</view>
-                <!-- 搜索框 -->
-                <uni-section
-                  title=""
-                  type="line"
-                  style="width: 100%"
+                <up-input
+                  v-model="slVal"
+                  placeholder="请输入数量"
                 >
-                  <uni-search-bar
-                    radius="100"
-                    cancelButton="none"
-                    @blur=""
-                    @confirm=""
-                    v-model="slVal"
-                    placeholder="请输入数量"
-                  >
-                  </uni-search-bar>
-                </uni-section>
-                <!-- <input class="inputSty" v-model="slVal" @input=""
-									focus="" @blur=""  placeholder="请输入数量"
-									placeholder-style="font-size:12px" style="line-height: 30px;height: 30px;"/> -->
+                </up-input>
               </view>
             </uni-col>
             <uni-col :span="6">
@@ -171,7 +143,7 @@
                     <view class="demo-uni-col light">箱码：{{ item.cKeyCode }}</view>
                   </uni-col>
                   <uni-col :span="14">
-                    <view class="demo-uni-col dark">数量：{{ item.nQuinity }}</view>
+                    <view class="demo-uni-col dark">数量：{{ item.nSumQuinity }}</view>
                   </uni-col>
                 </uni-row>
               </view>
@@ -241,42 +213,7 @@ const total = ref(0)
 //总页数
 const pageTotal = ref(0)
 onShow(() => {
-  branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
-  // branch = uni.getStorageSync('unit')
-  // setInterval(function(){
-  //         uni.hideKeyboard();//隐藏软键盘
-  // },60);
   // setfocus()
-  // #ifdef APP-PLUS
-  plus.key.addEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.addEventListener('keyup', keypress)
-  // #endif
-})
-onUnload(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onHide(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onBackPress(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
 })
 //加载页面
 onLoad((option) => {
@@ -285,7 +222,6 @@ onLoad((option) => {
 })
 //货位输入框聚焦
 const setfocus = () => {
-  // console.log(111,"--33");
   focusType.value = false
   setTimeout(() => {
     focusType.value = true
@@ -296,18 +232,6 @@ const setXMfocus = () => {
   setTimeout(() => {
     focusXM.value = true
   }, 200)
-}
-const keypress = (e) => {
-  // codeType.value = ''
-  // console.log(e, "按键码");
-  // if (e.keyCode === 102 || e.keyCode === 103 || e.keyCode === 104) {
-  // 	codeType.value = 'enter'
-  // 	getWl()
-  // }
-  if (e.keyCode == 66 || e.key == 'Enter') {
-    codeType.value = 'enter'
-    // getcCode()
-  }
 }
 const inputChange = () => {
   console.log(11111)
@@ -332,8 +256,7 @@ const getXiangMa = () => {
   })
 }
 const clickCai = () => {
-  console.log(slVal.value, '--slVal.value')
-  if (slVal.value == '') {
+  if (!slVal.value) {
     uni.showToast({
       icon: 'error',
       title: '请输入数量'
@@ -359,11 +282,10 @@ const clickCai = () => {
           icon: 'success',
           title: '拆分成功！'
         })
-        xmVal.value = ''
         slVal.value = ''
-        xiangMObj.value = {}
         xiangMList.value = []
         pageTotal.value = 1
+        getXiangMa()
         getList()
       } else {
         uni.showToast({
