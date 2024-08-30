@@ -30,24 +30,12 @@
                   class="search-inpt"
                   style="width: 60%"
                 >
-                  <!-- 搜索框 -->
-                  <!-- v-if="branch!='alps'" -->
-                  <!-- @blur="setHWfocus" @confirm="getHW" -->
-                  <uni-section
-                    title=""
-                    type="line"
+                  <up-input
+                    v-model="hwVal"
+                    placeholder="请扫描货位"
+                    @confirm="getHW"
                   >
-                    <uni-search-bar
-                      radius="100"
-                      cancelButton="none"
-                      v-model="hwVal"
-                      placeholder="请输入货位"
-                    >
-                    </uni-search-bar>
-                  </uni-section>
-                  <!-- <input v-else class="inputSty" v-model="xmVal" @input="getHW"
-										:focus="focusXM" @blur="setHWfocus"  placeholder="请扫描箱码"
-										placeholder-style="font-size:12px" /> -->
+                  </up-input>
                 </view>
               </view>
             </uni-col>
@@ -67,32 +55,16 @@
                   class="search-inpt"
                   style="width: 60%"
                 >
-                  <!-- 搜索框 -->
-                  <!-- v-if="branch!='alps'" -->
-                  <uni-section
-                    title=""
-                    type="line"
+                  <up-input
+                    @confirm="getXiangMa"
+                    v-model="xmVal"
+                    :focus="focusXM"
+                    placeholder="请扫描箱码"
                   >
-                    <uni-search-bar
-                      radius="100"
-                      cancelButton="none"
-                      @blur="setXMfocus"
-                      @confirm="getXiangMa"
-                      v-model="xmVal"
-                      placeholder="请输入箱码"
-                    >
-                    </uni-search-bar>
-                  </uni-section>
-                  <!-- <input v-else class="inputSty" v-model="xmVal" @input="getXiangMa"
-										:focus="focusXM" @blur="setXMfocus"  placeholder="请扫描箱码"
-										placeholder-style="font-size:12px" /> -->
+                  </up-input>
                 </view>
               </view>
             </uni-col>
-            <!-- <uni-col :span="6">
-							<view class="demo-uni-col light">
-							</view>
-						</uni-col> -->
           </uni-row>
         </view>
         <view
@@ -171,8 +143,6 @@ import {
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { CheckMoveBar, GetSingleBycBarCode, MoveBar } from '@/api/PDA_4.js'
-// import loginVue from '../../login/login.vue';
-let branch = ref()
 const h = ref('100') //页面高度
 const more = ref('more') //加载更多
 const wlmore = ref('more')
@@ -223,42 +193,7 @@ const pageTotal = ref(0)
 const wlpageTotal = ref(0)
 const xmpageTotal = ref(0)
 onShow(() => {
-  branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
-  // branch = uni.getStorageSync('unit')
-  // setInterval(function(){
-  //         uni.hideKeyboard();//隐藏软键盘
-  // },60);
   // setfocus()
-  // #ifdef APP-PLUS
-  plus.key.addEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.addEventListener('keyup', keypress)
-  // #endif
-})
-onUnload(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onHide(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onBackPress(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
 })
 //加载页面
 onLoad((option) => {
@@ -266,7 +201,6 @@ onLoad((option) => {
 })
 //货位输入框聚焦
 const setfocus = () => {
-  // console.log(111,"--33");
   focusType.value = false
   setTimeout(() => {
     focusType.value = true
@@ -284,22 +218,10 @@ const setHWfocus = () => {
     focusHW.value = true
   }, 200)
 }
-const keypress = (e) => {
-  // codeType.value = ''
-  // console.log(e, "按键码");
-  // if (e.keyCode === 102 || e.keyCode === 103 || e.keyCode === 104) {
-  // 	codeType.value = 'enter'
-  // 	getWl()
-  // }
-  if (e.keyCode == 66 || e.key == 'Enter') {
-    codeType.value = 'enter'
-    // getcCode()
-  }
+const inputChange = () => {}
+const getHW = () => {
+  setXMfocus()
 }
-const inputChange = () => {
-  console.log(11111)
-}
-const getHW = () => {}
 // 箱码
 const getXiangMa = () => {
   uni.showLoading({
@@ -329,22 +251,26 @@ const getXM = () => {
   let obj = {
     cKeyCode: xmVal.value
   }
-  GetSingleBycBarCode(obj).then((res) => {
-    uni.hideLoading()
-    uni.stopPullDownRefresh()
-    if (res.success === true) {
-      xiangMObj.value = res.data
-      xiangMObj.value.newcWareHouseLocationCode = hwVal.value
-      xiangMList.value.push(xiangMObj.value)
-      xmVal.value = ''
-      hwVal.value = ''
-    } else {
-      uni.showToast({
-        icon: 'error',
-        title: res.msg || '没有数据'
-      })
-    }
-  })
+  GetSingleBycBarCode(obj)
+    .then((res) => {
+      uni.hideLoading()
+      uni.stopPullDownRefresh()
+      if (res.success === true) {
+        xiangMObj.value = res.data
+        xiangMObj.value.newcWareHouseLocationCode = hwVal.value
+        xiangMList.value.push(xiangMObj.value)
+        xmVal.value = ''
+        setXMfocus()
+      } else {
+        uni.showToast({
+          icon: 'error',
+          title: res.msg || '没有数据'
+        })
+      }
+    })
+    .finally(() => {
+      setXMfocus()
+    })
 }
 const clickTJ = () => {
   uni.showLoading({
