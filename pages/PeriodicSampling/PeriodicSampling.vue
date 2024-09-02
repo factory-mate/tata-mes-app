@@ -543,6 +543,7 @@ onBackPress(() => {
 //加载页面
 onLoad((option) => {
   h.value = uni.getSystemInfoSync().windowHeight
+  getListPage()
 })
 const setfocus = () => {
   focusType.value = false
@@ -778,6 +779,11 @@ const Check = (i) => {
     if (res.status == 200) {
       // current.value = 1
       CheckData.value = res.data
+      currentPage.value = 1
+      total.value = 0
+      PerForPageList.value = []
+      TWOlIST.value = []
+      getListPage()
       GetCkeckedPage()
     } else {
       uni.showToast({
