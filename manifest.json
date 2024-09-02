@@ -91,6 +91,22 @@
                     }
                 }
             }
+        },
+        "nativePlugins" : {
+            "LcPrinter" : {
+                "__plugin_info__" : {
+                    "name" : "LcPrinter",
+                    "description" : "新版打印插件",
+                    "platforms" : "Android",
+                    "url" : "",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : false,
+                    "bought" : -1,
+                    "pid" : "",
+                    "parameters" : {}
+                }
+            }
         }
     },
     "quickapp" : {},

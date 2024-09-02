@@ -2303,6 +2303,9 @@
         "onReachBottom": true,
         "onReachBottomDistance": 50
       }
+    },
+    {
+      "path": "pages/test/print/index"
     }
   ],
   "globalStyle": {

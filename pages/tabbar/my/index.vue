@@ -21,8 +21,9 @@
 
     <span
       style="color: white; position: absolute; bottom: 8px; left: 0; right: 0; font-size: smaller"
-      >当前版本：7.29 18:30</span
     >
+      当前版本：9.2 10:00
+    </span>
   </view>
 </template>
 
@@ -42,6 +43,7 @@ const logout = () => {
 onShow(() => {
   userName.value = uni.getStorageSync('User')?.UserName ?? ''
   h.value = uni.getSystemInfoSync().windowHeight
+  // uni.navigateTo({ url: '/pages/test/print/index' })
 })
 
 onLoad(() => {})
