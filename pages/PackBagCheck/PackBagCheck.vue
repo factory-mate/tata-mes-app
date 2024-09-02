@@ -292,6 +292,7 @@ const PageList = ref([])
 const pageTotal = ref(0)
 const CXlIST = ref([])
 const QXlIST = ref([])
+const isBHScanned = ref(false)
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // #ifdef APP-PLUS
@@ -486,6 +487,7 @@ const ScanInfo = ref({})
 //扫描包
 const GetData = () => {
   ScanInfo.value = {}
+  isBHScanned.value = false
   uni.showLoading({
     title: '加载中......'
   })
@@ -511,6 +513,7 @@ const GetData = () => {
         return
       }
       ScanInfo.value = res.data
+      isBHScanned.value = true
     } else {
       uni.hideLoading()
     }
@@ -519,6 +522,13 @@ const GetData = () => {
 const ForArr = ref([])
 const POstArr = ref([])
 const Add = () => {
+  if (!isBHScanned.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描包号'
+    })
+    return
+  }
   let obj = {
     cVouchTypeCode: 1,
     cModeCode: 'QC.Pre_CheckVouch.R',
