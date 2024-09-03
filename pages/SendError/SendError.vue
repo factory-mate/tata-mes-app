@@ -300,7 +300,7 @@ const getWorkCode = () => {
 const GetTaskLists = async () => {
   const res = await GetTaskList({
     OrderByFileds: '',
-    Conditions: `cStationCode like ${Station.value} && cBarCode like ${WorkCode.value}`
+    Conditions: `cFactoryUnitCode = ${Station.value} && cBarCode = ${WorkCode.value}`
   })
   if (res.status == 200) {
     ProductInfo.value = res.data[0]
