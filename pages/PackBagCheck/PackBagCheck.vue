@@ -601,8 +601,8 @@ const Save = () => {
       uni.hideLoading()
       uni.stopPullDownRefresh()
       POstArr.value = []
-      QXlIST.value = []
-      CXlIST.value = []
+      // QXlIST.value = []
+      // CXlIST.value = []
     } else {
       uni.hideLoading()
       uni.showToast({
