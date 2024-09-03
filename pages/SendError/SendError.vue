@@ -151,7 +151,7 @@
               <view
                 class="demo-uni-col dark"
                 @click="preview(index)"
-                >照片：{{ index + 1 }}</view
+                >照片：{{ item.name }}</view
               >
             </uni-col>
             <uni-col :span="6">
@@ -312,8 +312,9 @@ const openSelectImage = () => {
     sizeType: ['compressed'],
     sourceType: ['album', 'camera'],
     success: (res) => {
+      console.log(res)
       if (res.tempFilePaths?.length > 0) {
-        PicArr.value = [...PicArr.value, ...res.tempFilePaths]
+        PicArr.value = [...PicArr.value, ...res.tempFiles]
         // #ifdef MP
         this.recursionCompressMP(tempList, (e) => {
           console.log('压缩后结果-----', e)
@@ -339,7 +340,7 @@ const TackPic = () => {
 const preview = (index) => {
   uni.previewImage({
     current: index,
-    urls: PicArr.value
+    urls: PicArr.value.map((item) => item.path)
   })
 }
 //删除照片
@@ -351,7 +352,7 @@ const AllSave = () => {
   PicArr.value.forEach((item) => {
     uni.uploadFile({
       url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/ReportError',
-      filePath: item,
+      filePath: item.path,
       name: 'list_file',
       formData: {
         cBarCode: WorkCode.value,
