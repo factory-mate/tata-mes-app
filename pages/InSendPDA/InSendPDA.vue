@@ -235,13 +235,13 @@ const Close = async (i) => {
       icon: 'none',
       title: res.msg
     })
+    AjaxData()
   } else {
     uni.showToast({
       icon: 'none',
       title: res.errmsg
     })
   }
-  console.log(res, '关闭-----')
 }
 </script>
 
