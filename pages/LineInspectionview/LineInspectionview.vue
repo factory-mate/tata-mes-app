@@ -397,7 +397,12 @@
                     <view class="demo-uni-col dark">任务单号：{{ item.cCode }}</view>
                   </uni-col>
                 </uni-row>
-
+                <uni-row class="demo-uni-row">
+                  <uni-col :span="12">
+                    <view class="demo-uni-col dark">工位名称：{{ item.PositionCode }}</view>
+                  </uni-col>
+                  <uni-col :span="12"> </uni-col>
+                </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="10">
                     <!-- <uv-radio-group v-model="item.radioType" placement="row" @change="radioGroup(item)">
