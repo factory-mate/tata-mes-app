@@ -10,6 +10,62 @@
       @clickLeft="clickLeft"
     />
     <view>
+      <view>
+        <view style="display: flex; align-items: center; margin-top: 4px">
+          <view style="width: 80px">申报日期：</view>
+          <view style="flex: 1">
+            <uni-datetime-picker
+              v-model="form.date"
+              type="day"
+              @change=""
+            />
+          </view>
+        </view>
+        <view style="display: flex; align-items: center; margin-top: 4px">
+          <view style="width: 80px">申报人：</view>
+          <view style="flex: 1">
+            <up-input
+              v-model="form.user"
+              placeholder="请输入申报人"
+            />
+          </view>
+        </view>
+        <view style="display: flex; align-items: center; margin-top: 4px">
+          <view style="width: 80px">加工码：</view>
+          <view style="flex: 1">
+            <up-input
+              v-model="form.code"
+              placeholder="请输入加工码"
+            />
+          </view>
+        </view>
+        <view class="form_sty_item">
+          <button
+            class="mini-btn"
+            style="
+              margin-right: 10rpx;
+              color: black;
+              backgroundcolor: #ffff7f;
+              bordercolor: #ffff7f;
+            "
+            type="warn"
+            size="mini"
+            @click="search()"
+          >
+            搜索
+          </button>
+          <button
+            class="mini-btn"
+            style="margin-top: 4px; color: black; backgroundcolor: #aaaa7f; bordercolor: #aaaa7f"
+            type="warn"
+            size="mini"
+            @click="reset()"
+          >
+            重置
+          </button>
+        </view>
+      </view>
+
       <view
         class="listMain"
         :style="'height:' + (h - 140) + 'px'"
@@ -120,6 +176,24 @@ onLoad((option) => {
 onShow(() => {
   AjaxData()
 })
+const form = ref({
+  date: '',
+  code: '',
+  user: ''
+})
+
+const reset = () => {
+  form.value = {
+    date: '',
+    code: '',
+    user: ''
+  }
+}
+
+const search = () => {
+  AjaxData()
+}
+
 let DataList = ref([])
 //异常列表
 const AjaxData = async () => {
