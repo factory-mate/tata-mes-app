@@ -129,7 +129,7 @@
                     <view class="demo-uni-col dark">产品名称：{{ item.cInvCode }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">检验类别：{{ item.cPARM04 }}</view>
+                    <view class="demo-uni-col dark">检验类别：{{ item.cPARM06Name }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
