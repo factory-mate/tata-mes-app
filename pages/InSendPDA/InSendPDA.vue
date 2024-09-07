@@ -129,7 +129,7 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="8">
-              <view class="demo-uni-col dark">申报时间：{{}}</view>
+              <view class="demo-uni-col dark">申报时间：{{ item.EndTime }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
