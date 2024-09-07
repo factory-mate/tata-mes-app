@@ -661,9 +661,7 @@ const getList = () => {
     {
       cAttributeCode: 'dDate',
       cControlTypeCode: 'DatePicker',
-      cAttributeCodeValue: form.value.date
-        ? '"' + form.value.date + ' 00:00:00" && dDate < ' + '"' + form.value.date + ' 23:59:59"'
-        : '',
+      cAttributeCodeValue: form.value.date,
       cConditions: '='
     },
     {
