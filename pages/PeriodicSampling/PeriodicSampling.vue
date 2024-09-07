@@ -48,6 +48,13 @@
         </view>
       </view>
       <view style="display: flex; align-items: center; padding: 0 10px; margin-top: 10px">
+        <view>包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</view>
+        <up-input
+          v-model="packageCode"
+          placeholder="请输入包号"
+        />
+      </view>
+      <view style="display: flex; align-items: center; padding: 0 10px; margin-top: 10px">
         <view style="width: 60px">抽检日期：</view>
         <view style="width: 280px">
           <uni-datetime-picker
@@ -505,6 +512,7 @@ const EndTime = ref()
 const PerForPageList = ref([])
 const THRElIST = ref([])
 const resultorange = ref([])
+const packageCode = ref('')
 onShow(() => {
   GetCheckClaaify()
   ProductClaaify()
@@ -802,26 +810,25 @@ const GetCkeckedPage = () => {
   uni.showLoading({
     title: '数据加载中...'
   })
+  let conditions = ['iStatus=1', 'cVouchTypeCode in (1,2)']
+  if (CheckObj.value) {
+    conditions.push(`cVouchTypeCode=${CheckObj.value.value}`)
+  }
+  if (Productobj.value) {
+    conditions.push(`cPARM01=${Productobj.value.value}`)
+  }
+  if (Timerange.value.length > 0) {
+    conditions.push(`dDate>=${BeginTime.value} && dDate<=${EndTime.value}`)
+  }
+  if (packageCode.value) {
+    conditions.push(`cPackageCode like ${packageCode.value}`)
+  }
+
   GetCheckedList({
     PageIndex: currentPagetwo.value,
     PageSize: pageSizetwo.value,
     OrderByFileds: '',
-    Conditions:
-      CheckObj.value && Productobj.value && Timerange.value.length > 0
-        ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-        : Timerange.value.length > 0 && CheckObj.value
-          ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-          : Timerange.value.length > 0 && Productobj.value
-            ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-            : CheckObj.value && Productobj.value
-              ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value}`
-              : Timerange.value.length > 0
-                ? `iStatus=1 && cVouchTypeCode in (1,2) && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-                : Productobj.value
-                  ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value}`
-                  : CheckObj.value
-                    ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} `
-                    : 'iStatus=1 && cVouchTypeCode in (1,2)'
+    Conditions: conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       TWOlIST.value = [...TWOlIST.value, ...res.data.data]
