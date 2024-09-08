@@ -33,6 +33,7 @@
                   <up-input
                     v-model="hwVal"
                     placeholder="请扫描货位"
+                    :focus="focusHW"
                     @confirm="getHW"
                   >
                   </up-input>
@@ -143,6 +144,7 @@ import {
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { CheckMoveBar, GetSingleBycBarCode, MoveBar } from '@/api/PDA_4.js'
+import { WareHouseLocation } from '@/api/PDA.js'
 const h = ref('100') //页面高度
 const more = ref('more') //加载更多
 const wlmore = ref('more')
@@ -193,7 +195,7 @@ const pageTotal = ref(0)
 const wlpageTotal = ref(0)
 const xmpageTotal = ref(0)
 onShow(() => {
-  // setfocus()
+  setHWfocus()
 })
 //加载页面
 onLoad((option) => {
@@ -220,7 +222,23 @@ const setHWfocus = () => {
 }
 const inputChange = () => {}
 const getHW = () => {
-  setXMfocus()
+  WareHouseLocation({
+    Conditions: `cWareHouseLocationCode=${hwVal.value}`
+  }).then((res) => {
+    console.log(res)
+    if (res.success) {
+      if (res.data.length > 0) {
+        setXMfocus()
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: '货位不存在'
+        })
+        hwVal.value = ''
+        setHWfocus()
+      }
+    }
+  })
 }
 // 箱码
 const getXiangMa = () => {
