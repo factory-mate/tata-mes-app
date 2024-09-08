@@ -263,6 +263,13 @@ const clickCai = () => {
     })
     return false
   }
+  if (!xiangMObj.value.nQuinity) {
+    uni.showToast({
+      icon: 'error',
+      title: '请扫描箱码'
+    })
+    return false
+  }
   if (slVal.value > xiangMObj.value.nQuinity) {
     uni.showToast({
       icon: 'error',
@@ -304,7 +311,7 @@ const getList = () => {
     PageIndex: currentPage.value,
     PageSize: 5,
     OrderByFileds: '',
-    Conditions: ''
+    Conditions: `SourceKeyCode=${xmVal.value}`
   }
   GetForPage(obj).then((res) => {
     uni.hideLoading()
