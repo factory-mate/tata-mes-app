@@ -53,7 +53,7 @@
           class="ChangTarg"
           style="display: flex; align-items: center; justify-content: flex-start"
         >
-          <view style="width: 15%; margin: 0 10px">产品:</view>
+          <view style="width: 15%; margin: 0 10px">产品序列号:</view>
           <view style="width: 60%">
             <!-- 搜索框 -->
             <uni-section
@@ -106,6 +106,21 @@
             </uni-col>
             <uni-col :span="14">
               <view class="demo-uni-col dark">设备名称：{{ gwObj?.cResourceName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row
+            class="demo-uni-row"
+            style="display: flex"
+          >
+            <uni-col :span="14">
+              <view class="demo-uni-col dark">
+                产品编码：{{ cpObj?.PRODUCT_VOUCH_S_S_S_cInvCode }}</view
+              >
+            </uni-col>
+            <uni-col :span="14">
+              <view class="demo-uni-col dark">
+                产品名称：{{ cpObj?.PRODUCT_VOUCH_S_S_S_cInvName }}</view
+              >
             </uni-col>
           </uni-row>
         </view>
@@ -182,6 +197,7 @@ import permision from '@/common/permission.js'
 import _ from 'lodash'
 import URLIP from '@/utils/serviceIP.js'
 import { Login } from '../../api/login'
+import { GetTaskList } from '@/api/PDA.js'
 // import loginVue from '../login/login.vue';
 let branch = ref()
 const title = ref('首末件报检')
@@ -348,11 +364,20 @@ const GetDataCP = () => {
   uni.showLoading({
     title: '加载中......'
   })
-  GetSingleByCode_V({
-    cInvCode: cpVal.value
+  GetTaskList({
+    conditions: `cBarCode=${cpVal.value}`
   }).then((res) => {
     if (res.status == 200) {
-      cpObj.value = res.data || {}
+      if (res.data.length == 0) {
+        uni.showToast({
+          icon: 'error',
+          title: '未找到产品'
+        })
+        cpObj.value = {}
+        uni.hideLoading()
+        return
+      }
+      cpObj.value = res.data[0] || {}
       uni.hideLoading()
       uni.stopPullDownRefresh()
     } else {
@@ -367,20 +392,21 @@ const changeGroup = (value) => {
   // GroupVal.value=value.detail.value
 }
 const clickAdd = () => {
-  if (!cpObj.value.cInvCode) {
+  if (!gwObj.value.cPositionCode) {
     uni.showToast({
       icon: 'error',
-      title: '请选择工位和产品'
+      title: '请选择工位'
     })
     return false
   }
-  if (!gwObj.value.cPositionCode) {
+  if (!cpObj.value.PRODUCT_VOUCH_S_S_S_cInvCode) {
     uni.showToast({
       icon: 'error',
       title: '请选择产品'
     })
     return false
   }
+
   if (!GroupVal.value || !Line.value) {
     uni.showToast({
       icon: 'error',
@@ -402,8 +428,8 @@ const clickAdd = () => {
   let obj = {
     // ...gwObj.value,
     // ...cpObj.value,
-    cInvCode: cpObj.value.cInvCode,
-    cInvName: cpObj.value.cInvName,
+    cInvCode: cpObj.value.PRODUCT_VOUCH_S_S_S_cInvCode,
+    cInvName: cpObj.value.PRODUCT_VOUCH_S_S_S_cInvName,
     cPARM07: gwObj.value.cResourceName,
     cPARM06: GroupVal.value || '',
     cPARM05: Line.value || ''
