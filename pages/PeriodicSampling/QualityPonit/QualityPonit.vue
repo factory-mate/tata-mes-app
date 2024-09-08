@@ -247,7 +247,7 @@ import {
   onReachBottom,
   onPullDownRefresh
 } from '@dcloudio/uni-app'
-import { Commit, Stand } from '@/api/Quanilty.js'
+import { Commit, Stand, GetListBYMIDSS } from '@/api/Quanilty.js'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import URLIP from '@/utils/serviceIP.js'
@@ -289,6 +289,7 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+  getExtraList()
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -320,8 +321,18 @@ onLoad((option) => {
   h.value = uni.getSystemInfoSync().windowHeight
   Info.value = JSON.parse(option.ItemInfo)
   GetStand()
+  console.log(Info.value, 'Info.value')
   Babnum.value = Info.value.nNoPassQuantity
 })
+const getExtraList = () => {
+  GetListBYMIDSS({
+    MID: Info.value.UID
+  }).then((res) => {
+    if (res.success) {
+      ListArr.value = res.data
+    }
+  })
+}
 const setfocus = () => {
   focusType.value = false
   setTimeout(() => {
