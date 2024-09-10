@@ -198,6 +198,7 @@ import permision from '@/common/permission.js'
 import _ from 'lodash'
 import URLIP from '@/utils/serviceIP.js'
 import { GetTaskList, SaveReportError } from '@/api/PDA.js'
+import { GetGropList } from '@/api/Quanilty.js'
 import loginVue from '../login/login.vue'
 let branch = ref()
 const h = ref('100') //页面高度
@@ -213,6 +214,7 @@ const workfocusType = ref(false)
 const workdisabled = ref(true)
 const WorkCode = ref('') //加工码
 const PicArr = ref([]) //照片数组
+const cNodeResourceCode = ref('')
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -282,13 +284,16 @@ const keypress = (e) => {
   // }
 }
 //扫描工位
-const getStation = () => {
-  if (Station.value) {
-    disabled.value = true
-    //解开加工码
-    workdisabled.value = false
-    worksetfocus()
-  }
+const getStation = (e) => {
+  GetGropList({
+    Conditions: `cNodeResourceCode=${e.value}`
+  }).then((res) => {
+    if (res.success && res.data.length > 0) {
+      cNodeResourceCode.value = res.data[0].cParentCode
+      workdisabled.value = false
+      worksetfocus()
+    }
+  })
 }
 //扫描加工码
 const getWorkCode = () => {
@@ -298,9 +303,16 @@ const getWorkCode = () => {
 }
 //获取信息
 const GetTaskLists = async () => {
+  if (!cNodeResourceCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请先扫描工位'
+    })
+    return
+  }
   const res = await GetTaskList({
     OrderByFileds: '',
-    Conditions: `cFactoryUnitCode = ${Station.value} && cBarCode = ${WorkCode.value}`
+    Conditions: `cFactoryUnitCode = ${cNodeResourceCode.value} && cBarCode = ${WorkCode.value}`
   })
   if (res.status == 200) {
     ProductInfo.value = res.data[0]
