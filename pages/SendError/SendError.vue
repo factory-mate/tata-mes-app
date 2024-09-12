@@ -358,6 +358,10 @@ const AllSave = () => {
         cBarCode: WorkCode.value,
         cStationCode: Station.value
       },
+      header: {
+        //请求头配置
+        Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
+      },
       success: (uploadFileRes) => {
         uni.showToast({
           icon: 'none',
