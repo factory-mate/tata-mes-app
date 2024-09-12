@@ -670,7 +670,7 @@ const getList = () => {
       cConditions: 'like'
     },
     {
-      cAttributeCode: current.value == '0' ? 'cPARM04' : 'cPARM21',
+      cAttributeCode: current.value == '0' ? 'cPARM06' : 'cPARM21',
       cAttributeCodeValue: Product.value ? Product.value : '',
       cConditions: 'like'
     }
