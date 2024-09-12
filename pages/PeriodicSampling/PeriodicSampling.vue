@@ -704,26 +704,24 @@ const getListPage = () => {
   uni.showLoading({
     title: '搜索中...'
   })
+  let conditions = ['iStatus=1', 'cVouchTypeCode in (1,2)']
+  if (CheckObj.value) {
+    conditions.push(`cVouchTypeCode=${CheckObj.value.value}`)
+  }
+  if (Productobj.value) {
+    conditions.push(`cPARM01=${Productobj.value.value}`)
+  }
+  if (Timerange.value.length > 0) {
+    conditions.push(`dDate>=${BeginTime.value} && dDate<=${EndTime.value}`)
+  }
+  if (packageCode.value) {
+    conditions.push(`cPackageCode like ${packageCode.value}`)
+  }
   GetSeachPage({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
     OrderByFileds: '',
-    Conditions:
-      CheckObj.value && Productobj.value && Timerange.value.length > 0
-        ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-        : Timerange.value.length > 0 && CheckObj.value
-          ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-          : Timerange.value.length > 0 && Productobj.value
-            ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-            : CheckObj.value && Productobj.value
-              ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value}`
-              : Timerange.value.length > 0
-                ? `iStatus=1 && cVouchTypeCode in (1,2) && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-                : Productobj.value
-                  ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value}`
-                  : CheckObj.value
-                    ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} `
-                    : 'iStatus=1 && cVouchTypeCode in (1,2)'
+    Conditions: conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       PerForPageList.value = [...PerForPageList.value, ...res.data.data]
