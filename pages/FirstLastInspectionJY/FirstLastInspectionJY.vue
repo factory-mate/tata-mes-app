@@ -196,8 +196,8 @@
                   v-model="Product"
                   filterable
                   :localdata="Productrange"
-                  dataKey="name"
-                  dataValue="value"
+                  dataKey="cDictonaryName"
+                  dataValue="cDictonaryCode"
                   @inputChange="inputChange"
                   @change="PROchange"
                   :focus="PeofocusType"
@@ -373,8 +373,8 @@
                   v-model="Product"
                   filterable
                   :localdata="Productrange"
-                  dataKey="name"
-                  dataValue="value"
+                  dataKey="cDictonaryName"
+                  dataValue="cDictonaryCode"
                   @inputChange="inputChange"
                   @change="PROchange"
                   :focus="PeofocusType"
@@ -634,7 +634,7 @@ const reset = () => {
 }
 const getselList = () => {
   GetDicType({
-    cTableCode: 'FM_QC_PRE_CHECKVOUCH',
+    cTableCode: current.value == '0' ? 'FM_QC_PRE_CHECKVOUCH' : 'FM_QC_CHECKVOUCH',
     cAttributeCode: current.value == '0' ? 'cPARM06' : 'cPARM21'
   }).then((res) => {
     Productrange.value = res.data
