@@ -154,7 +154,7 @@
               </uni-section>
             </view>
           </view>
-          <view class="form_sty_item">
+          <view>
             <button
               class="mini-btn"
               style="
@@ -179,9 +179,23 @@
               "
               type="warn"
               size="mini"
-              @click="xunjian()"
+              @click="checkPositionEnd"
             >
-              巡检
+              工位校验
+            </button>
+            <button
+              class="mini-btn"
+              style="
+                margin-right: 10rpx;
+                color: black;
+                backgroundcolor: #ffff7f;
+                bordercolor: #ffff7f;
+              "
+              type="warn"
+              size="mini"
+              @click="checkLineEnd"
+            >
+              产线校验
             </button>
             <!-- <button class="mini-btn" style="color:black;backgroundColor:#aaaa7f;borderColor:#aaaa7f" type="warn"
 							size="mini" @click="reset()">重置</button> -->
@@ -509,7 +523,9 @@ import {
   Factory_Line,
   FactoryGetPositionByLine,
   GetProgramByPositionAA,
-  GetForPage_S_V
+  GetForPage_S_V,
+  Check_Position_End,
+  Check_Line_End
 } from '@/api/xunxian.js'
 
 let branch = ref()
@@ -641,6 +657,63 @@ const generateTask = () => {
     } else {
       uni.showToast({
         icon: 'error',
+        title: '操作失败'
+      })
+    }
+  })
+}
+
+const checkPositionEnd = () => {
+  if (!Product3.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择工位'
+    })
+    return false
+  }
+  if (!Product5.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择任务单'
+    })
+    return false
+  }
+  Check_Position_End({
+    val: Product5.value,
+    cPositionCode: Product3.value
+  }).then((res) => {
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: res.data
+      })
+    } else {
+      uni.showToast({
+        icon: 'none',
+        title: '操作失败'
+      })
+    }
+  })
+}
+const checkLineEnd = () => {
+  if (!Product5.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择任务单'
+    })
+    return false
+  }
+  Check_Line_End({
+    val: Product5.value
+  }).then((res) => {
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: res.data
+      })
+    } else {
+      uni.showToast({
+        icon: 'none',
         title: '操作失败'
       })
     }
@@ -787,10 +860,11 @@ console.log(year + '-' + month + '-' + day)
 const getselList5 = () => {
   console.log(Product2.value, '--Product2.value')
   let obj = {
-    cResourceTypeCode: '9',
-    // cPARM23:'CX0143',
-    cPARM23: Product2.value,
-    dDate: thisDayDate
+    // cResourceTypeCode: '9',
+    // cPARM23: 'CX0003',
+    // // cPARM23: Product2.value,
+    // dDate: thisDayDate,
+    Conditions: 'cVouchTypeCode=9 && cPARM23=CX0003 && istatus in (0,1)'
   }
   GetForList5(obj).then((res) => {
     Productrange5.value = res.data

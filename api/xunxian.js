@@ -94,3 +94,17 @@ export function GetForPage_S_V(data) {
     data
   })
 }
+export function Check_Position_End(data) {
+  return service({
+    url: URLIP.BASE_URL_Quantity + '/api/CheckVouch/CheckPositionEnd',
+    method: 'get',
+    data
+  })
+}
+export function Check_Line_End(data) {
+  return service({
+    url: URLIP.BASE_URL_Quantity + '/api/CheckVouch/CheckLineEnd',
+    method: 'get',
+    data
+  })
+}
