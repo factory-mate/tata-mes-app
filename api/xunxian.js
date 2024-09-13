@@ -87,3 +87,10 @@ export function GetForList_S_V(data) {
     data
   })
 }
+export function GetForPage_S_V(data) {
+  return service({
+    url: URLIP.BASE_URL_Quantity + '/api/CheckVouch/GetForPage_S_V',
+    method: 'post',
+    data
+  })
+}

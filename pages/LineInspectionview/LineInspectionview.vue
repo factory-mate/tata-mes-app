@@ -495,7 +495,7 @@ import {
   Factory_Line,
   FactoryGetPositionByLine,
   GetProgramByPositionAA,
-  GetForList_S_V
+  GetForPage_S_V
 } from '@/api/xunxian.js'
 
 let branch = ref()
@@ -906,9 +906,11 @@ const getListJG = () => {
   ]
   let obj = {
     OrderByFileds: '',
+    PageSize: 5,
+    PageIndex: currentPage.value,
     Conditions: filterModel(val)
   }
-  GetForList_S_V(obj).then((res) => {
+  GetForPage_S_V(obj).then((res) => {
     listDataJG.value = res.data
   })
 }
@@ -1091,6 +1093,7 @@ const scrolltolower = () => {
     more.value = 'no-more'
   } else {
     getList()
+    getListJG()
   }
 }
 //头部左侧,返回上一页
