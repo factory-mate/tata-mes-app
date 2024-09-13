@@ -303,6 +303,7 @@ onLoad((option) => {
   GetPic(ItemInfo.value)
   GetRepair()
   h.value = uni.getSystemInfoSync().windowHeight
+  GetArtLIne()
 })
 const keypress = (e) => {
   // codeType.value = ''
@@ -368,8 +369,6 @@ const clickTab = () => {
   if (current.value == 0) {
   }
   if (current.value == 1) {
-    //调取工艺路线接口
-    GetArtLIne()
   }
 }
 const onClickItem = (e) => {
