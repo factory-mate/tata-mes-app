@@ -165,6 +165,20 @@
               "
               type="warn"
               size="mini"
+              @click="generateTask"
+            >
+              生成任务单
+            </button>
+            <button
+              class="mini-btn"
+              style="
+                margin-right: 10rpx;
+                color: black;
+                backgroundcolor: #ffff7f;
+                bordercolor: #ffff7f;
+              "
+              type="warn"
+              size="mini"
               @click="xunjian()"
             >
               巡检
@@ -612,6 +626,26 @@ const month = String(today.getMonth() + 1).padStart(2, '0')
 const day = String(today.getDate()).padStart(2, '0')
 // 得到年月日
 const thisDayDate = `${year}-${month}-${day}` //打印当前日期
+
+const generateTask = () => {
+  Add_QualityInspection({
+    cLineCode: Product2.value,
+    cPersonCode: '',
+    cPersonName: ''
+  }).then((res) => {
+    if (res.status == '200') {
+      uni.showToast({
+        icon: 'none',
+        title: '操作成功'
+      })
+    } else {
+      uni.showToast({
+        icon: 'error',
+        title: '操作失败'
+      })
+    }
+  })
+}
 
 const xunjian = () => {
   if (
