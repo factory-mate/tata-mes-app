@@ -79,6 +79,11 @@
       <view class="info">
         <uni-row class="demo-uni-row">
           <uni-col :span="16">
+            <view class="demo-uni-col dark">工位名称：{{}}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="16">
             <view class="demo-uni-col dark">产品名称：{{ ProductInfo.cInvName }}</view>
           </uni-col>
         </uni-row>
