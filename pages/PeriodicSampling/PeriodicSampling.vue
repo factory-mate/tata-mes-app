@@ -792,6 +792,7 @@ const Reset = () => {
   BeginTime.value = ''
   EndTime.value = ''
   PerForPageList.value = []
+  Timerange.value = []
   currentPage.value = 1
   total.value = 0
   result.value = ''
