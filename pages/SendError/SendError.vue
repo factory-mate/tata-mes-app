@@ -380,7 +380,21 @@ const DELPicList = (item, index) => {
 }
 //保存
 const AllSave = () => {
-  PicArr.value.forEach((item) => {
+  if (!Station.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描工位'
+    })
+    return
+  }
+  if (!WorkCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描加工码'
+    })
+    return
+  }
+  ;(PicArr.value.length > 0 ? PicArr.value : [{}]).forEach((item) => {
     uni.uploadFile({
       url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/ReportError',
       filePath: item.path,
