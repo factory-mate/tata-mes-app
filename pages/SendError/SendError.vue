@@ -300,12 +300,17 @@ const getStation = () => {
     OrderByFileds: '',
     Conditions: `cFactoryUnitCode = ${Station.value}`
   }).then((res) => {
-    if (res.success) {
+    if (res.success && res.data.length > 0) {
       gwData.value = res.data[0]
       disabled.value = true
       //解开加工码
       workdisabled.value = false
       worksetfocus()
+    } else {
+      uni.showToast({
+        icon: 'none',
+        title: '工位不存在'
+      })
     }
   })
 }
@@ -322,8 +327,13 @@ const getWorkCode = async () => {
     OrderByFileds: '',
     Conditions: `cFactoryUnitCode = ${Station.value} && cBarCode = ${WorkCode.value}`
   })
-  if (res.status == 200) {
+  if (res.success && res.data.length > 0) {
     ProductInfo.value = res.data[0]
+  } else {
+    uni.showToast({
+      icon: 'none',
+      title: '加工码不存在'
+    })
   }
 }
 
