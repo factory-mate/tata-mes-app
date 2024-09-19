@@ -393,11 +393,21 @@ const AllSave = () => {
         //请求头配置
         Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
       },
-      success: (uploadFileRes) => {
-        uni.showToast({
-          icon: 'none',
-          title: '保存成功'
-        })
+      success: (res) => {
+        console.log(res)
+        const jsonRes = JSON.parse(res.data)
+        if (jsonRes.success) {
+          uni.showToast({
+            icon: 'none',
+            title: '保存成功'
+          })
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: jsonRes.errmsg[0].Value || jsonRes.msg || '保存失败'
+          })
+        }
+
         PicArr.value = []
         ProductInfo.value = []
         WorkCode.value = ''
