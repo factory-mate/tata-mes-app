@@ -79,7 +79,7 @@
       <view class="info">
         <uni-row class="demo-uni-row">
           <uni-col :span="16">
-            <view class="demo-uni-col dark">工位名称：{{}}</view>
+            <view class="demo-uni-col dark">工位名称：{{ gwData.cFactoryUnitName }}</view>
           </uni-col>
         </uni-row>
         <uni-row class="demo-uni-row">
@@ -218,6 +218,7 @@ const workfocusType = ref(false)
 const workdisabled = ref(true)
 const WorkCode = ref('') //加工码
 const PicArr = ref([]) //照片数组
+const gwData = ref({})
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -288,21 +289,35 @@ const keypress = (e) => {
 }
 //扫描工位
 const getStation = () => {
-  if (Station.value) {
-    disabled.value = true
-    //解开加工码
-    workdisabled.value = false
-    worksetfocus()
+  if (!Station.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描工位'
+    })
+    return
   }
+  GetTaskList({
+    OrderByFileds: '',
+    Conditions: `cFactoryUnitCode = ${Station.value}`
+  }).then((res) => {
+    if (res.success) {
+      gwData.value = res.data[0]
+      disabled.value = true
+      //解开加工码
+      workdisabled.value = false
+      worksetfocus()
+    }
+  })
 }
 //扫描加工码
-const getWorkCode = () => {
-  if (WorkCode.value) {
-    GetTaskLists()
+const getWorkCode = async () => {
+  if (!WorkCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描加工码'
+    })
+    return
   }
-}
-//获取信息
-const GetTaskLists = async () => {
   const res = await GetTaskList({
     OrderByFileds: '',
     Conditions: `cFactoryUnitCode = ${Station.value} && cBarCode = ${WorkCode.value}`
@@ -311,6 +326,7 @@ const GetTaskLists = async () => {
     ProductInfo.value = res.data[0]
   }
 }
+
 //调取拍照
 const openSelectImage = () => {
   uni.chooseImage({
