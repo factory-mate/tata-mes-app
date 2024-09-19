@@ -430,9 +430,12 @@ const clickAdd = () => {
     // ...cpObj.value,
     cInvCode: cpObj.value.PRODUCT_VOUCH_S_S_S_cInvCode,
     cInvName: cpObj.value.PRODUCT_VOUCH_S_S_S_cInvName,
-    cPARM07: gwObj.value.cResourceName,
+    // 工位名称
+    cPARM07: gwObj.value.cPositionName,
     cPARM06: GroupVal.value || '',
-    cPARM05: Line.value || ''
+    cPARM05: Line.value || '',
+    //工位编码
+    cPARM09: gwObj.value.cPositionCode
   }
   Add_FirstAndLastPiece(obj).then((res) => {
     if (res.status == 200) {
