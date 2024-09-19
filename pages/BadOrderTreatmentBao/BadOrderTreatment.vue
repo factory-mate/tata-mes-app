@@ -189,7 +189,7 @@
         <!-- 过滤 -->
         <view class="form_sty">
           <view class="form_sty_item">
-            <view style="width: 60px">质检日期：</view>
+            <view style="width: 60px">处理日期：</view>
             <view style="flex: 1">
               <uni-datetime-picker
                 v-model="form.date"
@@ -208,7 +208,7 @@
             </view>
           </view>
           <view class="form_sty_item">
-            <view style="width: 60px">质检单号：</view>
+            <view style="width: 60px">处理单号：</view>
             <view style="flex: 1">
               <uni-easyinput
                 v-model="form.code"
