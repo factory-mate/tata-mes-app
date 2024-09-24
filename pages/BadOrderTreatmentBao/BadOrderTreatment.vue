@@ -26,7 +26,7 @@
         <!-- 过滤 -->
         <view class="form_sty iconNode">
           <view class="form_sty_item">
-            <view style="width: 60px">质检日期：</view>
+            <view style="width: 60px">处理日期：</view>
             <view style="flex: 1">
               <uni-datetime-picker
                 v-model="form.date"
@@ -45,7 +45,7 @@
             </view>
           </view>
           <view class="form_sty_item">
-            <view style="width: 60px">质检单号：</view>
+            <view style="width: 60px">处理单号：</view>
             <view style="flex: 1">
               <uni-easyinput
                 v-model="form.code"
@@ -189,7 +189,7 @@
         <!-- 过滤 -->
         <view class="form_sty">
           <view class="form_sty_item">
-            <view style="width: 60px">质检日期：</view>
+            <view style="width: 60px">处理日期：</view>
             <view style="flex: 1">
               <uni-datetime-picker
                 v-model="form.date"
@@ -208,7 +208,7 @@
             </view>
           </view>
           <view class="form_sty_item">
-            <view style="width: 60px">质检单号：</view>
+            <view style="width: 60px">处理单号：</view>
             <view style="flex: 1">
               <uni-easyinput
                 v-model="form.code"
@@ -502,9 +502,7 @@ const getList = () => {
       cAttributeCode: 'dDate',
       cControlTypeCode: 'DatePicker',
       // cAttributeCodeValue:form.value.date?form.value.date+' 00:00:00':"",
-      cAttributeCodeValue: form.value.date
-        ? '"' + form.value.date + ' 00:00:00" && dDate < ' + '"' + form.value.date + ' 23:59:59"'
-        : '',
+      cAttributeCodeValue: form.value.date,
       cConditions: '='
     },
     {

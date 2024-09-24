@@ -177,7 +177,7 @@
       <view v-if="current === 0">
         <view class="listMain">
           <scroll-view
-            :style="'height:' + (h - 430) + 'px'"
+            :style="'height:' + (h - 200) + 'px'"
             scroll-y="true"
             lower-threshold="50"
             show-scrollbar="true"
@@ -240,7 +240,7 @@
                         style="color: black; backgroundcolor: #ff0000; bordercolor: #ff0000"
                         type="warn"
                         size="mini"
-                        @click="ClostItem(item)"
+                        @click="beforeCloseItem(item)"
                       >
                         关闭
                       </button>
@@ -272,7 +272,7 @@
       <view v-if="current === 1">
         <view class="listMain">
           <scroll-view
-            :style="'height:' + (h - 430) + 'px'"
+            :style="'height:' + (h - 200) + 'px'"
             scroll-y="true"
             lower-threshold="50"
             show-scrollbar="true"
@@ -354,7 +354,7 @@
       <view v-if="current === 2">
         <view class="listMain">
           <scroll-view
-            :style="'height:' + (h - 430) + 'px'"
+            :style="'height:' + (h - 200) + 'px'"
             scroll-y="true"
             lower-threshold="50"
             show-scrollbar="true"
@@ -439,6 +439,23 @@
         </view>
       </view>
     </view>
+
+    <uni-popup
+      ref="confirmPopup"
+      type="dialog"
+    >
+      <uni-popup-dialog
+        title="您确定要执行该操作吗？"
+        message="成功消息"
+        :duration="2000"
+        :before-close="true"
+        @cancel="confirmPopup.close()"
+        @close="confirmPopup.close()"
+        @confirm="ClostItem"
+        confirmText="确定"
+        cancelText="取消"
+      ></uni-popup-dialog>
+    </uni-popup>
   </view>
 </template>
 
@@ -590,33 +607,44 @@ const PROchange = (i) => {
   Productobj.value = i
 }
 const PeoFoucs = () => {}
+
+const currentItem = ref()
+const confirmPopup = ref()
+const beforeCloseItem = (i) => {
+  currentItem.value = i
+  confirmPopup.value.open()
+}
 //关闭
-const ClostItem = (i) => {
+const ClostItem = () => {
   uni.showLoading({
     title: '关闭中...'
   })
   Close({
-    UID: i.UID
-  }).then((res) => {
-    if (res.status == 200) {
-      uni.showToast({
-        icon: 'none',
-        title: '成功关闭！'
-      })
-      uni.hideLoading()
-      uni.stopPullDownRefresh()
-      PerForPageList.value = []
-      currentPage.value = 1
-      total.value = 0
-      getListPage()
-    } else {
-      uni.showToast({
-        icon: 'none',
-        title: '关闭失败！'
-      })
-      uni.hideLoading()
-    }
+    UID: currentItem.value.UID
   })
+    .then((res) => {
+      if (res.status == 200) {
+        uni.showToast({
+          icon: 'none',
+          title: '成功关闭！'
+        })
+        uni.hideLoading()
+        uni.stopPullDownRefresh()
+        PerForPageList.value = []
+        currentPage.value = 1
+        total.value = 0
+        getListPage()
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: '关闭失败！'
+        })
+        uni.hideLoading()
+      }
+    })
+    .finally(() => {
+      confirmPopup.value.close()
+    })
 }
 const ChangTab = () => {
   if (current.value == 0) {
@@ -704,26 +732,24 @@ const getListPage = () => {
   uni.showLoading({
     title: '搜索中...'
   })
+  let conditions = ['iStatus=1', 'cVouchTypeCode in (1,2)']
+  if (CheckObj.value) {
+    conditions.push(`cVouchTypeCode=${CheckObj.value.value}`)
+  }
+  if (Productobj.value) {
+    conditions.push(`cPARM01=${Productobj.value.value}`)
+  }
+  if (Timerange.value.length > 0) {
+    conditions.push(`dDate>=${BeginTime.value} && dDate<=${EndTime.value}`)
+  }
+  if (packageCode.value) {
+    conditions.push(`cPackageCode like ${packageCode.value}`)
+  }
   GetSeachPage({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
     OrderByFileds: '',
-    Conditions:
-      CheckObj.value && Productobj.value && Timerange.value.length > 0
-        ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-        : Timerange.value.length > 0 && CheckObj.value
-          ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-          : Timerange.value.length > 0 && Productobj.value
-            ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-            : CheckObj.value && Productobj.value
-              ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value} && cVouchTypeCode=${CheckObj.value.value}`
-              : Timerange.value.length > 0
-                ? `iStatus=1 && cVouchTypeCode in (1,2) && dDate>=${BeginTime.value} && dDate<=${EndTime.value}`
-                : Productobj.value
-                  ? `iStatus=1 && cVouchTypeCode in (1,2) && cPARM01=${Productobj.value.value}`
-                  : CheckObj.value
-                    ? `iStatus=1 && cVouchTypeCode in (1,2) && cVouchTypeCode=${CheckObj.value.value} `
-                    : 'iStatus=1 && cVouchTypeCode in (1,2)'
+    Conditions: conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       PerForPageList.value = [...PerForPageList.value, ...res.data.data]
@@ -766,6 +792,7 @@ const Reset = () => {
   BeginTime.value = ''
   EndTime.value = ''
   PerForPageList.value = []
+  Timerange.value = []
   currentPage.value = 1
   total.value = 0
   result.value = ''

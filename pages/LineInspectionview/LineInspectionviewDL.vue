@@ -30,12 +30,12 @@
               class="search-inpt"
               style="width: 60%"
             >
-              <uni-easyinput
+              <up-input
                 type="number"
                 v-model="baoVal"
                 placeholder="请输入数量"
               >
-              </uni-easyinput>
+              </up-input>
             </view>
           </view>
         </uni-col> </uni-row
@@ -50,12 +50,12 @@
               class="search-inpt"
               style="width: 60%"
             >
-              <uni-easyinput
+              <up-input
                 type="number"
                 v-model="buslVal"
                 placeholder="请输入数量"
               >
-              </uni-easyinput>
+              </up-input>
             </view>
           </view>
         </uni-col>
@@ -113,12 +113,12 @@
               class="search-inpt"
               style="width: 60%"
             >
-              <uni-easyinput
+              <up-input
                 type="number"
                 v-model="memo"
                 placeholder="请输入数量"
               >
-              </uni-easyinput>
+              </up-input>
             </view>
           </view>
         </uni-col>
@@ -198,12 +198,12 @@
                 class="search-inpt"
                 style="width: 60%"
               >
-                <uni-easyinput
+                <up-input
                   type="number"
                   v-model="jcVal"
                   placeholder="请输入值"
                 >
-                </uni-easyinput>
+                </up-input>
               </view>
             </view>
           </uni-col>

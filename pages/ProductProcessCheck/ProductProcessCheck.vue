@@ -801,6 +801,7 @@ const ProductGetDatas = () => {
     .then((res) => {
       if (res.status == 200) {
         BadProductList.value = res.data
+        searchFilterName()
         uni.hideLoading()
         uni.stopPullDownRefresh()
         let words = RegExp(/反馈/)

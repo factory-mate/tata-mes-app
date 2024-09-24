@@ -154,7 +154,7 @@
               </uni-section>
             </view>
           </view>
-          <view class="form_sty_item">
+          <view>
             <button
               class="mini-btn"
               style="
@@ -165,9 +165,37 @@
               "
               type="warn"
               size="mini"
-              @click="xunjian()"
+              @click="generateTask"
             >
-              巡检
+              生成任务单
+            </button>
+            <button
+              class="mini-btn"
+              style="
+                margin-right: 10rpx;
+                color: black;
+                backgroundcolor: #ffff7f;
+                bordercolor: #ffff7f;
+              "
+              type="warn"
+              size="mini"
+              @click="checkPositionEnd"
+            >
+              工位校验
+            </button>
+            <button
+              class="mini-btn"
+              style="
+                margin-right: 10rpx;
+                color: black;
+                backgroundcolor: #ffff7f;
+                bordercolor: #ffff7f;
+              "
+              type="warn"
+              size="mini"
+              @click="checkLineEnd"
+            >
+              产线校验
             </button>
             <!-- <button class="mini-btn" style="color:black;backgroundColor:#aaaa7f;borderColor:#aaaa7f" type="warn"
 							size="mini" @click="reset()">重置</button> -->
@@ -495,7 +523,9 @@ import {
   Factory_Line,
   FactoryGetPositionByLine,
   GetProgramByPositionAA,
-  GetForList_S_V
+  GetForPage_S_V,
+  Check_Position_End,
+  Check_Line_End
 } from '@/api/xunxian.js'
 
 let branch = ref()
@@ -612,6 +642,83 @@ const month = String(today.getMonth() + 1).padStart(2, '0')
 const day = String(today.getDate()).padStart(2, '0')
 // 得到年月日
 const thisDayDate = `${year}-${month}-${day}` //打印当前日期
+
+const generateTask = () => {
+  Add_QualityInspection({
+    cLineCode: Product2.value,
+    cPersonCode: '',
+    cPersonName: ''
+  }).then((res) => {
+    if (res.status == '200') {
+      uni.showToast({
+        icon: 'none',
+        title: '操作成功'
+      })
+    } else {
+      uni.showToast({
+        icon: 'error',
+        title: '操作失败'
+      })
+    }
+  })
+}
+
+const checkPositionEnd = () => {
+  if (!Product3.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择工位'
+    })
+    return false
+  }
+  if (!Product5.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择任务单'
+    })
+    return false
+  }
+  Check_Position_End({
+    val: Product5.value,
+    cPositionCode: Product3.value
+  }).then((res) => {
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: res.data
+      })
+    } else {
+      uni.showToast({
+        icon: 'none',
+        title: '操作失败'
+      })
+    }
+  })
+}
+const checkLineEnd = () => {
+  if (!Product5.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择任务单'
+    })
+    return false
+  }
+  Check_Line_End({
+    val: Product5.value
+  }).then((res) => {
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: res.data
+      })
+    } else {
+      uni.showToast({
+        icon: 'none',
+        title: '操作失败'
+      })
+    }
+  })
+}
 
 const xunjian = () => {
   if (
@@ -753,10 +860,11 @@ console.log(year + '-' + month + '-' + day)
 const getselList5 = () => {
   console.log(Product2.value, '--Product2.value')
   let obj = {
-    cResourceTypeCode: '9',
-    // cPARM23:'CX0143',
-    cPARM23: Product2.value,
-    dDate: thisDayDate
+    // cResourceTypeCode: '9',
+    // cPARM23: 'CX0003',
+    // // cPARM23: Product2.value,
+    // dDate: thisDayDate,
+    Conditions: `cVouchTypeCode=9 && cPARM23=CX0003 && istatus in (0,1) && dDate=${thisDayDate}`
   }
   GetForList5(obj).then((res) => {
     Productrange5.value = res.data
@@ -906,9 +1014,11 @@ const getListJG = () => {
   ]
   let obj = {
     OrderByFileds: '',
+    PageSize: 5,
+    PageIndex: currentPage.value,
     Conditions: filterModel(val)
   }
-  GetForList_S_V(obj).then((res) => {
+  GetForPage_S_V(obj).then((res) => {
     listDataJG.value = res.data
   })
 }
@@ -1091,6 +1201,7 @@ const scrolltolower = () => {
     more.value = 'no-more'
   } else {
     getList()
+    getListJG()
   }
 }
 //头部左侧,返回上一页

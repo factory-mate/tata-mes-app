@@ -155,7 +155,7 @@
                 </uni-col>
                 <uni-col :span="16">
                   <view class="demo-uni-col dark">
-                    <textarea
+                    <up-textarea
                       v-model="Cemo"
                       style="width: 80%"
                       placeholder="请输入备注"
@@ -194,6 +194,25 @@
         </view>
       </view>
     </view>
+    <up-popup
+      :show="showPopup"
+      @close="handlePopupClose"
+      @open="GetReasonLists"
+    >
+      <view style="height: 500px; overflow-y: scroll">
+        <view class="changeList">
+          <DaTree
+            ref="DaModalTreeRef"
+            :data="roomTreeData"
+            labelField="name"
+            valueField="id"
+            :showCheckbox="false"
+            @change="handleModalTreeChange"
+            @expand="handleModalExpandChange"
+          />
+        </view>
+      </view>
+    </up-popup>
   </view>
 </template>
 
@@ -208,7 +227,7 @@ import {
   onReachBottom,
   onPullDownRefresh
 } from '@dcloudio/uni-app'
-import { GetPicList, GetClassify, GetRoute, GetRouteSave } from '@/api/PDA.js'
+import { GetPicList, GetClassify, GetRoute, GetRouteSave, GetReason } from '@/api/PDA.js'
 import DaTree from '@/components/da-tree/index.vue'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
@@ -232,6 +251,8 @@ const Cemo = ref('')
 const TypeCode = ref('')
 const LineArr = ref([])
 const SaveAtate = ref(false)
+const showPopup = ref(false)
+const DaModalTreeRef = ref()
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -279,12 +300,10 @@ onLoad((option) => {
   if (uni.getStorageSync('ItemInfo')) {
     ItemInfo.value = uni.getStorageSync('ItemInfo')
   }
-  if (option.reasoninfo) {
-    ReasonName.value = JSON.parse(option.reasoninfo)
-  }
   GetPic(ItemInfo.value)
   GetRepair()
   h.value = uni.getSystemInfoSync().windowHeight
+  GetArtLIne()
 })
 const keypress = (e) => {
   // codeType.value = ''
@@ -344,16 +363,12 @@ const change = (e) => {
 }
 //原因选择
 const check = () => {
-  uni.navigateTo({
-    url: '/pages/InSendPDA/Reason'
-  })
+  showPopup.value = true
 }
 const clickTab = () => {
   if (current.value == 0) {
   }
   if (current.value == 1) {
-    //调取工艺路线接口
-    GetArtLIne()
   }
 }
 const onClickItem = (e) => {
@@ -479,6 +494,61 @@ const clickLeft = () => {
     })
   }
 }
+
+const handlePopupClose = () => {
+  showPopup.value = false
+}
+
+const roomTreeData = ref([])
+const DayList = ref([]) //原因
+
+//获取原因
+const GetReasonLists = async () => {
+  uni.showLoading({
+    title: '加载中'
+  })
+  const res = await GetReason()
+  if (res.status == 200) {
+    roomTreeData.value = JSON.parse(JSON.stringify(res.data).replace(/Child/g, 'children'))
+    mapReasonModalTree(roomTreeData.value)
+    // ADDdisable(roomTreeData.value)
+    uni.hideLoading()
+  } else {
+    uni.hideLoading()
+  }
+}
+
+let leve = 0
+const mapReasonModalTree = (data, leve = 0) => {
+  if (data) {
+    leve++
+    data.forEach((item) => {
+      Object.assign(item, {
+        ['leve']: leve,
+        ['id']: item['cReasonClassCode'],
+        ['name']: item['cReasonClassName'],
+        ['disabled']: item.cParentCode == null || item.leve === 1 ? true : false
+      })
+      mapReasonModalTree(item.children, leve)
+    })
+  }
+}
+
+const handleModalTreeChange = (allSelectedKeys, currentItem) => {
+  if (currentItem.level == 0) {
+    console.log('00')
+  } else {
+    ReasonName.value = currentItem
+    showPopup.value = false
+  }
+}
+//同级节点只能展开一个
+const handleModalExpandChange = (expand, currentItem) => {
+  if (expand) {
+    DaModalTreeRef.value.setExpandedKeys('all', false)
+  }
+  DaModalTreeRef.value.setExpandedKeys([currentItem.key], expand)
+}
 </script>
 
 <style scoped lang="scss">
@@ -532,6 +602,39 @@ const clickLeft = () => {
       position: fixed;
       left: 40%;
       bottom: 40px;
+    }
+  }
+}
+
+.changeList {
+  padding-bottom: 10rpx;
+  width: 100%;
+  height: 100%;
+
+  .listMain {
+    margin-top: 2px;
+    width: 100%;
+    height: calc(100% - 240rpx);
+    // border: 1px solid red;
+    overflow-y: auto;
+    font-size: 16px;
+
+    .project {
+      background: #fff;
+      padding: 20rpx;
+      margin: 30rpx 20rpx;
+      border-radius: 4px;
+      box-shadow: 0 0 10px #eee;
+
+      .pro_top {
+        display: flex;
+        justify-content: space-between;
+        padding: 10rpx 0;
+      }
+
+      .textHint {
+        color: #999;
+      }
     }
   }
 }

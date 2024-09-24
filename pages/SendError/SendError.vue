@@ -79,6 +79,11 @@
       <view class="info">
         <uni-row class="demo-uni-row">
           <uni-col :span="16">
+            <view class="demo-uni-col dark">工位名称：{{ gwData.cFactoryUnitName }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="16">
             <view class="demo-uni-col dark">产品名称：{{ ProductInfo.cInvName }}</view>
           </uni-col>
         </uni-row>
@@ -214,7 +219,11 @@ const workfocusType = ref(false)
 const workdisabled = ref(true)
 const WorkCode = ref('') //加工码
 const PicArr = ref([]) //照片数组
+<<<<<<< HEAD
 const cNodeResourceCode = ref('')
+=======
+const gwData = ref({})
+>>>>>>> 450d9926a2067915c1c382276b1072a8ef5971e9
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -296,9 +305,13 @@ const getStation = (e) => {
   })
 }
 //扫描加工码
-const getWorkCode = () => {
-  if (WorkCode.value) {
-    GetTaskLists()
+const getWorkCode = async () => {
+  if (!WorkCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描加工码'
+    })
+    return
   }
 }
 //获取信息
@@ -314,10 +327,16 @@ const GetTaskLists = async () => {
     OrderByFileds: '',
     Conditions: `cFactoryUnitCode = ${cNodeResourceCode.value} && cBarCode = ${WorkCode.value}`
   })
-  if (res.status == 200) {
+  if (res.success && res.data.length > 0) {
     ProductInfo.value = res.data[0]
+  } else {
+    uni.showToast({
+      icon: 'none',
+      title: '加工码不存在'
+    })
   }
 }
+
 //调取拍照
 const openSelectImage = () => {
   uni.chooseImage({
@@ -361,7 +380,21 @@ const DELPicList = (item, index) => {
 }
 //保存
 const AllSave = () => {
-  PicArr.value.forEach((item) => {
+  if (!Station.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描工位'
+    })
+    return
+  }
+  if (!WorkCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描加工码'
+    })
+    return
+  }
+  ;(PicArr.value.length > 0 ? PicArr.value : [{}]).forEach((item) => {
     uni.uploadFile({
       url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/ReportError',
       filePath: item.path,
@@ -370,11 +403,25 @@ const AllSave = () => {
         cBarCode: WorkCode.value,
         cStationCode: Station.value
       },
-      success: (uploadFileRes) => {
-        uni.showToast({
-          icon: 'none',
-          title: '保存成功'
-        })
+      header: {
+        //请求头配置
+        Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
+      },
+      success: (res) => {
+        console.log(res)
+        const jsonRes = JSON.parse(res.data)
+        if (jsonRes.success) {
+          uni.showToast({
+            icon: 'none',
+            title: '保存成功'
+          })
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: jsonRes.errmsg[0].Value || jsonRes.msg || '保存失败'
+          })
+        }
+
         PicArr.value = []
         ProductInfo.value = []
         WorkCode.value = ''

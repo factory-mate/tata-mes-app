@@ -11,7 +11,10 @@
     />
     <view>
       <view>
-        <view style="display: flex; align-items: center; margin-top: 4px">
+        <view
+          style="display: flex; align-items: center; margin-top: 4px"
+          v-if="false"
+        >
           <view style="width: 80px">申报日期：</view>
           <view style="flex: 1">
             <uni-datetime-picker
@@ -21,7 +24,10 @@
             />
           </view>
         </view>
-        <view style="display: flex; align-items: center; margin-top: 4px">
+        <view
+          style="display: flex; align-items: center; margin-top: 4px"
+          v-if="false"
+        >
           <view style="width: 80px">申报人：</view>
           <view style="flex: 1">
             <up-input
@@ -30,7 +36,10 @@
             />
           </view>
         </view>
-        <view style="display: flex; align-items: center; margin-top: 4px">
+        <view
+          style="display: flex; align-items: center; margin-top: 4px"
+          v-if="false"
+        >
           <view style="width: 80px">加工码：</view>
           <view style="flex: 1">
             <up-input
@@ -43,6 +52,8 @@
           <button
             class="mini-btn"
             style="
+              margin-left: 10rpx;
+              margin-top: 10rpx;
               margin-right: 10rpx;
               color: black;
               backgroundcolor: #ffff7f;
@@ -52,9 +63,10 @@
             size="mini"
             @click="search()"
           >
-            搜索
+            刷新
           </button>
           <button
+            v-if="false"
             class="mini-btn"
             style="margin-top: 4px; color: black; backgroundcolor: #aaaa7f; bordercolor: #aaaa7f"
             type="warn"
