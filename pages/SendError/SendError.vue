@@ -219,11 +219,8 @@ const workfocusType = ref(false)
 const workdisabled = ref(true)
 const WorkCode = ref('') //加工码
 const PicArr = ref([]) //照片数组
-<<<<<<< HEAD
 const cNodeResourceCode = ref('')
-=======
 const gwData = ref({})
->>>>>>> 450d9926a2067915c1c382276b1072a8ef5971e9
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
