@@ -467,6 +467,7 @@ const GetConfirm = () => {
     Conditions: ''
   }).then((res) => {
     if (res.status == 200) {
+      console.log(res.data.data)
       DayList.value = [...DayList.value, ...res.data.data]
       Dtotal.value = res.data.dataCount
       DpageTotal.value = res.data.pageCount
@@ -479,7 +480,6 @@ const GetConfirm = () => {
 }
 //获取待确认列表
 const getDH = _.debounce(async () => {
-  ConfirmList.value = []
   uni.showLoading({
     title: '加载中'
   })
@@ -493,6 +493,7 @@ const getDH = _.debounce(async () => {
     // searchValue.value = ''
     uni.hideLoading()
     uni.stopPullDownRefresh()
+    console.log(res.data.data)
     ConfirmList.value = [...ConfirmList.value, ...res.data.data]
     total.value = res.data.dataCount
     pageTotal.value = res.data.pageCount
