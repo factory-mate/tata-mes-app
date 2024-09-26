@@ -10,7 +10,6 @@
       @clickLeft="clickLeft"
       right-icon="home"
       @clickRight="clickRight"
-      ``
     />
     <view style="box-sizing: border-box; padding: 0 10rpx; border: 1px solid #eee">
       <uni-row class="demo-uni-row formSty">
