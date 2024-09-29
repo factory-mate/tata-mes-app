@@ -275,6 +275,13 @@ export function GetTaskList(data) {
     data
   })
 }
+export function GetFactoryModelList(data) {
+  return service({
+    url: URLIP.BASE_URL_PDAIN + '/api/MES_Factorymodel/GetForList',
+    method: 'get',
+    data
+  })
+}
 //保存接口
 export function SaveReportError(data) {
   return service({
