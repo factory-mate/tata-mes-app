@@ -146,6 +146,18 @@
                     <view class="demo-uni-col dark">数量：{{ item.nSumQuinity }}</view>
                   </uni-col>
                 </uni-row>
+                <uni-row class="demo-uni-row itemTxt">
+                  <uni-col :span="24">
+                    <button
+                      class="mini-btn"
+                      type="warn"
+                      size="mini"
+                      @click="printItem"
+                    >
+                      补打
+                    </button>
+                  </uni-col>
+                </uni-row>
               </view>
             </view>
             <uni-load-more :status="more"></uni-load-more>
@@ -172,6 +184,11 @@ import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { GetForPage, GetSingleBycBarCode, UnpackingBar } from '@/api/PDA_4.js'
 // import loginVue from '../../login/login.vue';
+
+// #ifdef APP-PLUS
+const printer = uni.requireNativePlugin('LcPrinter')
+// #endif
+
 let branch = ref()
 const h = ref('100') //页面高度
 const more = ref('more') //加载更多
@@ -219,7 +236,20 @@ onShow(() => {
 onLoad((option) => {
   h.value = uni.getSystemInfoSync().windowHeight
   //  getList()
+  initPrinter()
 })
+
+const initPrinter = () => {
+  // #ifdef APP-PLUS
+  printer.initPrinter({})
+  printer.printEnableMark({ enable: true })
+  printer.setConcentration({ level: 39 })
+  printer.setLineSpacing({ spacing: 1 })
+  printer.setFontSize({ fontSize: 8 })
+  printer.getsupportprint()
+  // #endif
+}
+
 //货位输入框聚焦
 const setfocus = () => {
   focusType.value = false
@@ -255,6 +285,28 @@ const getXiangMa = () => {
     // xmVal.value=''
   })
 }
+
+const printItem = (data) => {
+  // #ifdef APP-PLUS
+  printer.printQR2({
+    text: data.cKeyCode,
+    height: 150,
+    offset: 2
+  })
+  printer.printText({ content: '箱码：' + data.cKeyCode + '\r\n' })
+  printer.printText({ content: '物料编码：' + data.cInvCode + '\r\n' })
+  printer.printText({ content: '物料名称：' + data.cInvName + '\r\n' })
+  printer.printText({ content: '数量：' + data.nSumQuinity + '\r\n' })
+  printer.printText({ content: '物料规格：' + data.cInvStd + '\r\n' })
+  printer.printText({ content: '批次号：' + data.cBatch + '\r\n' })
+  printer.printText({ content: '生产日期：' + data.dProductDayStr + '\r\n' })
+  // printer.printText({ content: '采购订单号：' + 'CDG2024020123123' + '\r\n' })
+  // printer.printText({ content: '供应商：' + '优渥的有限公司' + '\r\n' })
+  // printer.printText({ content: '供应商批号：' + '12321312321' })
+  printer.printGoToNextMark()
+  // #endif
+}
+
 const clickCai = () => {
   if (!slVal.value) {
     uni.showToast({
@@ -292,6 +344,9 @@ const clickCai = () => {
         slVal.value = ''
         xiangMList.value = []
         pageTotal.value = 1
+        if (res.data) {
+          printItem(res.data)
+        }
         getXiangMa()
         getList()
       } else {
