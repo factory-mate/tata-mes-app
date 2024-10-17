@@ -293,13 +293,13 @@ const printItem = (data) => {
     height: 150,
     offset: 2
   })
-  printer.printText({ content: '箱码：' + data?.cKeyCode + '\r\n' })
-  printer.printText({ content: '物料编码：' + data?.cInvCode + '\r\n' })
-  printer.printText({ content: '物料名称：' + data?.cInvName + '\r\n' })
-  printer.printText({ content: '数量：' + data?.nSumQuinity + '\r\n' })
-  printer.printText({ content: '物料规格：' + data?.cInvStd + '\r\n' })
-  printer.printText({ content: '批次号：' + data?.cBatch + '\r\n' })
-  printer.printText({ content: '生产日期：' + data?.dProductDayStr + '\r\n' })
+  printer.printText({ content: '箱码：' + (data?.cKeyCode ?? '') + '\r\n' })
+  printer.printText({ content: '物料编码：' + (data?.cInvCode ?? '') + '\r\n' })
+  printer.printText({ content: '物料名称：' + (data?.cInvName ?? '') + '\r\n' })
+  printer.printText({ content: '数量：' + (data?.nAvailableQuinity ?? '') + '\r\n' })
+  printer.printText({ content: '物料规格：' + (data?.cInvStd ?? '') + '\r\n' })
+  printer.printText({ content: '批次号：' + (data?.cBatch ?? '') + '\r\n' })
+  printer.printText({ content: '生产日期：' + (data?.dCreateTime ?? '') + '\r\n' })
   // printer.printText({ content: '采购订单号：' + 'CDG2024020123123' + '\r\n' })
   // printer.printText({ content: '供应商：' + '12321312321' + '\r\n' })
   // printer.printText({ content: '供应商批号：' + '12321312321' })
@@ -331,9 +331,9 @@ const clickCai = () => {
   }
   if (slVal.value <= xiangMObj.value.nQuinity) {
     let obj = {
-      UID: '',
+      UID: xiangMObj.value.UID,
       cKeyCode: xmVal.value,
-      UnpackingQuinity: [slVal.value]
+      UnpackingQuinity: slVal.value
     }
     UnpackingBar(obj).then((res) => {
       if (res.status == 200) {
