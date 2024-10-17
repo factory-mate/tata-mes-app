@@ -284,6 +284,9 @@ const getXiangMa = () => {
     // xiangMList.value.push(xiangMObj.value)
     // xmVal.value=''
   })
+  xiangMList.value = []
+  pageTotal.value = 1
+  getList()
 }
 
 const printItem = (data) => {
@@ -300,9 +303,9 @@ const printItem = (data) => {
   printer.printText({ content: '物料规格：' + (data?.cInvStd ?? '') + '\r\n' })
   printer.printText({ content: '批次号：' + (data?.cBatch ?? '') + '\r\n' })
   printer.printText({ content: '生产日期：' + (data?.dCreateTime ?? '') + '\r\n' })
-  // printer.printText({ content: '采购订单号：' + 'CDG2024020123123' + '\r\n' })
-  // printer.printText({ content: '供应商：' + '12321312321' + '\r\n' })
-  // printer.printText({ content: '供应商批号：' + '12321312321' })
+  printer.printText({ content: '采购订单号：' + (data?.cSourceCode ?? '') + '\r\n' })
+  printer.printText({ content: '供应商：' + (data?.cVendorName ?? '') + '\r\n' })
+  printer.printText({ content: '供应商批号：' + (data?.cVendorBatch ?? '') })
   printer.printGoToNextMark()
   // #endif
 }
