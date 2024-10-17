@@ -152,7 +152,7 @@
                       class="mini-btn"
                       type="warn"
                       size="mini"
-                      @click="printItem"
+                      @click="() => printItem(item)"
                     >
                       补打
                     </button>
@@ -333,7 +333,7 @@ const clickCai = () => {
     let obj = {
       UID: '',
       cKeyCode: xmVal.value,
-      UnpackingQuinity: slVal.value
+      UnpackingQuinity: [slVal.value]
     }
     UnpackingBar(obj).then((res) => {
       if (res.status == 200) {
@@ -345,7 +345,7 @@ const clickCai = () => {
         xiangMList.value = []
         pageTotal.value = 1
         if (res.data) {
-          printItem(res.data)
+          res.data.forEach((i) => printItem(i))
         }
         getXiangMa()
         getList()
