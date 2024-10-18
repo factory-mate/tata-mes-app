@@ -171,7 +171,16 @@
                 <view class="demo-uni-col dark">物料名称：{{ PUTiNFO.cInvName }}</view>
               </uni-col>
               <uni-col :span="8">
-                <view class="demo-uni-col dark"></view>
+                <view class="demo-uni-col dark">
+                  <button
+                    class="mini-btn"
+                    type="warn"
+                    size="mini"
+                    @click="() => PUTXM(false)"
+                  >
+                    新增提交
+                  </button>
+                </view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
@@ -286,9 +295,9 @@
             class="mini-btn"
             type="warn"
             size="mini"
-            @click="PUTXM"
+            @click="() => PUTXM(true)"
           >
-            提交
+            追加提交
           </button>
         </view>
       </view>
@@ -719,11 +728,12 @@ const RKList = () => {
   })
 }
 //提交
-const PUTXM = async () => {
+const PUTXM = async (addition) => {
   arrList.value.forEach((item) => {
     XMlist.value.push(item.xm)
   })
   const res = await PDACommit({
+    bAddition: addition,
     UID: PUTiNFO.value.UID,
     cInvCode: PUTiNFO.value.cInvCode,
     cWareHouseLocationCode: HWsearchValue.value,
