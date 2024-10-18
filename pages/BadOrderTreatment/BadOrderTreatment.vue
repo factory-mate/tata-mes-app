@@ -721,7 +721,9 @@ const CheckEND = (obj) => {
   // 4 来料指标  /pages/incomingInspection/InspectingPackingYJViewZB
   // 5 库存  /pages/kuIncomingInspection/InspectingPackingYJView
   // 5 库存指标  /pages/kuIncomingInspection/InspectingPackingYJViewZB
-  obj.UID = obj.MID
+  // #2535
+  //  obj.UID = obj.MID
+  obj.UID = obj.CheckVouchUID
   if (obj.cVouchTypeCode == 4) {
     uni.navigateTo({
       url: '/pages/incomingInspection/InspectingPackingYJView?obj=' + JSON.stringify(obj)
