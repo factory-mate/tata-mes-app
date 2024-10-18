@@ -596,17 +596,16 @@ onPullDownRefresh(() => {
 //上拉
 const scrolltolower = () => {
   more.value = 'loading'
-  console.log('上拉')
   if (current.value == 1) {
-    DcurrentPage.value++
-    if (DcurrentPage.value > DpageTotal.value) {
+    DcurrentPage.value += 1
+    if (DcurrentPage.value >= DpageTotal.value) {
       more.value = 'no-more'
     } else {
       GetConfirm()
     }
   } else {
-    currentPage.value++
-    if (currentPage.value > pageTotal.value) {
+    currentPage.value += 1
+    if (currentPage.value >= pageTotal.value) {
       more.value = 'no-more'
     } else {
       getDH()
