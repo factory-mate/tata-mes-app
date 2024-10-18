@@ -603,6 +603,13 @@ const getCangku = () => {
 }
 // 箱码
 const getXiangMa = () => {
+  if (!CKval.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请扫描仓库'
+    })
+    return
+  }
   uni.showLoading({
     title: '加载中'
   })
@@ -632,7 +639,7 @@ const clickNum = () => {
   if (!xiangMObj.value.cInvCode) {
     uni.showToast({
       icon: 'none',
-      title: '却少物料'
+      title: '缺少物料'
     })
     return
   }
@@ -640,7 +647,7 @@ const clickNum = () => {
   if (!xiangMObj.value.cVendorName) {
     uni.showToast({
       icon: 'none',
-      title: '却少供应商'
+      title: '缺少供应商'
     })
     return
   }
