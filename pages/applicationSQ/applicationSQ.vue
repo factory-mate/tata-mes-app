@@ -610,6 +610,14 @@ const getXiangMa = () => {
     })
     return
   }
+  // 校验：扫描的箱码供应商必须要一致
+  if (xiangMList.value.length && xiangMList.value[0].cVendorName !== xiangMObj.value.cVendorName) {
+    uni.showToast({
+      icon: 'none',
+      title: '该箱码供应商不一致'
+    })
+    return
+  }
   uni.showLoading({
     title: '加载中'
   })
@@ -651,6 +659,7 @@ const clickNum = () => {
     })
     return
   }
+
   xiangMObj.value.nQuinity = slVal.value ? slVal.value : xiangMObj.value.nQuinity
 
   // 箱码重复 BOX202407040161
