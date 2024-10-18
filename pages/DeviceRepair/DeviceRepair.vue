@@ -724,13 +724,13 @@ const DELPicList = (item, index) => {
 }
 //保存
 const Save = () => {
-  if (!PicArr.value.length) {
-    uni.showToast({
-      icon: 'none',
-      title: '请拍照'
-    })
-    return
-  }
+  // if (!PicArr.value.length) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请拍照'
+  //   })
+  //   return
+  // }
   uni.uploadFile({
     url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/Add',
     files: PicArr.value.map((i) => ({ name: 'list_file', uri: i })),
