@@ -202,7 +202,7 @@ import {
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import URLIP from '@/utils/serviceIP.js'
-import { GetFactoryModelList, SaveReportError } from '@/api/PDA.js'
+import { SaveReportError, GetTaskList } from '@/api/PDA.js'
 import { GetGropList } from '@/api/Quanilty.js'
 import loginVue from '../login/login.vue'
 let branch = ref()
@@ -310,6 +310,7 @@ const getWorkCode = async () => {
     })
     return
   }
+  GetTaskLists()
 }
 //获取信息
 const GetTaskLists = async () => {
@@ -320,9 +321,9 @@ const GetTaskLists = async () => {
     })
     return
   }
-  const res = await GetFactoryModelList({
+  const res = await GetTaskList({
     OrderByFileds: '',
-    Conditions: `cNodeResourceCode = ${cNodeResourceCode.value} && cBarCode = ${WorkCode.value}`
+    Conditions: `cBarCode = ${WorkCode.value}`
   })
   if (res.success && res.data.length > 0) {
     ProductInfo.value = res.data[0]
