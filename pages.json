@@ -2305,6 +2305,26 @@
       }
     },
     {
+      "path": "pages/wms/stock-count/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/warehouse-count/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
       "path": "pages/test/print/index"
     }
   ],

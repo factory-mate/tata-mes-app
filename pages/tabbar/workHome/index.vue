@@ -59,7 +59,23 @@ onShow(() => {
           </view>
           <view class="title">{{ child.cMenuName }}</view>
         </view>
-        <!-- <view v-else>{{ child }}</view> -->
+      </view>
+
+      <view class="child-item-wrapper">
+        <view
+          v-if="index === 0"
+          class="child-item"
+          @click="onClickModuleItem('/pages/wms/inventory-count/index')"
+        >
+          <view class="img-wrapper">
+            <image
+              src="../../../static/img/workIcon/Allchuku.png"
+              mode="aspectFit"
+              fade-show
+            />
+          </view>
+          <view class="title"> 仓库盘点 </view>
+        </view>
       </view>
     </view>
   </view>
