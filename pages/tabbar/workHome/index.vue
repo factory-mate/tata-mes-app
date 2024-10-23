@@ -61,11 +61,11 @@ onShow(() => {
         </view>
       </view>
 
-      <view class="child-item-wrapper">
+      <!-- <view class="child-item-wrapper">
         <view
           v-if="index === 0"
           class="child-item"
-          @click="onClickModuleItem('/pages/wms/inventory-count/index')"
+          @click="onClickModuleItem('/pages/wms/stock-count/index')"
         >
           <view class="img-wrapper">
             <image
@@ -76,7 +76,7 @@ onShow(() => {
           </view>
           <view class="title"> 仓库盘点 </view>
         </view>
-      </view>
+        -->
     </view>
   </view>
 </template>

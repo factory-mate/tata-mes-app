@@ -2243,6 +2243,46 @@
       }
     },
     {
+      "path": "pages/wms/stock-verify/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/stock-verify/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false,
+        "onPullDownRefresh": false,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/workshop-verify/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/workshop-verify/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false,
+        "onPullDownRefresh": false,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
       "path": "pages/wms/other-storage-out/submit",
       "style": {
         "navigationStyle": "custom"
@@ -2315,7 +2355,27 @@
       }
     },
     {
+      "path": "pages/wms/stock-count/count",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
       "path": "pages/wms/warehouse-count/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/warehouse-count/count",
       "style": {
         "navigationStyle": "custom",
         "enablePullDownRefresh": true,

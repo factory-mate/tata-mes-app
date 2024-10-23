@@ -102,15 +102,6 @@ export const moduleMap = new Map([
     }
   ],
   [
-    'MobileApp.StoreRoom.WarehouseCheck',
-    {
-      title: '仓库盘点',
-      cModelCode: 'MobileApp.StoreRoom.WarehouseCheck',
-      src: getIcon('cangku.png'),
-      url: '/pages/warehouseBills/warehouseBills'
-    }
-  ],
-  [
     'MobileApp.StoreRoom.BarcodeSplit',
     {
       title: '条码拆分',
@@ -210,6 +201,24 @@ export const moduleMap = new Map([
     }
   ],
   // 车间管理
+  [
+    'MobileApp.Workshop.WSVerify',
+    {
+      title: '车间审批',
+      cModelCode: 'MobileApp.Workshop.WSVerify',
+      src: getIcon('ruku.png'),
+      url: '/pages/wms/workshop-verify/index'
+    }
+  ],
+  [
+    'MobileApp.Workshop.XCCStockTake',
+    {
+      title: '线边盘点',
+      cModelCode: 'MobileApp.Workshop.XCCStockTake',
+      src: getIcon('ruku.png'),
+      url: '/pages/wms/warehouse-count/index'
+    }
+  ],
   [
     'MobileApp.Workshop.ReworkInitiate',
     {
@@ -343,6 +352,24 @@ export const moduleMap = new Map([
       cModelCode: 'MobileApp.Workshop.ProductInApply',
       src: getIcon('tuiliaosq.png'),
       url: '/pages/FinshiedProductInfo/FinshiedProductInfo'
+    }
+  ],
+  [
+    'MobileApp.StoreRoom.WarehouseCheck',
+    {
+      title: '仓库盘点',
+      cModelCode: 'MobileApp.StoreRoom.WarehouseCheck',
+      src: getIcon('ruku.png'),
+      url: '/pages/wms/warehouse-count/index'
+    }
+  ],
+  [
+    'MobileApp.StoreRoom.CKVerify',
+    {
+      title: '仓库审批',
+      cModelCode: 'MobileApp.StoreRoom.CKVerify',
+      src: getIcon('ruku.png'),
+      url: '/pages/CKVerify/CKVerify'
     }
   ],
   // 设备管理

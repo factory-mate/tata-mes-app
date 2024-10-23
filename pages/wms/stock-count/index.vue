@@ -14,38 +14,26 @@ const height = ref(getDeviceHeight().totalHeight)
 const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
   usePageParams()
 
-const showCalendar = ref(false)
 const searchParams = ref({
   cCode: '',
   cTakeTypeCode: '',
   dDate: new Date()
 })
 const typeCandidates = ref([])
-
-const scanCode = ref('')
-const currentFocus = ref(false)
-const keyword = ref('')
-const storageData = ref(null)
 const listData = ref([])
 
 async function getList() {
-  if (!storageData.value) {
-    uni.showToast({
-      title: '请扫描仓库',
-      icon: 'none'
-    })
-    return
-  }
   try {
     const {
       data: { data, dataCount, pageCount }
-    } = await OtherStorageInAPI.GetForPage_OtherIn_PDA({
+    } = await API.getList({
       PageIndex: pageParams.value.pageIndex,
       PageSize: pageParams.value.pageSize,
-      OrderByFileds: '',
       Conditions: queryBuilder([
-        { type: 'like', key: 'cCode', val: keyword.value },
-        { type: 'eq', key: 'cInWareHouseCode', val: storageData.value?.cWareHouseCode0 }
+        { type: 'like', key: 'cCode', val: searchParams.value.cCode },
+        { type: 'eq', key: 'cTakeTypeCode', val: searchParams.value.cTakeTypeCode },
+        { type: 'date', key: 'dDate', val: searchParams.value.dDate },
+        { type: 'eq', key: 'cVouchTypeCode', val: '1' } // 库房 = 1
       ])
     })
     listData.value = [...listData.value, ...data]
@@ -69,50 +57,55 @@ function resetPageParams() {
   listData.value = []
 }
 
-async function processScan() {
-  // #ifdef APP-PLUS
-  if (!currentFocus.value) {
-    return
-  }
-  // #endif
-  if (scanCode.value === scanStorage.value?.cWareHouseCode) {
-    return
-  }
-
-  await scanStorage(scanCode.value)
-}
-
-const navToMaterial = (item) => {
-  if (!storageData.value.cWareHouseCode) {
-    uni.showToast({
-      title: '缺少 cWareHouseCode',
-      icon: 'none'
-    })
-    return
-  }
-  if (!item.UID) {
-    uni.showToast({
-      title: '缺少 UID',
-      icon: 'none'
-    })
-    return
-  }
-  uni.navigateTo({
-    url: `/pages/wms/other-storage-in/material?id=${item.UID}&code=${storageData.value.cWareHouseCode}`
-  })
-}
-
-const handleStart = () => {}
-
-const handleFinish = () => {}
-
-const handleCount = () => {}
-
-const getType = async (type) => {
+const handleStart = async (data) => {
+  uni.showLoading({ title: '处理中' })
   try {
-    const { success, data } = await API.fetchType(type)
+    await API.begin({
+      UID: data.UID
+    })
+    uni.showToast({
+      title: '操作成功',
+      icon: 'success'
+    })
+    resetPageParams()
+    getList()
+  } catch {
+    //
+  }
+  uni.hideLoading()
+}
+
+const handleFinish = async (data) => {
+  uni.showLoading({ title: '处理中' })
+  try {
+    await API.finish({
+      UID: data.UID
+    })
+    uni.showToast({
+      title: '操作成功',
+      icon: 'success'
+    })
+    resetPageParams()
+    getList()
+  } catch {
+    //
+  }
+  uni.hideLoading()
+}
+
+const handleCount = (data) =>
+  uni.navigateTo({
+    url: `/pages/wms/stock-count/count?UID=${data.UID}&cInvCode=${data.cInvCode}&cInvName=${data.cInvName}&cWareHouseName=${data.cWareHouseName}`
+  })
+
+const getType = async () => {
+  try {
+    const { success, data } = await API.fetchType()
     if (success) {
-      typeCandidates.value = data
+      typeCandidates.value = data.map((item) => ({
+        text: item.cDictonaryName,
+        value: item.cDictonaryCode
+      }))
     }
   } catch {
     //
@@ -120,7 +113,10 @@ const getType = async (type) => {
 }
 
 onLoad(() => {})
-onShow(() => getType())
+onShow(() => {
+  getList()
+  getType()
+})
 onHide(() => {})
 onUnload(() => {})
 
@@ -193,6 +189,7 @@ onPullDownRefresh(async () => {
                 type="error"
                 size="small"
                 text="搜索"
+                @click="search"
               />
             </up-col>
           </up-row>
@@ -200,7 +197,7 @@ onPullDownRefresh(async () => {
           <up-gap height="8" />
         </view>
 
-        <view style="padding-top: 120px">
+        <view style="padding-top: 180px">
           <up-list-item
             v-for="(item, index) in listData"
             :key="index"
@@ -209,14 +206,13 @@ onPullDownRefresh(async () => {
               <up-col span="6"> 序号：{{ index + 1 }} </up-col>
               <up-col span="6"> 盘点单号：{{ item.cCode }} </up-col>
             </up-row>
-            <up-gap height="8" />
             <up-row justify="space-between">
               <up-col span="6"> 盘点日期：{{ formatTime(item.dDate, 'YYYY-MM-DD') }} </up-col>
-              <up-col span="6"> 盘点类型：{{ item }} </up-col>
+              <up-col span="6"> 盘点类型：{{ item.cTakeTypeName }} </up-col>
             </up-row>
             <up-row justify="space-between">
-              <up-col span="6"> 状态：{{ formatTime(item.dDate, 'YYYY-MM-DD') }} </up-col>
-              <up-col span="6"> 库区名称：{{ item }} </up-col>
+              <up-col span="6"> 状态：{{ item.iStatusName }} </up-col>
+              <up-col span="6"> 库区名称：{{ item.cWareHouseName }} </up-col>
             </up-row>
             <up-row justify="space-between">
               <up-col span="6"> 物料编码：{{ item.cInvCode }} </up-col>
@@ -224,7 +220,7 @@ onPullDownRefresh(async () => {
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">
-              <view style="display: flex; align-items: flex-end">
+              <view style="display: flex; align-items: flex-end; gap: 8px">
                 <up-button
                   text="开始"
                   type="error"

@@ -1,3 +1,5 @@
+import { formatTime } from '@/features/formatter'
+
 export const queryBuilder = (list) => {
   let condition = ''
   const conditionList = []
@@ -21,6 +23,12 @@ export const queryBuilder = (list) => {
       case 'raw':
         if (i.val) {
           conditionList.push(i.val)
+        }
+        break
+      case 'date':
+        if (i.key && i.val) {
+          conditionList.push(`${i.key} >= ${formatTime(i.val, 'YYYY-MM-DD')}T00:00:00`)
+          conditionList.push(`${i.key} <= ${formatTime(i.val, 'YYYY-MM-DD')}T23:59:59`)
         }
         break
       default:
