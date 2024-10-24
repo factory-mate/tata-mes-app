@@ -78,6 +78,11 @@
               <uni-col :span="11">
                 <view class="demo-uni-col dark">寿命：{{ item.iValidCount }}</view>
               </uni-col>
+              <uni-col :span="11">
+                <view class="demo-uni-col dark">刀具序列号：{{ item.cSerialNo }}</view>
+              </uni-col>
+            </uni-row>
+            <uni-row class="demo-uni-row">
               <uni-col :span="8">
                 <button
                   class="mini-btn"
