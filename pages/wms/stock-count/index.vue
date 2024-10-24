@@ -245,10 +245,7 @@ onPullDownRefresh(async () => {
           </up-list-item>
         </view>
 
-        <up-loadmore
-          v-if="storageData"
-          :status="pageInfo.status"
-        />
+        <up-loadmore :status="pageInfo.status" />
       </up-list>
     </view>
 

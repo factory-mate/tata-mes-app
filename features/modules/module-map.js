@@ -369,7 +369,7 @@ export const moduleMap = new Map([
       title: '仓库审批',
       cModelCode: 'MobileApp.StoreRoom.CKVerify',
       src: getIcon('ruku.png'),
-      url: '/pages/CKVerify/CKVerify'
+      url: '/pages/wms/stock-verify/index'
     }
   ],
   // 设备管理
