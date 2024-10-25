@@ -96,10 +96,10 @@
             </view>
             <uni-row class="demo-uni-row">
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备编码：{{ DevData.cResourceCode }}</view>
+                <view class="demo-uni-col dark">设备编码：{{ DevData?.cDeviceCode }}</view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备名称：{{ DevData.cResourceName }}</view>
+                <view class="demo-uni-col dark">设备名称：{{ DevData?.cDeviceName }}</view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
