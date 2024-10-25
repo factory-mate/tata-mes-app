@@ -50,6 +50,7 @@
           </button>
         </view>
         <view class="listMain">
+          <view>单据数量：{{ total }}</view>
           <scroll-view
             :style="'height:' + (h - 180) + 'px'"
             scroll-y="true"
@@ -150,6 +151,7 @@
           </button>
         </view>
         <view class="listMain">
+          <view>单据数量：{{ total }}</view>
           <scroll-view
             :style="'height:' + (h - 200) + 'px'"
             scroll-y="true"
