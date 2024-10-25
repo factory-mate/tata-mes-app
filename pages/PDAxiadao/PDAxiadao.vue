@@ -205,10 +205,6 @@ const getDH = () => {
   }).then((res) => {
     if (res.status == 200) {
       DeviceInfo.value = res.data
-      uni.showToast({
-        icon: 'none',
-        title: '扫描成功'
-      })
       uni.hideLoading()
       uni.stopPullDownRefresh()
     } else {
@@ -229,20 +225,23 @@ const GoDowmTool = (i) => {
     cSerialNo: i.cSerialNo,
     cInvCode: i.cInvCode,
     cInvName: i.cInvName
-  }).then((res) => {
-    if (res.status == 200) {
-      uni.showToast({
-        icon: 'none',
-        title: '刀具下架成功'
-      })
-    } else {
-      uni.showToast({
-        icon: 'none',
-        title: '刀具下架失败'
-      })
-    }
   })
-  getDH()
+    .then((res) => {
+      if (res.success) {
+        uni.showToast({
+          icon: 'none',
+          title: '刀具下架成功'
+        })
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: '刀具下架失败'
+        })
+      }
+    })
+    .finally(() => {
+      getDH()
+    })
 }
 //下拉
 onPullDownRefresh(() => {
