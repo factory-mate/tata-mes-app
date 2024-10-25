@@ -58,7 +58,10 @@ onLoad((options) => {
   UID.value = options.UID
   cCode.value = options.cCode
 })
-onShow(() => getList())
+onShow(() => {
+  listData.value = []
+  getList()
+})
 onHide(() => {})
 onUnload(() => {})
 

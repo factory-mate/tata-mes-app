@@ -116,7 +116,10 @@ const handlePopupClose = () => {
 }
 
 onLoad(() => {})
-onShow(() => getList())
+onShow(() => {
+  listData.value = []
+  getList()
+})
 onHide(() => {})
 onUnload(() => {})
 

@@ -114,6 +114,7 @@ const getType = async () => {
 
 onLoad(() => {})
 onShow(() => {
+  listData.value = []
   getList()
   getType()
 })
