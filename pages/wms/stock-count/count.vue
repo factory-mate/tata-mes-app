@@ -48,6 +48,17 @@ const scanCode = async () => {
   try {
     const { data, success } = await API.getByBarcode({ val: inputData.value.code })
     if (success) {
+      // 校验物料编码是否一致
+      if (data.cInvCode !== formData.value.cInvCode) {
+        uni.showToast({
+          title: '物料编码不一致',
+          icon: 'none'
+        })
+        resetMaterialData()
+        resetInputData()
+        setFocus()
+        return
+      }
       materialData.value = data
     } else {
       resetMaterialData()
