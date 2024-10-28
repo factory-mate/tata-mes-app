@@ -360,7 +360,7 @@ export const moduleMap = new Map([
       title: '仓库盘点',
       cModelCode: 'MobileApp.StoreRoom.WarehouseCheck',
       src: getIcon('ruku.png'),
-      url: '/pages/wms/warehouse-count/index'
+      url: '/pages/wms/stock-count/index'
     }
   ],
   [
