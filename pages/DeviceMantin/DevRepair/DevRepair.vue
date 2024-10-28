@@ -36,6 +36,22 @@
               <view class="demo-uni-col dark"></view>
             </uni-col>
           </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
+              <view
+                class="demo-uni-col dark"
+                style="display: flex"
+              >
+                <up-checkbox
+                  label="是否停机"
+                  name="isStop"
+                  usedAlone
+                  v-model:checked="isStop"
+                >
+                </up-checkbox>
+              </view>
+            </uni-col>
+          </uni-row>
           <view style="font-size: 14px; margin: 10px">
             <button
               class="mini-btn"
@@ -163,6 +179,7 @@ const programName = ref('')
 const programCode = ref('')
 const Parm01 = ref()
 const Parm03 = ref()
+const isStop = ref(true)
 
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
@@ -291,7 +308,7 @@ const Save = () => {
       formData: {
         cDeviceCode: Devicecode.value,
         cFaultCode: FaultCode.value,
-        IsStop: true,
+        IsStop: isStop.value,
         cPARM01: Parm01.value,
         cPARM02: '3',
         cPARM03: Parm03.value,

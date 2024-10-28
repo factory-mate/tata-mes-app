@@ -2385,6 +2385,26 @@
       }
     },
     {
+      "path": "pages/print/arrival/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/print/storage/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
       "path": "pages/test/print/index"
     }
   ],

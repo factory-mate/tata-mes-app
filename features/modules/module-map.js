@@ -200,6 +200,24 @@ export const moduleMap = new Map([
       url: '/pages/wms/allocate-out/index'
     }
   ],
+  [
+    'MobileApp.StoreRoom.StorePrintAgain',
+    {
+      title: '库存补打',
+      cModelCode: 'MobileApp.StoreRoom.StorePrintAgain',
+      src: getIcon('tuiliaosq.png'),
+      url: '/pages/print/storage/index'
+    }
+  ],
+  [
+    'MobileApp.StoreRoom.ArrivePrintAgain',
+    {
+      title: '到货补打',
+      cModelCode: 'MobileApp.StoreRoom.ArrivePrintAgain',
+      src: getIcon('tuiliaosq.png'),
+      url: '/pages/print/arrival/index'
+    }
+  ],
   // 车间管理
   [
     'MobileApp.Workshop.WSVerify',
