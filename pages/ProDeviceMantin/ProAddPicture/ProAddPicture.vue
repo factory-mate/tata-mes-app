@@ -172,7 +172,7 @@ const PicArrList = ref([])
 const openSelectImage = () => {
   uni.chooseImage({
     sizeType: ['compressed'],
-    sourceType: ['album', 'camera'],
+    sourceType: ['camera'],
     success: (res) => {
       if (res.tempFilePaths?.length > 0) {
         PicArr.value = [...PicArr.value, ...res.tempFilePaths]
