@@ -31,6 +31,11 @@ export const queryBuilder = (list) => {
           conditionList.push(`${i.key} <= ${formatTime(i.val, 'YYYY-MM-DD')}T23:59:59`)
         }
         break
+      case 'in':
+        if (i.key && i.val) {
+          conditionList.push(`${i.key} in (${i.val.join(',')})`)
+        }
+        break
       default:
         break
     }

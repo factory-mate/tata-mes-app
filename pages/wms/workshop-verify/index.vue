@@ -32,7 +32,7 @@ async function getList() {
       PageSize: pageParams.value.pageSize,
       Conditions: queryBuilder([
         { type: 'eq', key: 'cVouchTypeCode', val: '01' },
-        { type: 'eq', key: 'iStatus', val: '1' },
+        { type: 'in', key: 'iStatus', val: ['1', '51'] },
         { type: 'like', key: 'cInWareHouseName', val: searchParams.value.cInWareHouseName },
         { type: 'like', key: 'cCode', val: searchParams.value.cCode }
       ])
