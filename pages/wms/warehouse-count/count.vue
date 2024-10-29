@@ -81,14 +81,6 @@ const handleConfirm = () => {
     setFocus()
     return
   }
-  if (inputData.value.code !== formData.value.cInvCode) {
-    uni.showToast({
-      title: '物料编码不一致',
-      icon: 'none'
-    })
-    setFocus()
-    return
-  }
   if (!inputData.value.num) {
     uni.showToast({
       title: '请填写数量',
