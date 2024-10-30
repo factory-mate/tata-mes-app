@@ -302,7 +302,6 @@ onBackPress(() => {
 })
 //加载页面
 onLoad((option) => {
-  GetList()
   h.value = uni.getSystemInfoSync().windowHeight
 })
 
