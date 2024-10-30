@@ -96,10 +96,10 @@
             </view>
             <uni-row class="demo-uni-row">
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备编码：{{ DevData?.cResourceCode }}</view>
+                <view class="demo-uni-col dark">设备编码：{{ DevData?.cDeviceCode }}</view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备名称：{{ DevData?.cResourceName }}</view>
+                <view class="demo-uni-col dark">设备名称：{{ DevData?.cDeviceName }}</view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
@@ -120,7 +120,7 @@
                 </view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备位置：{{ DevData.cPositionCode }}</view>
+                <view class="demo-uni-col dark">设备位置：{{ DevData.cStoreAddress }}</view>
               </uni-col>
             </uni-row>
             <view
@@ -568,7 +568,21 @@ const change = (i) => {
       console.log(DevData.value, 'DevData.value=========')
     }
   })
+  console.log(DevData.value)
   GetSelect()
+  getDevList({
+    OrderByFileds: '',
+    Conditions: `cDeviceCode = ${DevData.value.cResourceCode}`
+  }).then((res) => {
+    if (res.status == 200) {
+      DevArr.value = res.data
+      DevData.value = res.data[0]
+      uni.hideLoading()
+      uni.stopPullDownRefresh()
+    } else {
+      uni.hideLoading()
+    }
+  })
 }
 const Fauchange = (i) => {
   FauCode.value = i
