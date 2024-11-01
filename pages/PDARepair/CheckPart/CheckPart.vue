@@ -38,10 +38,10 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="16">
-              <view class="demo-uni-col dark">备件编码：{{ item.cDeviceCode }}</view>
+              <view class="demo-uni-col dark">备件编码：{{ item.cInvCode }}</view>
             </uni-col>
             <uni-col :span="8">
-              <view class="demo-uni-col dark">备件名称：{{ item.cDeviceName }}</view>
+              <view class="demo-uni-col dark">备件名称：{{ item.cInvName }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
