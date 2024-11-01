@@ -9,123 +9,74 @@ import { formatTime, formatString } from '@/features/formatter'
 import { queryBuilder } from '@/features/query'
 import { API } from './api'
 
+// #ifdef APP-PLUS
+const printer = uni.requireNativePlugin('LcPrinter')
+// #endif
+
 const height = ref(getDeviceHeight().totalHeight)
 
-const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
-  usePageParams()
-
 const searchParams = ref({
-  cInWareHouseName: '',
-  cCode: ''
+  cKeyCode: ''
 })
-const listData = ref([])
-const currentRejectId = ref('')
-const memo = ref('')
-const showRejectModal = ref(false)
+const detailData = ref({})
 
 async function getList() {
   try {
     const {
-      data: { data, dataCount, pageCount }
+      data: { data }
     } = await API.getList({
       PageIndex: pageParams.value.pageIndex,
       PageSize: pageParams.value.pageSize,
-      Conditions: queryBuilder([
-        { type: 'eq', key: 'cVouchTypeCode', val: '01' },
-        { type: 'in', key: 'iStatus', val: ['1', '51'] },
-        { type: 'like', key: 'cInWareHouseName', val: searchParams.value.cInWareHouseName },
-        { type: 'like', key: 'cCode', val: searchParams.value.cCode }
-      ])
+      Conditions: queryBuilder([{ type: 'eq', key: 'cKeyCodes', val: searchParams.value.cKeyCode }])
     })
-    listData.value = [...listData.value, ...data]
-    setPageInfo({ dataCount, pageCount })
-    uni.hideLoading()
-    uni.stopPullDownRefresh()
+    detailData.value = data[0]
   } catch (e) {
     console.log(e)
-    uni.hideLoading()
+    detailData.value = {}
   }
+  searchParams.value.cKeyCode = ''
 }
 
 function print() {
-  resetPageParams()
-  getList()
-}
-
-function resetPageParams() {
-  clearPageParams()
-  clearPageInfo()
-  listData.value = []
-}
-
-const openRejectModal = (data) => {
-  memo.value = ''
-  showRejectModal.value = true
-  currentRejectId.value = data.UID
-}
-
-const handleAudit = async (data) => {
-  uni.showLoading({ title: '处理中' })
-  try {
-    const { success } = await API.audit({
-      UIDs: [data.UID]
-    })
-    if (success) {
-      uni.showToast({
-        title: '操作成功',
-        icon: 'success'
-      })
-      resetPageParams()
-      getList()
-    }
-  } catch {
-    //
-  }
-  uni.hideLoading()
-}
-
-const handleReject = async (data) => {
-  uni.showLoading({ title: '处理中' })
-  try {
-    const { success } = await API.reject({
-      UIDs: [currentRejectId.value],
-      cMemo: memo.value
-    })
-    if (success) {
-      uni.showToast({
-        title: '操作成功',
-        icon: 'success'
-      })
-      resetPageParams()
-      getList()
-      showRejectModal.value = false
-    }
-  } catch {
-    //
-  }
-  uni.hideLoading()
-}
-
-const handleNavToDetail = (data) =>
-  uni.navigateTo({
-    url: `/pages/wms/workshop-verify/detail?UID=${data.UID}&cCode=${data.cCode}`
+  // #ifdef APP-PLUS
+  printer.printQR2({
+    text: data?.cKeyCode,
+    height: 150,
+    offset: 2
   })
-
-const handlePopupClose = () => {
-  showPopup.value = false
+  printer.printText({ content: '箱码：' + (data?.cKeyCode ?? '') + '\r\n' })
+  printer.printText({ content: '物料编码：' + (data?.cInvCode ?? '') + '\r\n' })
+  printer.printText({ content: '物料名称：' + (data?.cInvName ?? '') + '\r\n' })
+  printer.printText({ content: '数量：' + (data?.nSumQuinity ?? '') + '\r\n' })
+  printer.printText({ content: '物料规格：' + (data?.cInvStd ?? '') + '\r\n' })
+  printer.printText({ content: '批次号：' + (data?.cBatch ?? '') + '\r\n' })
+  printer.printText({ content: '生产日期：' + (data?.dProductDay ?? '') + '\r\n' })
+  printer.printText({ content: '采购订单号：' + (data?.cSourceCode ?? '') + '\r\n' })
+  printer.printText({ content: '供应商：' + (data?.cVendorName ?? '') + '\r\n' })
+  printer.printText({ content: '供应商批号：' + (data?.cVendorBatch ?? '') })
+  printer.printGoToNextMark()
+  // #endif
 }
 
-onLoad(() => {})
-onShow(() => {
-  listData.value = []
-  getList()
+const initPrinter = () => {
+  // #ifdef APP-PLUS
+  printer.initPrinter({})
+  printer.printEnableMark({ enable: true })
+  printer.setConcentration({ level: 39 })
+  printer.setLineSpacing({ spacing: 1 })
+  printer.setFontSize({ fontSize: 8 })
+  printer.getsupportprint()
+  // #endif
+}
+
+onLoad(() => {
+  initPrinter()
 })
+onShow(() => {})
 onHide(() => {})
 onUnload(() => {})
 
 onPullDownRefresh(async () => {
-  resetPageParams()
-  await getList()
   uni.stopPullDownRefresh()
 })
 </script>
@@ -146,7 +97,7 @@ onPullDownRefresh(async () => {
           <up-col span="3">箱码：</up-col>
           <up-col span="9">
             <up-input
-              v-model="searchParams.cInWareHouseName"
+              v-model="searchParams.cKeyCode"
               placeholder=""
               border="surround"
               clearable
@@ -171,22 +122,24 @@ onPullDownRefresh(async () => {
         <up-gap height="8" />
 
         <up-row justify="space-between">
-          <up-col span="12"> 物料编码：{{}} </up-col>
+          <up-col span="12"> 物料编码：{{ detailData.cInvCode }} </up-col>
         </up-row>
         <up-row justify="space-between">
-          <up-col span="12"> 物料名称：{{}} </up-col>
+          <up-col span="12"> 物料名称：{{ detailData.cInvName }} </up-col>
         </up-row>
         <up-row justify="space-between">
-          <up-col span="12"> 数量：{{}} </up-col>
+          <up-col span="12"> 数量：{{ detailData.nSumQuinity }} </up-col>
         </up-row>
         <up-row justify="space-between">
-          <up-col span="12"> 批次号：{{}} </up-col>
+          <up-col span="12"> 批次号：{{ detailData.cBatch }} </up-col>
         </up-row>
         <up-row justify="space-between">
-          <up-col span="12"> 生产日期：{{ formatTime('2022-03-22', 'YYYY-MM-DD') }} </up-col>
+          <up-col span="12">
+            生产日期：{{ formatTime(detailData.dProductDayStr, 'YYYY-MM-DD') }}
+          </up-col>
         </up-row>
         <up-row justify="space-between">
-          <up-col span="12"> 供应商：{{}} </up-col>
+          <up-col span="12"> 供应商：{{ detailData.cVendorName }} </up-col>
         </up-row>
       </view>
     </view>
