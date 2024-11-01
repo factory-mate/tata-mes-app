@@ -394,6 +394,7 @@ import {
   MaterialPut,
   GetWare,
   PDACommitOut,
+  MaterialPutDown,
   OutList
 } from '@/api/PDA.js'
 const h = ref('100') //页面高度
@@ -608,14 +609,15 @@ const getXM = async () => {
     cCode: arr[1] || '',
     num: arr[2] || ''
   }
-  const res = await MaterialPut({
-    cBarCode: obj.xm
-  })
-  if (res.status == 200) {
-    PUTinfo.value = res.data
+  const res = await MaterialPutDown(obj.xm)
+  if (res.status == 200 && res.data.length > 0) {
+    PUTinfo.value = res.data[0]
     let hw = res.data.cWareHouseLocationCode
-    let num = res.data.nQuantity
-    let xm = res.data.cBarCode
+    // let num = res.data.nQuantity
+    let num = res.data.nSumQuinity
+
+    // let xm = res.data.cBarCode
+    let xm = res.data.cKeyCode
     let cBatch = res.data.cBatch
     obj.hw = hw
     obj.num = num
@@ -639,7 +641,7 @@ const getXM = async () => {
   } else {
     uni.showToast({
       icon: 'none',
-      title: res.errmsg[0].Value
+      title: res.errmsg[0].Value || '没有库存'
     })
     XMsearchValue.value = ''
   }

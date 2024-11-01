@@ -207,6 +207,17 @@ export function MaterialPut(data) {
     data
   })
 }
+
+export function MaterialPutDown(cKeyCode) {
+  return service({
+    url: URLIP.BASE_URL_DAOHUO + '/api/Stock/GetForList',
+    method: 'POST',
+    data: {
+      Conditions: 'cKeyCode=' + cKeyCode
+    }
+  })
+}
+
 //下架保存
 export function PDACommitOut(data) {
   return service({
