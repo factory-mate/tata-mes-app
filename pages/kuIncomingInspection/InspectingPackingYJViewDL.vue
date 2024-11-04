@@ -33,7 +33,9 @@
         <uni-col :span="12">
           <view class="demo-uni-col">检验方法：{{ getByVal.cCheckTypeName }}</view>
         </uni-col>
-        <uni-col :span="12"> </uni-col>
+        <uni-col :span="12">
+          <view class="demo-uni-col">不良数量：{{ getByVal.nNoPassQuantity }}</view>
+        </uni-col>
       </uni-row>
       <uni-row class="demo-uni-row formSty">
         <uni-col :span="24">
