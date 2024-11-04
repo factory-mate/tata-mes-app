@@ -864,7 +864,7 @@ const getselList5 = () => {
     // cPARM23: 'CX0003',
     // // cPARM23: Product2.value,
     // dDate: thisDayDate,
-    Conditions: `cVouchTypeCode=9 && cPARM23=CX0003 && istatus in (0,1) && dDate=${thisDayDate}`
+    Conditions: `cVouchTypeCode=9 && istatus in (0,1) && dDate=${thisDayDate}`
   }
   GetForList5(obj).then((res) => {
     Productrange5.value = res.data
