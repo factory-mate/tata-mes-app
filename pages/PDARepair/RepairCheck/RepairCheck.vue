@@ -170,7 +170,7 @@
                     <view class="demo-uni-col dark">故障名称：{{ item.cFaultName }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col light"></view>
+                    <view class="demo-uni-col light">报修单号：{{ item.cCode }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
@@ -178,7 +178,7 @@
                     <view class="demo-uni-col light">报修描述：{{ item.cMemo }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col light"></view>
+                    <view class="demo-uni-col light">设备编号：{{ item.cDeviceCode }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
