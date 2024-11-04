@@ -49,7 +49,7 @@
                     <view class="demo-uni-col dark">指标名称：{{ item.cStandardName }}</view>
                   </uni-col>
                   <uni-col :span="14">
-                    <view class="demo-uni-col light">不良数：{{ item.nNoQualificationRate }}</view>
+                    <view class="demo-uni-col light">不良数：{{ item.nNoPassQuantity }}</view>
                   </uni-col> </uni-row
                 ><uni-row class="demo-uni-row itemTxt">
                   <uni-col :span="14">
