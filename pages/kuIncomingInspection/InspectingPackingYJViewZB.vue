@@ -63,7 +63,7 @@
                     <view class="demo-uni-col dark">检验方法：{{ item.cCheckTypeName }}</view>
                   </uni-col>
                   <uni-col :span="14">
-                    <view class="demo-uni-col light">检验时间：{{ item.dDate }}</view>
+                    <view class="demo-uni-col light">检验时间：{{ item.dCreateTime }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row itemTxt">
@@ -72,7 +72,7 @@
                   </uni-col> </uni-row
                 ><uni-row class="demo-uni-row itemTxt">
                   <uni-col :span="14">
-                    <view class="demo-uni-col dark">判断结果：{{ item.cPARM01 }}</view>
+                    <view class="demo-uni-col dark">判断结果：{{ item.IsOKName }}</view>
                   </uni-col>
                   <uni-col :span="12">
                     <!-- 定量/定性 -->
@@ -83,7 +83,7 @@
                       @click="clckType(item)"
                       style=""
                     >
-                      录入结果
+                      查看结果
                     </button>
                   </uni-col>
                 </uni-row>
