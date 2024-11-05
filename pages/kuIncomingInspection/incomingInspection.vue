@@ -612,16 +612,6 @@ const form = ref({
   res: '',
   leixing: ''
 })
-const hegedata = [
-  {
-    name: '合格',
-    value: 1
-  },
-  {
-    name: '不合格',
-    value: 0
-  }
-]
 const listData = ref([])
 //页面条数
 const pageSize = ref(10)
@@ -640,8 +630,18 @@ const Checkorange = ref([])
 //产品类型
 const Product = ref()
 const Productrange = ref([
-  { name: '合格', value: '1' },
-  { name: '不合格', value: '0' }
+  {
+    name: '整单退',
+    value: 1
+  },
+  {
+    name: '不合格退',
+    value: 0
+  },
+  {
+    name: '全部合格',
+    value: 2
+  }
 ])
 const PeofocusType = ref(false)
 onShow(() => {
