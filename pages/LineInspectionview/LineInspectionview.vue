@@ -644,6 +644,7 @@ const day = String(today.getDate()).padStart(2, '0')
 const thisDayDate = `${year}-${month}-${day}` //打印当前日期
 
 const generateTask = () => {
+  getselList5()
   Add_QualityInspection({
     cLineCode: Product2.value,
     cPersonCode: '',
@@ -856,15 +857,19 @@ const getselList4 = () => {
   })
 }
 
-console.log(year + '-' + month + '-' + day)
 const getselList5 = () => {
   console.log(Product2.value, '--Product2.value')
+  let Conditions = `cVouchTypeCode=9 && istatus in (0,1) && dDate=${thisDayDate}`
+  // 产线编码
+  if (Product2.value) {
+    Conditions += ` && cPARM23=${Product2.value}`
+  }
   let obj = {
     // cResourceTypeCode: '9',
     // cPARM23: 'CX0003',
     // // cPARM23: Product2.value,
     // dDate: thisDayDate,
-    Conditions: `cVouchTypeCode=9 && istatus in (0,1) && dDate=${thisDayDate}`
+    Conditions
   }
   GetForList5(obj).then((res) => {
     Productrange5.value = res.data
@@ -875,6 +880,7 @@ const PROchange1 = () => {
 }
 const PROchange2 = () => {
   getselList3()
+  getselList5()
 }
 const PROchange3 = () => {
   console.log(3)
