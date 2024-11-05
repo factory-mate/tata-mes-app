@@ -612,13 +612,13 @@ const getXM = async () => {
   const res = await MaterialPutDown(obj.xm)
   if (res.status == 200 && res.data.length > 0) {
     PUTinfo.value = res.data[0]
-    let hw = res.data.cWareHouseLocationCode
+    let hw = res.data[0].cWareHouseLocationCode
     // let num = res.data.nQuantity
-    let num = res.data.nSumQuinity
+    let num = res.data[0].nSumQuinity
 
     // let xm = res.data.cBarCode
-    let xm = res.data.cKeyCode
-    let cBatch = res.data.cBatch
+    let xm = res.data[0].cKeyCode
+    let cBatch = res.data[0].cBatch
     obj.hw = hw
     obj.num = num
     obj.xm = xm
@@ -633,10 +633,10 @@ const getXM = async () => {
       arrList.value.unshift(obj)
     }
     // arrList.value.unshift(obj)
-    uni.showToast({
-      icon: 'none',
-      title: res.msg
-    })
+    // uni.showToast({
+    //   icon: 'none',
+    //   title: res.msg
+    // })
     XMsearchValue.value = ''
   } else {
     uni.showToast({
