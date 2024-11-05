@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { onLoad, onShow, onHide, onPullDownRefresh, onUnload } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
-import { usePageParams } from '@/hooks'
 import { handleScan, handleRemoveScan } from '@/features/scan'
 import { OtherStorageInAPI, WareHouseAPI } from '@/api'
 import { formatTime, formatString } from '@/features/formatter'
@@ -21,14 +20,11 @@ const searchParams = ref({
 const detailData = ref({})
 
 async function getList() {
+  console.log(searchParams.value.cKeyCode)
   try {
     const {
       data: { data }
-    } = await API.getList({
-      PageIndex: pageParams.value.pageIndex,
-      PageSize: pageParams.value.pageSize,
-      Conditions: queryBuilder([{ type: 'eq', key: 'cKeyCodes', val: searchParams.value.cKeyCode }])
-    })
+    } = await API.getList(searchParams.value.cKeyCode)
     detailData.value = data[0]
   } catch (e) {
     console.log(e)
@@ -102,6 +98,7 @@ onPullDownRefresh(async () => {
               border="surround"
               clearable
               maxlength="30"
+              @confirm="getList"
             />
           </up-col>
         </up-row>
