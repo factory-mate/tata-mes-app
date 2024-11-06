@@ -32,14 +32,20 @@ async function getList() {
       PageIndex: pageParams.value.pageIndex,
       PageSize: pageParams.value.pageSize,
       conditions: queryBuilder([
-        { type: 'gt', key: 'Rest_nQuantity', val: 0 }
-        // {
-        //   type: '',
-        //   key: ''
-        // }
+        { type: 'gt', key: 'Rest_nQuantity', val: 0 },
+        {
+          type: 'eq',
+          key: 'cCode',
+          val: searchParams.value.code
+        },
+        {
+          type: 'eq',
+          key: 'cInvCode',
+          val: searchParams.value.cInvCode
+        }
       ])
     })
-    listData.value = [...listData, ...data]
+    listData.value = [...listData.value, ...data]
     setPageInfo({ dataCount, pageCount })
     uni.hideLoading()
     uni.stopPullDownRefresh()
@@ -59,7 +65,7 @@ function print(data) {
   printer.printText({ content: '箱码：' + (data?.cKeyCode ?? '') + '\r\n' })
   printer.printText({ content: '物料编码：' + (data?.cInvCode ?? '') + '\r\n' })
   printer.printText({ content: '物料名称：' + (data?.cInvName ?? '') + '\r\n' })
-  printer.printText({ content: '数量：' + (data?.nSumQuinity ?? '') + '\r\n' })
+  printer.printText({ content: '数量：' + (data?.Rest_nQuantity ?? '') + '\r\n' })
   printer.printText({ content: '物料规格：' + (data?.cInvStd ?? '') + '\r\n' })
   printer.printText({ content: '批次号：' + (data?.cBatch ?? '') + '\r\n' })
   printer.printText({ content: '生产日期：' + (data?.dProductDay ?? '') + '\r\n' })
@@ -85,6 +91,11 @@ function resetPageParams() {
   clearPageParams()
   clearPageInfo()
   listData.value = []
+}
+
+function handleSearch() {
+  listData.value = []
+  getList()
 }
 
 onLoad(() => {
@@ -113,6 +124,84 @@ onPullDownRefresh(async () => {
       :titleStyle="{ color: 'white' }"
       autoBack
     />
+
+    <view class="container">
+      <up-list :height="`calc(100vh - ${height + 20}px)`">
+        <view class="fix-area">
+          <up-row justify="space-between">
+            <up-col span="3">到货单号：</up-col>
+            <up-col span="9">
+              <up-input
+                v-model="searchParams.code"
+                type="number"
+                placeholder=""
+                border="surround"
+                clearable
+              />
+            </up-col>
+          </up-row>
+
+          <up-gap height="8" />
+
+          <up-row justify="space-between">
+            <up-col span="3">物料编码：</up-col>
+            <up-col span="9">
+              <up-input
+                v-model="searchParams.cInvCode"
+                type="number"
+                placeholder=""
+                border="surround"
+                clearable
+              />
+            </up-col>
+          </up-row>
+
+          <up-gap height="8" />
+
+          <up-row justify="end">
+            <up-col span="2">
+              <up-button
+                type="error"
+                size="small"
+                text="搜索"
+                @click="handleSearch"
+              />
+            </up-col>
+          </up-row>
+        </view>
+
+        <view style="padding-top: 140px">
+          <up-list-item
+            v-for="(item, index) in listData"
+            :key="index"
+          >
+            <up-row justify="space-between">
+              <up-col span="6"> 序号：{{ index + 1 }} </up-col>
+              <up-col span="6"> 箱码：{{ item.cBarCode }} </up-col>
+            </up-row>
+            <up-row justify="space-between">
+              <up-col span="6"> 物料编码：{{ item.cInvCode }} </up-col>
+              <up-col span="6"> 物料名称：{{ item.cInvName }} </up-col>
+            </up-row>
+            <up-row justify="space-between">
+              <up-col span="6"> 数量：{{ item.Rest_nQuantity }} </up-col>
+            </up-row>
+            <up-gap height="12" />
+            <up-row justify="flex-end">
+              <view style="display: flex; align-items: flex-end; gap: 8px">
+                <up-button
+                  text="打印"
+                  type="error"
+                  size="small"
+                  @click="print(item)"
+                />
+              </view>
+            </up-row>
+            <up-divider />
+          </up-list-item>
+        </view>
+      </up-list>
+    </view>
   </view>
 </template>
 
