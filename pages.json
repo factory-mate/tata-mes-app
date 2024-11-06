@@ -457,11 +457,11 @@
       "path": "pages/InSendPDA/InSendPDA",
       "style": {
         "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-        // "enablePullDownRefresh": true,
-        // "onPullDownRefresh":true,
-        // "onReachBottom": true,
-        // "onReachBottomDistance": 50
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
       }
     },
     {
@@ -477,6 +477,17 @@
     },
     {
       "path": "pages/InSendPDA/ReturnReapir",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
+        // "enablePullDownRefresh": true,
+        // "onPullDownRefresh":true,
+        // "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/InSendPDA/detail",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom",

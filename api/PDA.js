@@ -302,12 +302,20 @@ export function SaveReportError(data) {
   })
 }
 
+export function RepairVouchList(data) {
+  return service({
+    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetForPage',
+    method: 'POST',
+    data
+  })
+}
+
 //内返PDA
 
 //获取异常列表
 export function ErrorList(data) {
   return service({
-    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetError',
+    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetErrorForPage',
     method: 'POST',
     data
   })
@@ -727,6 +735,22 @@ export function PDAClose(data) {
   return service({
     url: URLIP.BASE_URL_PDEVICE + '/api/device_RepairVouch/Close',
     method: 'POST',
+    data
+  })
+}
+
+export function RepairVouchVerify(data) {
+  return service({
+    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/Verify',
+    method: 'POST',
+    data
+  })
+}
+
+export function RepairVouchGetDetail(data) {
+  return service({
+    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetRepairDetail',
+    method: 'GET',
     data
   })
 }

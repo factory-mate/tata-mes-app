@@ -10,73 +10,12 @@
       @clickLeft="clickLeft"
     />
     <view>
-      <view>
-        <view
-          style="display: flex; align-items: center; margin-top: 4px"
-          v-if="false"
-        >
-          <view style="width: 80px">申报日期：</view>
-          <view style="flex: 1">
-            <uni-datetime-picker
-              v-model="form.date"
-              type="day"
-              @change=""
-            />
-          </view>
-        </view>
-        <view
-          style="display: flex; align-items: center; margin-top: 4px"
-          v-if="false"
-        >
-          <view style="width: 80px">申报人：</view>
-          <view style="flex: 1">
-            <up-input
-              v-model="form.user"
-              placeholder="请输入申报人"
-            />
-          </view>
-        </view>
-        <view
-          style="display: flex; align-items: center; margin-top: 4px"
-          v-if="false"
-        >
-          <view style="width: 80px">加工码：</view>
-          <view style="flex: 1">
-            <up-input
-              v-model="form.code"
-              placeholder="请输入加工码"
-            />
-          </view>
-        </view>
-        <view class="form_sty_item">
-          <button
-            class="mini-btn"
-            style="
-              margin-left: 10rpx;
-              margin-top: 10rpx;
-              margin-right: 10rpx;
-              color: black;
-              backgroundcolor: #ffff7f;
-              bordercolor: #ffff7f;
-            "
-            type="warn"
-            size="mini"
-            @click="search()"
-          >
-            刷新
-          </button>
-          <button
-            v-if="false"
-            class="mini-btn"
-            style="margin-top: 4px; color: black; backgroundcolor: #aaaa7f; bordercolor: #aaaa7f"
-            type="warn"
-            size="mini"
-            @click="reset()"
-          >
-            重置
-          </button>
-        </view>
-      </view>
+      <up-tabs
+        :list="[{ name: '待处理' }, { name: '待审核' }, { name: '已处理' }]"
+        :scrollable="false"
+        :current="currentTabIndex"
+        @click="onClickTabItem"
+      ></up-tabs>
 
       <view
         class="listMain"
@@ -84,7 +23,7 @@
       >
         <view
           class="project"
-          v-for="(item, index) in DataList"
+          v-for="(item, index) in listData"
           :key="index"
         >
           <uni-row class="demo-uni-row">
@@ -118,20 +57,20 @@
               <view class="demo-uni-col dark">单序号：{{ item.iOrderIndex }}</view>
             </uni-col>
             <uni-col :span="8">
-              <view class="demo-uni-col dark">总序号：{{ item.iIndx }}</view>
+              <view class="demo-uni-col dark">总序号：{{ item.S_S_S_iIndex }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="6">
-              <view class="demo-uni-col dark">材质：{{ item.cDefindParm01 }}</view>
+              <view class="demo-uni-col dark">材质：{{ item.cDynamicsParm06 }}</view>
             </uni-col>
             <uni-col :span="16">
-              <view class="demo-uni-col dark">尺寸：{{ item.X }} *{{ item.Y }}*{{ item.Z }}</view>
+              <view class="demo-uni-col dark">尺寸：{{ item.X }}*{{ item.Y }}*{{ item.Z }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="8">
-              <view class="demo-uni-col dark">面板分号：{{ item.cDefindParm05 }}</view>
+              <view class="demo-uni-col dark">面板分号：{{ item.cBOMDefindParm13 }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
@@ -151,6 +90,7 @@
           </uni-row>
           <view class="Two-btn">
             <button
+              v-if="currentTabIndex == 0"
               class="mini-btn"
               style="background-color: blue"
               type="warn"
@@ -160,6 +100,7 @@
               返修
             </button>
             <button
+              v-if="currentTabIndex == 0"
               class="mini-btn"
               style="background-color: green"
               type="warn"
@@ -167,6 +108,36 @@
               @click="Close(item)"
             >
               关闭
+            </button>
+            <button
+              v-if="currentTabIndex === 1"
+              class="mini-btn"
+              style="background-color: blue"
+              type="warn"
+              size="mini"
+              @click="handleAudit(item)"
+            >
+              审核
+            </button>
+            <button
+              v-if="currentTabIndex === 1"
+              class="mini-btn"
+              style="background-color: blue"
+              type="warn"
+              size="mini"
+              @click="handleRevoke(item)"
+            >
+              驳回
+            </button>
+            <button
+              v-if="currentTabIndex !== 0"
+              class="mini-btn"
+              style="background-color: green"
+              type="warn"
+              size="mini"
+              @click="goToDetail(item)"
+            >
+              详情
             </button>
           </view>
         </view>
@@ -177,51 +148,80 @@
 
 <script setup>
 import { ref } from 'vue'
-import { onLoad, onShow } from '@dcloudio/uni-app'
-import { ErrorList, ErrorListClose } from '@/api/PDA.js'
+import { onLoad, onShow, onPullDownRefresh } from '@dcloudio/uni-app'
+import { usePageParams } from '@/hooks'
+import { ErrorList, ErrorListClose, RepairVouchList, RepairVouchVerify } from '@/api/PDA.js'
 const h = ref('100')
 const title = ref('内返PDA')
-//加载页面
-onLoad((option) => {
-  h.value = uni.getSystemInfoSync().windowHeight
-})
-onShow(() => {
-  AjaxData()
-})
-const form = ref({
-  date: '',
-  code: '',
-  user: ''
-})
+const currentTabIndex = ref(0)
 
-const reset = () => {
-  form.value = {
-    date: '',
-    code: '',
-    user: ''
-  }
+const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
+  usePageParams()
+
+function resetPageParams() {
+  clearPageParams()
+  clearPageInfo()
+  listData.value = []
 }
 
-const search = () => {
-  AjaxData()
-}
+const listData = ref([])
 
-let DataList = ref([])
 //异常列表
-const AjaxData = async () => {
-  uni.showLoading({
-    title: '加载中'
-  })
-  const res = await ErrorList()
-  if (res.status == 200) {
+const fetchList = async () => {
+  uni.showLoading({ title: '加载中' })
+  try {
+    const account = uni.getStorageSync('account') ?? null
+    let resData = []
+    let pc = 0
+    let dc = 0
+    if (currentTabIndex.value == 0) {
+      const {
+        data: { data },
+        dataCount,
+        pageCount
+      } = await ErrorList({
+        PageIndex: pageParams.value.pageIndex,
+        PageSize: pageParams.value.pageSize
+      })
+      resData = data
+      pc = pageCount
+      dc = dataCount
+    } else if (currentTabIndex.value == 1) {
+      const {
+        data: { data },
+        dataCount,
+        pageCount
+      } = await RepairVouchList({
+        PageIndex: pageParams.value.pageIndex,
+        PageSize: pageParams.value.pageSize,
+        Conditions: 'iStatus=0'
+        // && cVerifyUser=' + account.cLoginName
+      })
+      resData = data
+      pc = pageCount
+      dc = dataCount
+    } else if (currentTabIndex.value == 2) {
+      const {
+        data: { data },
+        dataCount,
+        pageCount
+      } = await RepairVouchList({
+        PageIndex: pageParams.value.pageIndex,
+        PageSize: pageParams.value.pageSize,
+        Conditions: 'iStatus=1'
+      })
+      resData = data
+      pc = pageCount
+      dc = dataCount
+    }
+    console.log(resData)
+    listData.value = [...listData.value, ...resData]
+    setPageInfo({ dataCount: dc, pageCount: pc })
     uni.hideLoading()
-    DataList.value = res.data
-  } else {
+    uni.stopPullDownRefresh()
+  } catch (e) {
+    console.log(e)
     uni.hideLoading()
-    uni.showToast({
-      icon: 'none',
-      title: res.errmsg
-    })
   }
 }
 
@@ -247,7 +247,7 @@ const Close = async (i) => {
       icon: 'none',
       title: res.msg
     })
-    AjaxData()
+    fetchList()
   } else {
     uni.showToast({
       icon: 'none',
@@ -255,6 +255,75 @@ const Close = async (i) => {
     })
   }
 }
+
+const onClickTabItem = (item) => {
+  currentTabIndex.value = item.index
+  resetPageParams()
+  fetchList()
+}
+
+const handleAudit = async (item) => {
+  uni.showLoading({ title: '处理中' })
+  const res = await RepairVouchVerify({
+    bOK: true,
+    UID: item.UID
+  })
+  if (res.success) {
+    uni.showToast({
+      title: '操作成功',
+      icon: 'success'
+    })
+  } else {
+    uni.showToast({
+      title: '操作失败',
+      icon: 'none'
+    })
+  }
+  uni.hideLoading()
+  fetchList()
+}
+
+const handleRevoke = async (item) => {
+  uni.showLoading({ title: '处理中' })
+  const res = await RepairVouchVerify({
+    bOK: false,
+    UID: item.UID
+  })
+  if (res.success) {
+    uni.showToast({
+      title: '操作成功',
+      icon: 'success'
+    })
+  } else {
+    uni.showToast({
+      title: '操作失败',
+      icon: 'none'
+    })
+  }
+  uni.hideLoading()
+  fetchList()
+}
+
+const goToDetail = (i) => {
+  uni.navigateTo({
+    url: '/pages/InSendPDA/detail?itemInfo=' + JSON.stringify(i)
+  })
+}
+
+//加载页面
+onLoad((option) => {
+  h.value = uni.getSystemInfoSync().windowHeight
+})
+onShow(() => {
+  listData.value = []
+  fetchList()
+})
+
+onPullDownRefresh(async () => {
+  resetPageParams()
+  await fetchList()
+  uni.stopPullDownRefresh()
+})
 </script>
 
 <style scoped lang="scss">
@@ -286,7 +355,7 @@ const Close = async (i) => {
       }
       .Two-btn {
         display: flex;
-        margin-left: 50%;
+        justify-content: flex-end;
         .mini-btn {
           margin: 10px 5px;
         }
