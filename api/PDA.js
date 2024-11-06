@@ -674,6 +674,14 @@ export function getRepairList(data) {
   })
 }
 
+export function getRepairListByUser(data) {
+  return service({
+    url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/GetForPageByUser',
+    method: 'POST',
+    data
+  })
+}
+
 //指派
 export function Assign(data) {
   return service({

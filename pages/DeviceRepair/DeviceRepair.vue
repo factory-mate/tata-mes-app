@@ -417,7 +417,7 @@ import {
   GetFaultList,
   GetFaultLists,
   getDevList,
-  getRepairList,
+  getRepairListByUser,
   getDevListPage,
   DeviceFalutVouchClose,
   factory_position_resource_page
@@ -793,7 +793,7 @@ const getForPage = () => {
   uni.showLoading({
     title: '加载中......'
   })
-  getRepairList({
+  getRepairListByUser({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
     OrderByFileds: '',
