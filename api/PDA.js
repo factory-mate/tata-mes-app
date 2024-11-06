@@ -968,3 +968,11 @@ export function factory_position_resource_page(data) {
     data
   })
 }
+
+export function GetUserList(data) {
+  return service({
+    url: URLIP.BASE_URL_LOGO + '/api/User/GetForPage',
+    method: 'POST',
+    data
+  })
+}

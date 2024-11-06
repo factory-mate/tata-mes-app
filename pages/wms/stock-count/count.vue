@@ -81,6 +81,14 @@ const handleConfirm = () => {
     setFocus()
     return
   }
+  if (!inputData.value.hw) {
+    uni.showToast({
+      title: '请填写货位',
+      icon: 'none'
+    })
+    setFocus()
+    return
+  }
   if (!inputData.value.num) {
     uni.showToast({
       title: '请填写数量',
@@ -92,7 +100,9 @@ const handleConfirm = () => {
   listData.value.push({
     nQuantity: inputData.value.num,
     cInvCode: materialData.value.cInvCode,
-    cInvName: materialData.value.cInvName
+    cInvName: materialData.value.cInvName,
+    cKeyCode: materialData.value.cKeyCode,
+    hw: inputData.value.hw
   })
   resetInputData()
   setFocus()
@@ -184,6 +194,21 @@ onPullDownRefresh(async () => {
           <up-gap height="8" />
 
           <up-row justify="space-between">
+            <up-col span="3">货位：</up-col>
+            <up-col span="9">
+              <up-input
+                v-model="inputData.hw"
+                type="number"
+                placeholder=""
+                border="surround"
+                clearable
+              />
+            </up-col>
+          </up-row>
+
+          <up-gap height="8" />
+
+          <up-row justify="space-between">
             <up-col span="3">数量：</up-col>
             <up-col span="9">
               <up-input
@@ -218,7 +243,7 @@ onPullDownRefresh(async () => {
           <up-gap height="8" />
         </view>
 
-        <view style="padding-top: 180px">
+        <view style="padding-top: 240px">
           <up-list-item
             v-for="(item, index) in listData"
             :key="index"
@@ -230,6 +255,10 @@ onPullDownRefresh(async () => {
             <up-row justify="space-between">
               <up-col span="6"> 物料名称：{{ item.cInvName }} </up-col>
               <up-col span="6"> 数量：{{ item.nQuantity }} </up-col>
+            </up-row>
+            <up-row justify="space-between">
+              <up-col span="6"> 箱码：{{ item.cKeyCode }} </up-col>
+              <up-col span="6"> 货位：{{ item.hw }} </up-col>
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">

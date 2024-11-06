@@ -149,6 +149,26 @@
                   </view>
                 </uni-col>
               </uni-row>
+
+              <uni-row
+                class="demo-uni-row"
+                v-if="cDictonaryCode == '3'"
+              >
+                <uni-col :span="6">
+                  <view class="demo-uni-col dark">审核人： </view>
+                </uni-col>
+                <uni-col :span="16">
+                  <view class="demo-uni-col dark">
+                    <uni-combox
+                      :candidates="auditUsersCandidates"
+                      placeholder="请选择审核人"
+                      v-model="auditUser"
+                      @input="onAuditUserInput"
+                    ></uni-combox>
+                  </view>
+                </uni-col>
+              </uni-row>
+
               <uni-row class="demo-uni-row">
                 <uni-col :span="6">
                   <view class="demo-uni-col dark">返修备注： </view>
@@ -167,7 +187,7 @@
           </view>
         </view>
       </view>
-      <view v-if="current === 1">
+      <view v-show="current === 1">
         <view
           class="listMain"
           :style="'height:' + (h - 160) + 'px'"
@@ -227,7 +247,14 @@ import {
   onReachBottom,
   onPullDownRefresh
 } from '@dcloudio/uni-app'
-import { GetPicList, GetClassify, GetRoute, GetRouteSave, GetReason } from '@/api/PDA.js'
+import {
+  GetPicList,
+  GetClassify,
+  GetRoute,
+  GetRouteSave,
+  GetReason,
+  GetUserList
+} from '@/api/PDA.js'
 import DaTree from '@/components/da-tree/index.vue'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
@@ -253,6 +280,9 @@ const LineArr = ref([])
 const SaveAtate = ref(false)
 const showPopup = ref(false)
 const DaModalTreeRef = ref()
+const auditUsers = ref([])
+const auditUsersCandidates = ref([])
+const auditUser = ref('')
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -266,6 +296,8 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+
+  getUsers()
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -448,6 +480,10 @@ const getLineName = () => {
 //保存
 const SaveEdit = async () => {
   getLineName()
+  const auditUserCode = auditUsers.value.find(
+    (item) => item.cUserName == auditUser.value
+  )?.cLoginName
+  console.log(auditUserCode)
   const res = await GetRouteSave({
     S_S_S_uid: ItemInfo.value.S_S_S_uid,
     cRepairTypeCode: TypeCode.value, //返修类型code
@@ -456,7 +492,7 @@ const SaveEdit = async () => {
     cRepairReasonTypeName: ReasonName.value.label, //返修原因name
     list_Process: LineArr.value
   })
-  if (res.status == 200) {
+  if (res.success) {
     uni.showToast({
       icon: 'none',
       title: '保存成功'
@@ -548,6 +584,26 @@ const handleModalExpandChange = (expand, currentItem) => {
     DaModalTreeRef.value.setExpandedKeys('all', false)
   }
   DaModalTreeRef.value.setExpandedKeys([currentItem.key], expand)
+}
+
+async function getUsers(name) {
+  let Conditions = ''
+  if (name) {
+    Conditions = 'cUserName like ' + name
+  }
+  const {
+    data: { data }
+  } = await GetUserList({
+    PageSize: 10,
+    PageIndex: 1,
+    Conditions
+  })
+  auditUsers.value = data
+  auditUsersCandidates.value = data.map((item) => item.cUserName)
+}
+
+function onAuditUserInput() {
+  getUsers(auditUser.value)
 }
 </script>
 
