@@ -351,7 +351,6 @@ const clickCai = () => {
           res.data.forEach((i) => printItem(i))
         }
         getXiangMa()
-        getList()
       } else {
         uni.showToast({
           icon: 'error',
