@@ -220,7 +220,7 @@
                 <view class="demo-uni-col dark">物料编码：{{ OutInfo.cInvCode }}</view>
               </uni-col>
               <uni-col :span="6">
-                <view class="demo-uni-col dark"></view>
+                <view class="demo-uni-col dark">数量：{{ OutInfo.RestQuantity }}</view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
@@ -372,6 +372,14 @@
         </view>
       </view>
     </view>
+    <up-modal
+      :show="showModal"
+      title="操作确认"
+      content="数量已超是否继续"
+      @confirm="onConfirmModal"
+      @cancel="onCancelModal"
+      @close="onCloseModal"
+    ></up-modal>
   </view>
 </template>
 
@@ -397,6 +405,7 @@ import {
   MaterialPutDown,
   OutList
 } from '@/api/PDA.js'
+const showModal = ref(false)
 const h = ref('100') //页面高度
 const more = ref('more') //加载更多
 const WsearchValue = ref('') //仓库输入框
@@ -602,6 +611,60 @@ const OutWare = (i) => {
 //箱码输入框验证箱码
 const PUTinfo = ref({})
 
+const onConfirmModal = () => {
+  let arr = XMsearchValue.value.split('|')
+  let obj = {
+    xm: arr[0] || '',
+    cCode: arr[1] || '',
+    num: arr[2] || ''
+  }
+
+  const res = await MaterialPutDown(obj.xm)
+  if (res.status == 200 && res.data.length > 0) {
+    PUTinfo.value = res.data[0]
+    let hw = res.data[0].cWareHouseLocationCode
+    // let num = res.data.nQuantity
+    let num = res.data[0].nSumQuinity
+
+    // let xm = res.data.cBarCode
+    let xm = res.data[0].cKeyCode
+    let cBatch = res.data[0].cBatch
+    obj.hw = hw
+    obj.num = num
+    obj.xm = xm
+    if (arrList.value.length) {
+      arrList.value.some((item) => item.xm == obj.xm)
+        ? uni.showToast({
+            icon: 'none',
+            title: '该箱码已扫描，请重新扫描箱码'
+          })
+        : arrList.value.unshift(obj)
+    } else {
+      arrList.value.unshift(obj)
+    }
+    // arrList.value.unshift(obj)
+    // uni.showToast({
+    //   icon: 'none',
+    //   title: res.msg
+    // })
+    XMsearchValue.value = ''
+  } else {
+    uni.showToast({
+      icon: 'none',
+      title: res.errmsg[0].Value || '没有库存'
+    })
+    XMsearchValue.value = ''
+  }
+}
+
+const onCancelModal = () => {
+  showModal.value = false
+}
+
+const onCloseModal = () => {
+  showModal.value = false
+}
+
 const getXM = async () => {
   let arr = XMsearchValue.value.split('|')
   let obj = {
@@ -609,6 +672,17 @@ const getXM = async () => {
     cCode: arr[1] || '',
     num: arr[2] || ''
   }
+  if (arrList.value.length) {
+    let sum = 0
+    arrList.value.forEach((item) => {
+      sum += item.num
+    })
+    if (sum + obj.num > OutInfo.value.RestQuantity) {
+      showModal.value = true
+      return
+    }
+  }
+
   const res = await MaterialPutDown(obj.xm)
   if (res.status == 200 && res.data.length > 0) {
     PUTinfo.value = res.data[0]
