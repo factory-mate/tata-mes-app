@@ -280,6 +280,7 @@ const handleAudit = async (item) => {
     })
   }
   uni.hideLoading()
+  listData.value = []
   fetchList()
 }
 
@@ -301,6 +302,7 @@ const handleRevoke = async (item) => {
     })
   }
   uni.hideLoading()
+  listData.value = []
   fetchList()
 }
 
