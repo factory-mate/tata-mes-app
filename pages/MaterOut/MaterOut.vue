@@ -611,7 +611,7 @@ const OutWare = (i) => {
 //箱码输入框验证箱码
 const PUTinfo = ref({})
 
-const onConfirmModal = () => {
+const onConfirmModal = async () => {
   let arr = XMsearchValue.value.split('|')
   let obj = {
     xm: arr[0] || '',
