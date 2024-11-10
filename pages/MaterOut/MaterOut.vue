@@ -376,6 +376,8 @@
       :show="showModal"
       title="操作确认"
       content="数量已超是否继续"
+      cancelText="取消"
+      showCancelButton
       @confirm="onConfirmModal"
       @cancel="onCancelModal"
       @close="onCloseModal"
@@ -600,7 +602,8 @@ const OutWare = (i) => {
   let obj = {
     cCode: cCode.value,
     cInvCode: i.cInvCode,
-    cInvName: i.cInvName
+    cInvName: i.cInvName,
+    RestQuantity: i.RestQuantity
   }
   OutInfo.value = obj
   current.value = 1
@@ -655,6 +658,7 @@ const onConfirmModal = async () => {
     })
     XMsearchValue.value = ''
   }
+  showModal.value = false
 }
 
 const onCancelModal = () => {
@@ -666,24 +670,18 @@ const onCloseModal = () => {
 }
 
 const getXM = async () => {
-  let arr = XMsearchValue.value.split('|')
-  let obj = {
-    xm: arr[0] || '',
-    cCode: arr[1] || '',
-    num: arr[2] || ''
-  }
-  if (arrList.value.length) {
-    let sum = 0
-    arrList.value.forEach((item) => {
-      sum += item.num
-    })
-    if (sum + obj.num > OutInfo.value.RestQuantity) {
-      showModal.value = true
-      return
-    }
+  const res = await MaterialPutDown(XMsearchValue.value)
+
+  let sum = 0
+  arrList.value.forEach((item) => {
+    sum += item.num
+  })
+  sum += res.data[0].nSumQuinity
+  if (sum > OutInfo.value.RestQuantity) {
+    showModal.value = true
+    return
   }
 
-  const res = await MaterialPutDown(obj.xm)
   if (res.status == 200 && res.data.length > 0) {
     PUTinfo.value = res.data[0]
     let hw = res.data[0].cWareHouseLocationCode
