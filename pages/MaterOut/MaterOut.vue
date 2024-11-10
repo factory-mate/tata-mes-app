@@ -615,14 +615,7 @@ const OutWare = (i) => {
 const PUTinfo = ref({})
 
 const onConfirmModal = async () => {
-  let arr = XMsearchValue.value.split('|')
-  let obj = {
-    xm: arr[0] || '',
-    cCode: arr[1] || '',
-    num: arr[2] || ''
-  }
-
-  const res = await MaterialPutDown(obj.xm)
+  const res = await MaterialPutDown(XMsearchValue.value)
   if (res.status == 200 && res.data.length > 0) {
     PUTinfo.value = res.data[0]
     let hw = res.data[0].cWareHouseLocationCode
@@ -632,6 +625,7 @@ const onConfirmModal = async () => {
     // let xm = res.data.cBarCode
     let xm = res.data[0].cKeyCode
     let cBatch = res.data[0].cBatch
+    let obj = {}
     obj.hw = hw
     obj.num = num
     obj.xm = xm
@@ -691,6 +685,7 @@ const getXM = async () => {
     // let xm = res.data.cBarCode
     let xm = res.data[0].cKeyCode
     let cBatch = res.data[0].cBatch
+    let obj = {}
     obj.hw = hw
     obj.num = num
     obj.xm = xm
