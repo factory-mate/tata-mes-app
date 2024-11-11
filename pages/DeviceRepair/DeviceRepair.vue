@@ -96,10 +96,10 @@
             </view>
             <uni-row class="demo-uni-row">
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备编码：{{ DevData?.cDeviceCode }}</view>
+                <view class="demo-uni-col dark">设备编码：{{ DevData?.cResourceCode }}</view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备名称：{{ DevData?.cDeviceName }}</view>
+                <view class="demo-uni-col dark">设备名称：{{ DevData?.cResourceName }}</view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
@@ -120,7 +120,7 @@
                 </view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备位置：{{ DevData.cStoreAddress }}</view>
+                <view class="demo-uni-col dark">设备位置：{{ DevData.cPositionCode }}</view>
               </uni-col>
             </uni-row>
             <view
@@ -624,6 +624,7 @@ const ChoseDevData = (i) => {
   showRight.value.close()
   DevName.value = i.cResourceName //选择设备回显输入框
   DevData.value = i
+  console.log(i)
   GetSelect()
 }
 //设备搜索
@@ -664,12 +665,12 @@ const GetData = () => {
 }
 //获取下故障拉数据（设备存在为前提）
 const GetSelect = () => {
-  if (!DevData.value?.cDeviceCode) {
+  if (!DevData.value?.cResourceCode) {
     return
   }
   GetFaultLists({
     OrderByFileds: '',
-    Conditions: `cDeviceCode=${DevData.value?.cDeviceCode}`
+    Conditions: `cDeviceCode=${DevData.value?.cResourceCode}`
   }).then((res) => {
     if (res.status == 200) {
       Faurange.value = res.data.map((i) => {
