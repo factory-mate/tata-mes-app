@@ -17,7 +17,9 @@ const URLIP = {
   BASE_URL_PDAIN: 'http://171.13.38.93:10100', //测试地址1
   BASE_URL_PDEVICE: 'http://171.13.38.93:10700', //测试地址
   BASE_URL_TOOL: 'http://171.13.38.93:10800',
-  BASE_URL_Quantity: 'http://171.13.38.93:11200' //QC
+  BASE_URL_Quantity: 'http://171.13.38.93:11200', //QC
+  APP_UPGRADE_URL: 'http://171.13.38.94:84',
+  ENV: CURRENT_ENV
 }
 
 if (CURRENT_ENV === 'prod') {

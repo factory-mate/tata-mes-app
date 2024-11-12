@@ -22,7 +22,7 @@
     <span
       style="color: white; position: absolute; bottom: 8px; left: 0; right: 0; font-size: smaller"
     >
-      当前版本：9.2 10:00
+      当前版本：{{ version }}
     </span>
   </view>
 </template>
@@ -33,6 +33,7 @@ import { onLoad, onShow } from '@dcloudio/uni-app'
 
 const userName = ref('')
 const h = ref(100)
+const version = ref('')
 
 const logout = () => {
   uni.removeStorageSync('token')
@@ -44,6 +45,14 @@ onShow(() => {
   userName.value = uni.getStorageSync('User')?.UserName ?? ''
   h.value = uni.getSystemInfoSync().windowHeight
   // uni.navigateTo({ url: '/pages/test/print/index' })
+
+  const systemInfo = uni.getSystemInfoSync()
+  // #ifdef APP
+  version.value = systemInfo.appWgtVersion
+  // #endif
+  // #ifdef H5
+  version.value = systemInfo.appVersion
+  // #endif
 })
 
 onLoad(() => {})

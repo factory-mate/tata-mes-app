@@ -1,7 +1,38 @@
 <script>
+import URLIP from '@/utils/serviceIP.js'
 export default {
   onLaunch: function () {
     uni.setStorageSync('unit', uni.getDeviceInfo())
+    // #ifdef APP-PLUS
+    plus.runtime.getProperty(plus.runtime.appid, function (widgetInfo) {
+      uni.request({
+        url: `${URLIP.APP_UPGRADE_URL}/${URLIP.env}/version.json`,
+        success: (res) => {
+          const { version, url } = res.data
+          if (widgetInfo.version != version) {
+            uni.downloadFile({
+              url,
+              success: (downloadResult) => {
+                if (downloadResult.statusCode === 200) {
+                  plus.runtime.install(
+                    downloadResult.tempFilePath,
+                    { force: false },
+                    function () {
+                      console.log('install success...')
+                      plus.runtime.restart()
+                    },
+                    function (e) {
+                      console.error('install fail...')
+                    }
+                  )
+                }
+              }
+            })
+          }
+        }
+      })
+    })
+    // #endif
   },
   onShow: function () {},
   onHide: function () {}
