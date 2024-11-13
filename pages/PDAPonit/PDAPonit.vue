@@ -22,30 +22,35 @@
     </view>
     <view
       class="search-wl"
-      style="display: flex; align-items: center"
+      style="display: flex; flex-direction: column; gap: 4px"
     >
       <!-- 搜索框 -->
-      <input
-        class="inputSty"
+      <up-input
         v-model="searchValue"
         placeholder="请输入设备"
-        placeholder-style="font-size:12px"
       />
-      <button
-        class="mini-btn"
-        style="
-          color: black;
-          backgroundcolor: #e8e873;
-          bordercolor: #e8e873;
-          width: 20%;
-          height: 30px;
-        "
-        type="warn"
-        size="mini"
-        @click="getSearch"
-      >
-        搜索
-      </button>
+      <up-input
+        v-if="current === 1"
+        v-model="searchUserValue"
+        placeholder="请输入指派人员"
+      />
+      <div>
+        <button
+          class="mini-btn"
+          style="
+            color: black;
+            backgroundcolor: #e8e873;
+            bordercolor: #e8e873;
+            width: 20%;
+            height: 30px;
+          "
+          type="warn"
+          size="mini"
+          @click="getSearch"
+        >
+          搜索
+        </button>
+      </div>
     </view>
     <view class="content">
       <view v-if="current === 0">
@@ -233,6 +238,7 @@ const title = ref('维修指派')
 const xmdis = ref(true)
 const disabled = ref(false)
 const searchValue = ref() //待点检输入框
+const searchUserValue = ref('')
 const HWsearchValue = ref('') //货位输入框
 const current = ref(0)
 const styleType = ref('button')
@@ -345,14 +351,23 @@ const getSearch = () => {
   uni.showLoading({
     title: '加载中'
   })
+  let Conditions = []
+  if (current.value === 0) {
+    Conditions.push(`cPARM04=0`)
+  } else {
+    Conditions.push(`cPARM04=1`)
+  }
+  if (searchValue.value) {
+    Conditions.push(`cDeviceName like ${searchValue.value}`)
+  }
+  if (current.value == 1 && searchUserValue.value) {
+    Conditions.push(`cPARM06 like ${searchUserValue.value}`)
+  }
   getRepairList({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
     OrderByFileds: '',
-    Conditions:
-      current.value == 0
-        ? `cPARM04=0 ${searchValue.value ? '&& cDeviceName like ' + searchValue.value : ''}`
-        : `cPARM04=1 ${searchValue.value ? '&& cDeviceName like ' + searchValue.value : ''}`
+    Conditions: Conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       DevList.value = [...DevList.value, ...res.data.data]
