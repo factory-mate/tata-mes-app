@@ -30,6 +30,7 @@
 <script setup>
 import { ref } from 'vue'
 import { onLoad, onShow } from '@dcloudio/uni-app'
+import URLIP from '@/utils/serviceIP.js'
 
 const userName = ref('')
 const h = ref(100)
@@ -39,6 +40,56 @@ const logout = () => {
   uni.removeStorageSync('token')
   uni.removeStorageSync('account')
   uni.reLaunch({ url: '/pages/login/login' })
+}
+
+function handleUpgradeApp() {
+  if (URLIP.ENV === 'local') {
+    return
+  }
+  // #ifdef APP-PLUS
+  plus.runtime.getProperty(plus.runtime.appid, function (widgetInfo) {
+    uni.request({
+      url: `${URLIP.APP_UPGRADE_URL}/${URLIP.ENV}/version.json`,
+      success: (res) => {
+        const { version, url } = res.data
+        console.log(version, widgetInfo.version)
+        if (widgetInfo.version != version) {
+          console.log(`${URLIP.APP_UPGRADE_URL}/${URLIP.ENV}/${url}`)
+          uni.showLoading({
+            title: '正在下载更新包'
+          })
+          uni.downloadFile({
+            url: `${URLIP.APP_UPGRADE_URL}/${URLIP.ENV}/${url}`,
+            success: (downloadResult) => {
+              console.log(downloadResult)
+              if (downloadResult.statusCode === 200) {
+                plus.runtime.install(
+                  downloadResult.tempFilePath,
+                  { force: true },
+                  function () {
+                    console.log('install success...')
+                    plus.runtime.restart()
+                  },
+                  function (e) {
+                    console.error('install fail...')
+                    console.log(e)
+                  }
+                )
+              }
+            },
+            fail: (downloadResult) => {
+              console.log(downloadResult)
+            },
+            complete: (downloadResult) => {
+              console.log(downloadResult)
+              uni.hideLoading()
+            }
+          })
+        }
+      }
+    })
+  })
+  // #endif
 }
 
 onShow(() => {
@@ -53,6 +104,8 @@ onShow(() => {
   // #ifdef H5
   version.value = systemInfo.appVersion
   // #endif
+  handleUpgradeApp()
+  console.log(version.value)
 })
 
 onLoad(() => {})

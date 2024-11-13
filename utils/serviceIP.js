@@ -1,4 +1,4 @@
-const CURRENT_ENV = 'test'
+const CURRENT_ENV = 'local'
 
 const URLIP = {
   BASE_URL_LOGO: 'http://171.13.38.93:8888',
