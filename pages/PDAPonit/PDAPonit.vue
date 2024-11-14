@@ -22,7 +22,7 @@
     </view>
     <view
       class="search-wl"
-      style="display: flex; flex-direction: column; gap: 4px"
+      style="display: flex; gap: 4px"
     >
       <!-- 搜索框 -->
       <up-input
@@ -34,23 +34,22 @@
         v-model="searchUserValue"
         placeholder="请输入指派人员"
       />
-      <div>
-        <button
-          class="mini-btn"
-          style="
-            color: black;
-            backgroundcolor: #e8e873;
-            bordercolor: #e8e873;
-            width: 20%;
-            height: 30px;
-          "
-          type="warn"
-          size="mini"
-          @click="getSearch"
-        >
-          搜索
-        </button>
-      </div>
+
+      <button
+        class="mini-btn"
+        style="
+          color: black;
+          backgroundcolor: #e8e873;
+          bordercolor: #e8e873;
+          width: 20%;
+          height: 30px;
+        "
+        type="warn"
+        size="mini"
+        @click="getSearch"
+      >
+        搜索
+      </button>
     </view>
     <view class="content">
       <view v-if="current === 0">
