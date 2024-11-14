@@ -64,7 +64,7 @@
             class="mini-btn"
             type="warn"
             size="mini"
-            @click="getDH"
+            @click="handleSearch"
           >
             搜索
           </button>
@@ -578,6 +578,20 @@ const ConfirmDH = async (v) => {
     })
   }
 }
+
+const handleSearch = () => {
+  if (current.value == 1) {
+    DcurrentPage.value = 1
+    Dtotal.value = 0
+    DayList.value = []
+    GetConfirm()
+  } else {
+    currentPage.value = 1
+    total.value = 0
+    ConfirmList.value = []
+    getDH()
+  }
+}
 //下拉
 onPullDownRefresh(() => {
   console.log('下拉')
@@ -598,14 +612,14 @@ const scrolltolower = () => {
   more.value = 'loading'
   if (current.value == 1) {
     DcurrentPage.value += 1
-    if (DcurrentPage.value >= DpageTotal.value) {
+    if (DcurrentPage.value > DpageTotal.value) {
       more.value = 'no-more'
     } else {
       GetConfirm()
     }
   } else {
     currentPage.value += 1
-    if (currentPage.value >= pageTotal.value) {
+    if (currentPage.value > pageTotal.value) {
       more.value = 'no-more'
     } else {
       getDH()
