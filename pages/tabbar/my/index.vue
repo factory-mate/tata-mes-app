@@ -22,7 +22,7 @@
     <span
       style="color: white; position: absolute; bottom: 8px; left: 0; right: 0; font-size: smaller"
     >
-      当前版本：{{ version }}
+      当前版本：{{ URLIP.VERSION_NAME }}v{{ version }}
     </span>
   </view>
 </template>
