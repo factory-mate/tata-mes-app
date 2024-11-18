@@ -83,7 +83,14 @@
             <uni-col :span="12">
               <view class="demo-uni-col dark">是否已保养：{{ item.iStatusName }}</view>
             </uni-col>
-            <uni-col :span="12"> </uni-col>
+            <uni-col :span="12">
+              <view class="demo-uni-col dark">周期单位：{{ item.cPARM04 }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="12">
+              <view class="demo-uni-col dark">周期数值：{{ item.cPARM05 }}</view>
+            </uni-col>
           </uni-row>
           <view style="font-size: 14px; margin: 10px">
             <view
