@@ -29,16 +29,31 @@
           <uni-row class="demo-uni-row">
             <uni-col :span="10">
               <view
+                v-if="currentTabIndex == 0"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
                 >申报人：{{ item.max_Error_dReportPerson }}</view
               >
+              <view v-else>
+                <view
+                  class="demo-uni-col dark"
+                  style="font-size: 16px; color: blue"
+                  >处理人：{{ item.cCreateUser }}</view
+                >
+              </view>
             </uni-col>
             <uni-col :span="14">
-              <view
+              <!-- <view
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
                 >申报日期：{{ item.max_Error_dReportDate }}</view
+              > -->
+
+              <view
+                v-if="currentTabIndex == 1"
+                class="demo-uni-col dark"
+                style="font-size: 16px; color: blue"
+                >处理时间：{{ item.max_Error_dReportDate }}</view
               >
             </uni-col>
           </uni-row>
