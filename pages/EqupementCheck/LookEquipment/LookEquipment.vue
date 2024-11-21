@@ -55,6 +55,11 @@
               <view class="demo-uni-col dark">项目名称：{{ item.cProgramName }}</view>
             </uni-col>
           </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="12">
+              <view class="demo-uni-col dark">点检时间：{{ item.cProgramCode }}</view>
+            </uni-col>
+          </uni-row>
           <view style="font-size: 14px; margin: 10px">
             <view
               style="font-size: 14px; margin: 10px"
