@@ -247,6 +247,7 @@ const Close = async (i) => {
       icon: 'none',
       title: res.msg
     })
+    listData.value = []
     fetchList()
   } else {
     uni.showToast({
