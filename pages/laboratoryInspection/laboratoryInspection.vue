@@ -445,7 +445,7 @@
                     <view class="demo-uni-col dark">批次号：{{ item.cInvBatch }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">检验类型：{{ item.cPARM04Name }}</view>
+                    <view class="demo-uni-col dark">检验类型：{{ item.cPARM19Name }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
