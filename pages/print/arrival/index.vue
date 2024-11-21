@@ -34,12 +34,12 @@ async function getList() {
       conditions: queryBuilder([
         { type: 'gt', key: 'Rest_nQuantity', val: 0 },
         {
-          type: 'eq',
+          type: 'like',
           key: 'cCode',
           val: searchParams.value.code
         },
         {
-          type: 'eq',
+          type: 'like',
           key: 'cInvCode',
           val: searchParams.value.cInvCode
         }
@@ -118,7 +118,7 @@ onPullDownRefresh(async () => {
 <template>
   <view :style="{ paddingTop: `${height}px` }">
     <up-navbar
-      title="到货标签补打"
+      title="到货补打"
       bgColor="red"
       leftIconColor="white"
       :titleStyle="{ color: 'white' }"
@@ -133,7 +133,6 @@ onPullDownRefresh(async () => {
             <up-col span="9">
               <up-input
                 v-model="searchParams.code"
-                type="number"
                 placeholder=""
                 border="surround"
                 clearable
@@ -148,7 +147,6 @@ onPullDownRefresh(async () => {
             <up-col span="9">
               <up-input
                 v-model="searchParams.cInvCode"
-                type="number"
                 placeholder=""
                 border="surround"
                 clearable
