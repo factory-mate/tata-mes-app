@@ -25,6 +25,7 @@ const onClickTabItem = (item) => {
 onLoad((option) => {
   if (option.itemInfo) {
     detail.value = JSON.parse(option.itemInfo)
+    console.log(detail.value)
   }
 })
 
@@ -103,6 +104,21 @@ onShow(() => getDetail())
         <uni-row class="demo-uni-row">
           <uni-col :span="16">
             <view class="demo-uni-col dark">描述：{{ detail.cMemo }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="16">
+            <view class="demo-uni-col dark">返修原因：{{ detail.cMemo }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="16">
+            <view class="demo-uni-col dark">返修类型：{{ detail.cMemo }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="16">
+            <view class="demo-uni-col dark">返修备注：{{ detail.cMemo }}</view>
           </uni-col>
         </uni-row>
       </view>
