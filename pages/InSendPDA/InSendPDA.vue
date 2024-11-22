@@ -32,7 +32,7 @@
                 v-if="currentTabIndex == 0"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
-                >申报人：{{ item.max_Error_dReportPerson }}</view
+                >申报人：{{ item.EndOperator }}</view
               >
               <view v-else>
                 <view
