@@ -8,6 +8,7 @@ const height = ref(getDeviceHeight().totalHeight)
 const UID = ref('')
 const detail = ref({})
 const currentTabIndex = ref(0)
+const detailList = ref([])
 
 const getDetail = async () => {
   uni.showLoading({ title: '加载中' })
@@ -15,6 +16,9 @@ const getDetail = async () => {
     UID: detail.value.UID
   })
   console.log(data, success)
+  if (success) {
+    detailList.value = data
+  }
   uni.hideLoading()
 }
 
@@ -106,24 +110,39 @@ onShow(() => getDetail())
             <view class="demo-uni-col dark">描述：{{ detail.cMemo }}</view>
           </uni-col>
         </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="16">
-            <view class="demo-uni-col dark">返修原因：{{ detail.cMemo }}</view>
-          </uni-col>
-        </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="16">
-            <view class="demo-uni-col dark">返修类型：{{ detail.cMemo }}</view>
-          </uni-col>
-        </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="16">
-            <view class="demo-uni-col dark">返修备注：{{ detail.cMemo }}</view>
-          </uni-col>
-        </uni-row>
+        <view
+          v-for="(item, index) in detailList"
+          :key="index"
+          style="margin-top: 8px"
+        >
+          <uni-row class="demo-uni-row">
+            <uni-col :span="16">
+              <view class="demo-uni-col dark">返修工序：{{ item.cProcessName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="16">
+              <view class="demo-uni-col dark">返修产线：{{ item.cFactoryUnitName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="16">
+              <view class="demo-uni-col dark">返修原因：{{ item.cRepairTypeName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="16">
+              <view class="demo-uni-col dark">返修类型：{{ item.cRepairReasonTypeName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="16">
+              <view class="demo-uni-col dark">返修备注：{{ item.cMemo }}</view>
+            </uni-col>
+          </uni-row>
+        </view>
       </view>
     </view>
-
     <view v-else> </view>
   </view>
 </template>
