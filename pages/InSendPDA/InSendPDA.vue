@@ -38,7 +38,7 @@
                 <view
                   class="demo-uni-col dark"
                   style="font-size: 16px; color: blue"
-                  >处理人：{{ item.cCreateUser }}</view
+                  >处理人：{{ item.cCreateUserName }}</view
                 >
               </view>
             </uni-col>
@@ -53,7 +53,7 @@
                 v-if="currentTabIndex == 1"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
-                >处理时间：{{ item.max_Error_dReportDate }}</view
+                >处理时间：{{ item.dCreateTime }}</view
               >
             </uni-col>
           </uni-row>
