@@ -336,7 +336,7 @@ onBackPress(() => {
 })
 //加载页面
 onLoad((option) => {
-  routeVal.value = JSON.parse(option.obj)
+  routeVal.value = JSON.parse(decodeURIComponent(option.obj))
   h.value = uni.getSystemInfoSync().windowHeight
 })
 const GetType = () => {

@@ -893,7 +893,9 @@ const PeoFoucs = () => {}
 //检验包
 const clickJYB = (v) => {
   uni.navigateTo({
-    url: '/pages/kuIncomingInspection/InspectingPackingView?obj=' + JSON.stringify(v)
+    url:
+      '/pages/kuIncomingInspection/InspectingPackingView?obj=' +
+      encodeURIComponent(JSON.stringify(v))
   })
 }
 
