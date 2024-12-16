@@ -304,7 +304,7 @@ export function SaveReportError(data) {
 
 export function RepairVouchList(data) {
   return service({
-    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetForPage',
+    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/GetForPageForPDA',
     method: 'POST',
     data
   })

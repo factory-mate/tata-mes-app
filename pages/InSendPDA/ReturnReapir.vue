@@ -474,7 +474,7 @@ const getLineName = () => {
         cProcessCode: i.id, //工艺编码
         cProcessName: i.name
       }
-    })
+    }).filter((i) => i.cFactoryUnitCode)
   })
 }
 //保存

@@ -185,7 +185,7 @@ const listData = ref([])
 const fetchList = async () => {
   uni.showLoading({ title: '加载中' })
   try {
-    const account = uni.getStorageSync('account') ?? null
+    const cLoginName = uni.getStorageSync('account').cLoginName ?? null
     let resData = []
     let pc = 0
     let dc = 0
@@ -207,12 +207,12 @@ const fetchList = async () => {
         dataCount,
         pageCount
       } = await RepairVouchList({
+        bVerify: false,
         PageIndex: pageParams.value.pageIndex,
         PageSize: pageParams.value.pageSize,
-        Conditions: 'iStatus=0'
-        // && cVerifyUser=' + account.cLoginName
+        Conditions: 'cVerifyUserCode like ' + cLoginName
       })
-      resData = data
+      resData = data ?? []
       pc = pageCount
       dc = dataCount
     } else if (currentTabIndex.value == 2) {
@@ -221,11 +221,12 @@ const fetchList = async () => {
         dataCount,
         pageCount
       } = await RepairVouchList({
+        bVerify: true,
         PageIndex: pageParams.value.pageIndex,
         PageSize: pageParams.value.pageSize,
-        Conditions: 'iStatus=1'
+        Conditions: 'cVerifyUserCode like ' + cLoginName
       })
-      resData = data
+      resData = data ?? []
       pc = pageCount
       dc = dataCount
     }
