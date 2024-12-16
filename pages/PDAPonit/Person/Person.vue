@@ -190,11 +190,16 @@ const GetList = () => {
     title: '加载中'
   })
 
+  let conditions = ['cDepCode=010201']
+  if (searchValue.value) {
+    conditions.push(`cEmployeeName like ${searchValue.value}`)
+  }
+
   GetEmployee({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
     OrderByFileds: '',
-    Conditions: searchValue.value ? `cEmployeeName like ${searchValue.value}` : ''
+    Conditions: conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       DevList.value = [...DevList.value, ...res.data.data]
