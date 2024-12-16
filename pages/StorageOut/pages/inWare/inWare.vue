@@ -326,7 +326,7 @@ import {
   PosScanOut,
   errLog
 } from '../../../../api/inStorage.js'
-import { reactive, ref } from 'vue'
+import { reactive, ref, getCurrentInstance } from 'vue'
 import {
   onLoad,
   onShow,
@@ -801,13 +801,16 @@ const searchWu = _.debounce(async (val) => {
         Ypage.value = 1
         // wuList.value=[]
         wuValue.value = ''
+
         uni.hideLoading()
         res.data.ScanTime = time()
 
         wuList.value.unshift(res.data)
 
+        getCurrentInstance().instance?.proxy?.$forceUpdate()
+
         uni.showToast({
-          icon: 'success',
+          icon: 'none',
           title: `扫描成功：${res.data.Pbarcode}`
         })
 

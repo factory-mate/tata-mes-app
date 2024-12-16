@@ -109,7 +109,7 @@
 
 <script setup>
 import { TimeCha, time } from '@/utils/time.js'
-import { ref } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { onLoad, onShow, onUnload, onHide, onBackPress } from '@dcloudio/uni-app'
@@ -339,8 +339,12 @@ const getWl = _.debounce(async () => {
       WLMsg.data.ScanTime = time()
       detailMsg.value = WLMsg.data || {}
       searchValue.value = ''
-      uni.showToast({ title: `扫描成功：${detailMsg.value.Pbarcode}` })
+      uni.showToast({
+        icon: 'none',
+        title: `扫描成功：${detailMsg.value.Pbarcode}`
+      })
       wuList.value.unshift(detailMsg.value)
+      getCurrentInstance().instance?.proxy?.$forceUpdate()
       uni.setStorageSync('wuList', JSON.stringify(wuList.value))
     } else {
       uni.showModal({
