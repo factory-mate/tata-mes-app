@@ -235,11 +235,14 @@
                   <view
                     v-for="(item, index) in PicArrList"
                     :key="index"
-                    style="display: flex; justify-content: space-around"
+                    style="display: flex; justify-content: space-around; margin-bottom: 4px"
                   >
                     <view @click="preview(index)">
-                      <!-- 图片{{index+1}} -->
-                      {{ item.name }}
+                      <up-image
+                        :src="item.path || item.name || item"
+                        width="60"
+                        height="60"
+                      />
                     </view>
                     <view>
                       <button
