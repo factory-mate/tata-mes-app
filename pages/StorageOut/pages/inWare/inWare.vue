@@ -20,30 +20,22 @@
             type="line"
             v-if="branch != 'alps'"
           >
-            <uni-search-bar
+            <up-input
               v-if="current == 0"
-              radius="100"
               v-model="wuValue"
               @confirm="searchWu('model')"
-              cancelButton="none"
               placeholder="请输入物料条码"
-            >
-            </uni-search-bar>
-            <uni-search-bar
+            />
+
+            <up-input
               v-else
-              radius="100"
               v-model="KuValue"
               @confirm="searchKu('model')"
-              cancelButton="none"
               placeholder="请输入库位条码"
-            >
-            </uni-search-bar>
+            />
           </uni-section>
-          <view
-            class=""
-            v-else
-          >
-            <input
+          <view v-else>
+            <up-input
               v-if="current == 0"
               class="inputSty"
               v-model="wuValue"
@@ -51,9 +43,8 @@
               @blur="setfocus"
               @input="searchWu('PDA')"
               placeholder="请输入物料条码"
-              placeholder-style="font-size:12px"
             />
-            <input
+            <up-input
               v-else
               class="inputSty"
               v-model="KuValue"
@@ -61,7 +52,6 @@
               @blur="setfocus"
               @input="searchKu('PDA')"
               placeholder="请输入库位条码"
-              placeholder-style="font-size:12px"
             />
           </view>
         </view>
@@ -802,12 +792,11 @@ const searchWu = _.debounce(async (val) => {
         // wuList.value=[]
         wuValue.value = ''
 
-        uni.hideLoading()
         res.data.ScanTime = time()
 
         wuList.value.unshift(res.data)
 
-        getCurrentInstance().instance?.proxy?.$forceUpdate()
+        uni.hideLoading()
 
         uni.showToast({
           icon: 'none',
