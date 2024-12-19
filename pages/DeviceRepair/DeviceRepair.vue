@@ -120,7 +120,7 @@
                 </view>
               </uni-col>
               <uni-col :span="12">
-                <view class="demo-uni-col dark">设备位置：{{ DevData.cPositionCode }}</view>
+                <view class="demo-uni-col dark">设备位置：{{ DevData.cUsedAddress }}</view>
               </uni-col>
             </uni-row>
             <view

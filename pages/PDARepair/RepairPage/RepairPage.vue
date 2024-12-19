@@ -324,7 +324,8 @@
                     <view
                       class="demo-uni-col dark"
                       @click="previewImg(item.cFilePath + item.cFileReName + item.cFileSuffix)"
-                      >图片：{{ item.cFileName }}</view
+                    >
+                      图片：{{ item.cFileName }}</view
                     >
                   </uni-col>
                   <uni-col :span="12">
