@@ -182,24 +182,24 @@ export const moduleMap = new Map([
       url: '/pages/ProductInwareOut/ProductInwareOut'
     }
   ],
-  [
-    'MobileApp.StoreRoom.AllocateInput',
-    {
-      title: '调拨入库',
-      cModelCode: 'MobileApp.StoreRoom.AllocateInput',
-      src: getIcon('tuiliaosq.png'),
-      url: '/pages/wms/allocate-in/index'
-    }
-  ],
-  [
-    'MobileApp.StoreRoom.AllocateOutput',
-    {
-      title: '调拨出库',
-      cModelCode: 'MobileApp.StoreRoom.AllocateOutput',
-      src: getIcon('tuiliaosq.png'),
-      url: '/pages/wms/allocate-out/index'
-    }
-  ],
+  // [
+  //   'MobileApp.StoreRoom.AllocateInput',
+  //   {
+  //     title: '调拨入库',
+  //     cModelCode: 'MobileApp.StoreRoom.AllocateInput',
+  //     src: getIcon('tuiliaosq.png'),
+  //     url: '/pages/wms/allocate-in/index'
+  //   }
+  // ],
+  // [
+  //   'MobileApp.StoreRoom.AllocateOutput',
+  //   {
+  //     title: '调拨出库',
+  //     cModelCode: 'MobileApp.StoreRoom.AllocateOutput',
+  //     src: getIcon('tuiliaosq.png'),
+  //     url: '/pages/wms/allocate-out/index'
+  //   }
+  // ],
   [
     'MobileApp.StoreRoom.StorePrintAgain',
     {
@@ -216,6 +216,15 @@ export const moduleMap = new Map([
       cModelCode: 'MobileApp.StoreRoom.ArrivePrintAgain',
       src: getIcon('tuiliaosq.png'),
       url: '/pages/print/arrival/index'
+    }
+  ],
+  [
+    'MobileApp.StoreRoom.KFWJ_In',
+    {
+      title: '五金入库',
+      cModelCode: 'MobileApp.StoreRoom.KFWJ_In',
+      src: getIcon('tuiliaosq.png'),
+      url: '/pages/wjrk/index'
     }
   ],
   // 车间管理
@@ -388,6 +397,15 @@ export const moduleMap = new Map([
       cModelCode: 'MobileApp.StoreRoom.CKVerify',
       src: getIcon('ruku.png'),
       url: '/pages/wms/stock-verify/index'
+    }
+  ],
+  [
+    'MobileApp.Workshop.GZ_In',
+    {
+      title: '柜子扫码入库',
+      cModelCode: 'MobileApp.Workshop.GZ_In',
+      src: getIcon('ruku.png'),
+      url: '/pages/gzsmrk/index'
     }
   ],
   // 设备管理

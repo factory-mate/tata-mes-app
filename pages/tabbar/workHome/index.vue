@@ -41,7 +41,9 @@ onShow(() => {
       class="group-item"
     >
       <view
-        v-for="(child, i) in item.Child.filter((i) => !i.IsHidden)"
+        v-for="(child, i) in item.Child.filter((i) => !i.IsHidden).filter((i) =>
+          moduleMap.has(i.cModelCode)
+        )"
         :key="i"
         class="child-item-wrapper"
       >

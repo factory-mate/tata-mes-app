@@ -39,7 +39,11 @@ const request = (options) =>
             uni.showToast({
               icon: 'none',
               title:
-                data.msg || data.errmsg[0]?.msg || data.errmsg[0]?.Value || data.errmsg || '失败！'
+                data.msg ||
+                data.errmsg?.[0]?.msg ||
+                data.errmsg?.[0]?.Value ||
+                data.errmsg ||
+                '失败！'
             })
           }
           if (config.showModal) {
@@ -47,7 +51,11 @@ const request = (options) =>
               showCancel: false,
               title: '提示',
               content:
-                data.msg || data.errmsg[0]?.msg || data.errmsg[0]?.Value || data.errmsg || '失败！'
+                data.msg ||
+                data.errmsg?.[0]?.msg ||
+                data.errmsg?.[0]?.Value ||
+                data.errmsg ||
+                '失败！'
             })
           }
           reject(data)
@@ -56,7 +64,11 @@ const request = (options) =>
             uni.showToast({
               icon: 'none',
               title:
-                data.msg || data.errmsg[0]?.msg || data.errmsg[0]?.Value || data.errmsg || '失败！'
+                data.msg ||
+                data.errmsg?.[0]?.msg ||
+                data.errmsg?.[0]?.Value ||
+                data.errmsg ||
+                '失败！'
             })
           }
           resolve(data)
