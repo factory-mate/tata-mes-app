@@ -138,7 +138,7 @@
                 <view
                   class="scan-list"
                   v-for="(item, index) in wuList"
-                  :key="item.Pbarcode"
+                  :key="index"
                 >
                   <uni-swipe-action>
                     <uni-swipe-action-item
@@ -194,11 +194,8 @@
                     </uni-swipe-action-item>
                   </uni-swipe-action>
                 </view>
-                <uni-load-more
-                  :status="moreW"
-                  v-if="wuList.length"
-                ></uni-load-more>
               </scroll-view>
+              <!-- </scroll-view> -->
             </view>
             <!-- 在库列表 -->
             <view
@@ -760,6 +757,7 @@ const searchWu = _.debounce(async (val) => {
   const data = {
     pbarcode: wuValue.value
   }
+  wuValue.value = ''
   // 接口数据
   getWLInfo(data)
     .then((res) => {
