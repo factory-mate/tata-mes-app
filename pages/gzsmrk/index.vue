@@ -30,9 +30,18 @@ async function scanCode() {
   try {
     const { data, success } = await API.scan(scanInput.value)
     if (success) {
-      if (data.cCode !== detailData.value.cCode) {
+      if (!data) {
         uni.showToast({
-          title: '非同1单，不能合包',
+          title: '未找到数据',
+          icon: 'none'
+        })
+        scanInput.value = ''
+        setFocus()
+        return
+      }
+      if (detailData.value.cCode && data?.cCode !== detailData.value.cCode) {
+        uni.showToast({
+          title: '非同一单，不能合包',
           icon: 'none'
         })
         scanInput.value = ''
@@ -42,29 +51,25 @@ async function scanCode() {
       if (!detailData.value.cCode) {
         detailData.value = data
       }
-      data.list_PackageDetail.forEach((i) => {
-        if (i.X > 0 && i.Y > 0) {
-          if (i.X * i.Y > 80) {
-            uni.showToast({
-              title: '超重',
-              icon: 'none'
-            })
-          }
-          packages.value.push({
-            cBarCode: i.cCode,
-            cInvName: i.cInvName,
-            nQuantity: i.nQuantity
+      if (data.X > 0 && data.Y > 0) {
+        if (data.X * data.Y > 80) {
+          uni.showToast({
+            title: '超重',
+            icon: 'none'
           })
         }
+      }
+      packages.value.unshift({
+        cBarCode: data.cBarCode,
+        cInvName: data.cInvName,
+        nQuantity: data.nQuantity
       })
-    } else {
-      scanInput.value = ''
-      setFocus()
     }
-  } catch {
-    scanInput.value = ''
-    setFocus()
+  } catch (e) {
+    console.log(e)
   }
+  scanInput.value = ''
+  setFocus()
 }
 
 function handleDeleteItem(idx) {
@@ -79,6 +84,7 @@ async function handlePackage() {
         title: '打包成功',
         icon: 'success'
       })
+      handlePrint(data)
       handleClear()
     }
   } catch (e) {
@@ -86,8 +92,34 @@ async function handlePackage() {
   }
 }
 
-function handlePrint() {
-  print()
+function handlePrint(data = {}) {
+  // #ifdef APP-PLUS
+  printer.printQR2({
+    text: detailData?.cCode,
+    height: 150,
+    offset: 2
+  })
+  printer.printText({
+    content: `${detailData?.PRODUCT_VOUCH_cDefindParm30 ?? ''}-${detailData?.cCode ?? ''}${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
+  })
+  printer.printText({ content: `${detailData?.cCode ?? ''}\r\n` })
+  printer.printText({
+    content: `${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
+  })
+  printer.printText({ content: `${data?.cPackageCode ?? ''}\r\n` })
+  printer.printText({ content: `${detailData?.cDefindParm05 ?? ''}\r\n` })
+  printer.printText({ content: `${detailData?.cCusName ?? ''}\r\n` })
+  printer.printText({ content: `${detailData?.PRODUCT_VOUCH_cDefindParm10 ?? ''}\r\n` })
+  printer.printText({ content: `${detailData?.cAddress ?? ''}\r\n` })
+  printer.printText({ content: `河南兰考县产业聚集区\r\n` })
+  printer.printText({ content: `兰考闼闼同创工贸有限公司(25厂)\r\n` })
+  printer.printText({ content: `数量：${data?.iDefindParm14 ?? '0'}\r\n` })
+  printer.printText({ content: `包号：第${data?.iDefindParm13 ?? '0'}包\r\n` })
+  packages.value.forEach((i) => {
+    printer.printText({ content: `${i.cInvName ?? ''}： ${i.nQuantity ?? ''}\r\n` })
+  })
+  printer.printGoToNextMark()
+  // #endif
 }
 
 function handleClear() {
@@ -98,27 +130,6 @@ function handleClear() {
 }
 
 function handleLight() {}
-
-function print() {
-  // // #ifdef APP-PLUS
-  // printer.printQR2({
-  //   text: data?.cKeyCode,
-  //   height: 150,
-  //   offset: 2
-  // })
-  // printer.printText({ content: '箱码：' + (data?.cKeyCode ?? '') + '\r\n' })
-  // printer.printText({ content: '物料编码：' + (data?.cInvCode ?? '') + '\r\n' })
-  // printer.printText({ content: '物料名称：' + (data?.cInvName ?? '') + '\r\n' })
-  // printer.printText({ content: '数量：' + (data?.nSumQuinity ?? '') + '\r\n' })
-  // printer.printText({ content: '物料规格：' + (data?.cInvStd ?? '') + '\r\n' })
-  // printer.printText({ content: '批次号：' + (data?.cBatch ?? '') + '\r\n' })
-  // printer.printText({ content: '生产日期：' + (data?.dProductDay ?? '') + '\r\n' })
-  // printer.printText({ content: '采购订单号：' + (data?.cSourceCode ?? '') + '\r\n' })
-  // printer.printText({ content: '供应商：' + (data?.cVendorName ?? '') + '\r\n' })
-  // printer.printText({ content: '供应商批号：' + (data?.cVendorBatch ?? '') })
-  // printer.printGoToNextMark()
-  // // #endif
-}
 
 const initPrinter = () => {
   // #ifdef APP-PLUS
@@ -131,9 +142,7 @@ const initPrinter = () => {
   // #endif
 }
 
-onLoad(() => {
-  initPrinter()
-})
+onLoad(() => initPrinter())
 onShow(() => {})
 onHide(() => {})
 onUnload(() => {})
@@ -234,6 +243,7 @@ onPullDownRefresh(async () => {
           size="small"
           text="打印标签"
           @click="handlePrint"
+          style="margin-right: 8px"
         />
 
         <up-button
@@ -241,6 +251,7 @@ onPullDownRefresh(async () => {
           size="small"
           text="立即打包"
           @click="handlePackage"
+          style="margin-right: 8px"
         />
 
         <up-button
@@ -249,12 +260,12 @@ onPullDownRefresh(async () => {
           text="重新扫码"
           @click="handleClear"
         />
-        <up-button
+        <!-- <up-button
           type="error"
           size="small"
           text="亮灯"
           @click="handleLight"
-        />
+        /> -->
       </view>
     </view>
     <my-btn />
@@ -286,6 +297,5 @@ onPullDownRefresh(async () => {
   right: 10px;
   display: flex;
   justify-content: space-between;
-  gap: 8px;
 }
 </style>
