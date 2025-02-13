@@ -82,7 +82,8 @@ async function handlePackage() {
     if (success) {
       uni.showToast({
         title: '打包成功',
-        icon: 'success'
+        icon: 'success',
+        duration: 3000
       })
       handlePrint(data)
       handleClear()
