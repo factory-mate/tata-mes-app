@@ -503,7 +503,7 @@
                     <view class="demo-uni-col dark">进料数：{{ item.nQuantity }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">日期：{{ item.dStartTime }}</view>
+                    <view class="demo-uni-col dark">日期：{{ item.dDate }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
