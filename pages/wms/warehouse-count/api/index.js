@@ -32,7 +32,7 @@ export const API = {
   begin: (data) =>
     service({
       url: API_PREFIX + '/Begin',
-      method: 'get',
+      method: 'post',
       data
     }),
   fetchType: () =>
