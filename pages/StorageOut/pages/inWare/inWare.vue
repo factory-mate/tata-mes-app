@@ -775,6 +775,7 @@ const searchWu = _.debounce(async (val) => {
             icon: 'error',
             title: '条码数据不正确'
           })
+          uni.hideLoading()
           return
         }
 
@@ -783,6 +784,7 @@ const searchWu = _.debounce(async (val) => {
             showCancel: false,
             content: `条码库位【${res.data.cPosCode}】不一致`
           })
+          uni.hideLoading()
           return
         }
 
