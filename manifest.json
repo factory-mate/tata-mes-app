@@ -21,7 +21,8 @@
         "compilerVersion" : 3,
         "modules" : {
             "Barcode" : {},
-            "Camera" : {}
+            "Camera" : {},
+            "Bluetooth" : {}
         },
         "statusbar" : {
             "immersed" : false //关闭沉浸式:解决去掉原生导航后，主内容顶到状态栏的问题;扫码枪-输入框聚焦问题(原因未知)

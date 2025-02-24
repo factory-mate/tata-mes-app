@@ -800,7 +800,8 @@ const searchWu = _.debounce(async (val) => {
 
         uni.showToast({
           icon: 'none',
-          title: `扫描成功：${res.data.Pbarcode}`
+          title: `扫描成功：${res.data.Pbarcode}`,
+          duration: 1000
         })
 
         // wuAxiosList()
