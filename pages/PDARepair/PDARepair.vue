@@ -121,7 +121,7 @@
                     size="mini"
                     @click="goClose(item)"
                   >
-                    关闭
+                    完成
                   </button>
                 </view>
               </view>
@@ -494,16 +494,14 @@ const goStart = (i) => {
     if (res.status == 200) {
       uni.showToast({
         icon: 'none',
-        title: res.msg,
-        duration: 1000
+        title: res.msg
       })
       goReapir(i)
       getSearch()
     } else {
       uni.showToast({
         icon: 'none',
-        title: '失败',
-        duration: 1000
+        title: '失败'
       })
     }
   })

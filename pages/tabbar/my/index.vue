@@ -24,6 +24,12 @@
     >
       当前版本：{{ URLIP.VERSION_NAME }}v{{ version }}
     </span>
+
+    <!-- <web-view
+      style="width: 100vw"
+      :full-screen="false"
+      src="http://171.13.38.93:89/door-leaf/door-leaf-production-line"
+    ></web-view> -->
   </view>
 </template>
 
