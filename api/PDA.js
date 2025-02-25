@@ -741,7 +741,7 @@ export function PDABegin(data) {
 
 export function PDAClose(data) {
   return service({
-    url: URLIP.BASE_URL_PDEVICE + '/api/device_RepairVouch/Close',
+    url: URLIP.BASE_URL_PDEVICE + '/api/device_RepairVouch/End',
     method: 'POST',
     data
   })
