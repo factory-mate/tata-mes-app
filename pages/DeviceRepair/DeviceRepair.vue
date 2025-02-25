@@ -873,9 +873,14 @@ const onClickConfirmRepair = (item) => {
 const confirmRepair = () => {
   DeviceFalutVouchClose([currentConfirmItem.value.UID])
     .then((res) => {
-      if (res.status == 200) {
+      if (res.success) {
         uni.showToast({
           title: '操作成功',
+          icon: 'none'
+        })
+      } else {
+        uni.showToast({
+          title: res?.errmsg?.[0]?.value || '操作失败',
           icon: 'none'
         })
       }
