@@ -242,7 +242,7 @@
       type="dialog"
     >
       <uni-popup-dialog
-        title="您确定要关闭吗？"
+        title="您确定要完成吗？"
         message="成功消息"
         :duration="2000"
         :before-close="true"
@@ -496,7 +496,7 @@ const goStart = (i) => {
         icon: 'none',
         title: res.msg
       })
-      goReapir(i)
+      // goReapir(i)
       getSearch()
     } else {
       uni.showToast({
@@ -519,9 +519,12 @@ const goClose = (i) => {
 }
 
 const confirmClose = () => {
-  PDAClose([currentItem.value.UID])
+  PDAClose({
+    cSourceCode: currentItem.value.cSouceCode,
+    cSourceVouchTypeCode: currentItem.value.cSouceVouchTypeCode
+  })
     .then((res) => {
-      if (res.status == 200) {
+      if (res.success) {
         uni.showToast({
           icon: 'none',
           title: res.msg,

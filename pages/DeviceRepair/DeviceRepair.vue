@@ -791,9 +791,6 @@ const getSearch = () => {
 //已报修
 // dCreateTime>= XXX && dCreateTime<=XXX && cDeviceName like XXX
 const getForPage = () => {
-  uni.showLoading({
-    title: '加载中......'
-  })
   getRepairListByUser({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
@@ -808,13 +805,11 @@ const getForPage = () => {
             : ''
   }).then((res) => {
     if (res.status == 200) {
-      uni.hideLoading()
       uni.stopPullDownRefresh()
       PageList.value = [...PageList.value, ...res.data.data]
       total.value = res.data.dataCount
       pageTotal.value = res.data.pageCount
     } else {
-      uni.hideLoading()
       uni.showToast({
         icon: 'none',
         title: '错误'
