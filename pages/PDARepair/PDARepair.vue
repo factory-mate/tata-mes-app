@@ -89,7 +89,7 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">来源类型：{{ item.cPARAM02 }}</view>
+                    <view class="demo-uni-col dark">报修人：{{ item.cPARM07 }}</view>
                   </uni-col>
                   <uni-col :span="12">
                     <view class="demo-uni-col light">设备位置：{{ item.cUsedAddress }}</view>
