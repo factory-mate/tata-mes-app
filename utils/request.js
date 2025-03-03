@@ -4,7 +4,7 @@ const request = (options) =>
       showToast: true,
       showModal: false
     }
-    console.log(options)
+    // console.log(options)
     uni.request({
       url: options.url,
       method: options.method || 'GET',
@@ -15,7 +15,7 @@ const request = (options) =>
       data: options.data || {},
       success: (res) => {
         const data = res.data
-        console.log(res.data)
+        // console.log(res.data)
         if (data.status === 401 || data.status === 403) {
           if (Array.isArray(data.errmsg) && data.errmsg.length > 0) {
             uni.showToast({
