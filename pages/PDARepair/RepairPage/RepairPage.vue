@@ -478,7 +478,8 @@ import {
   RepairVouchSave,
   PDAGetBodys,
   PDAPART,
-  DeviceRepairVouchGetById
+  DeviceRepairVouchGetById,
+  PDAGetItemCheck
 } from '@/api/PDA.js'
 
 import URLIP from '@/utils/serviceIP.js'
@@ -534,6 +535,7 @@ onShow(() => {
   // #endif
   if (itemInfo.value.UID) {
     getMainImage(itemInfo.value.UID)
+    getList(itemInfo.value.UID)
   }
 })
 onUnload(() => {
@@ -571,7 +573,6 @@ onLoad((option) => {
     console.log(e)
   }
 
-  getMainImage(itemInfo.value.UID)
   getProgram()
   getProiet()
   getFault()
@@ -581,6 +582,20 @@ const getMainImage = (val) => {
   DeviceRepairVouchGetById({ val }).then((res) => {
     if (res.status == 200) {
       itemInfo.value.VouchFileName = res.data.VouchFileName
+    }
+  })
+}
+
+const getList = (val) => {
+  PDAGetItemCheck({ val }).then((res) => {
+    if (res.success) {
+      postList.value = res.data.map((i) => ({
+        ...i,
+        cFileName: i.FileName1?.split('&')[0],
+        cFilePath: i.FileName1?.split('&')[1],
+        cFileReName: '',
+        cFileSuffix: ''
+      }))
     }
   })
 }
@@ -959,6 +974,7 @@ const goSave = () => {
         duration: 1000
       })
       postList.value = []
+      uni.navigateBack({ delta: 1 })
     } else {
       let errVal = JSON.parse(res.errmsg?.[0].Value)?.[0]
       uni.showToast({
