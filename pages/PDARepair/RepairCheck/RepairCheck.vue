@@ -339,6 +339,7 @@ const GetList = () => {
     }
   })
 }
+
 const RepairList = ref([])
 const GETREpairView = () => {
   uni.showLoading({
