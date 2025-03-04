@@ -611,13 +611,13 @@ const getXiangMa = () => {
     return
   }
   // 校验：扫描的箱码供应商必须要一致
-  if (xiangMList.value.length && xiangMList.value[0].cVendorName !== xiangMObj.value.cVendorName) {
-    uni.showToast({
-      icon: 'none',
-      title: '该箱码供应商不一致'
-    })
-    return
-  }
+  // if (xiangMList.value.length && xiangMList.value[0].cVendorName !== xiangMObj.value.cVendorName) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '该箱码供应商不一致'
+  //   })
+  //   return
+  // }
   uni.showLoading({
     title: '加载中'
   })

@@ -751,7 +751,7 @@ const Save = () => {
     url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/Add',
     files: PicArr.value.map((i) => ({ name: 'list_file', uri: i })),
     formData: {
-      cDeviceCode: DevData.value.cDeviceCode,
+      cDeviceCode: DevData.value.cResourceCode,
       cFaultCode: FauCode.value,
       IsStop: checked.value,
       // 'cPARM01': Parm01.value,
@@ -795,7 +795,7 @@ const getForPage = () => {
   getRepairListByUser({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: 'dCreateTime desc',
     Conditions:
       BeginTime.value && searchValue.value
         ? `dDate>= ${BeginTime.value} && dDate<=${EndTime.value} && cDeviceName like ${searchValue.value}`
