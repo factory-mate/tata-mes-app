@@ -520,8 +520,8 @@ const goClose = (i) => {
 
 const confirmClose = () => {
   PDAClose({
-    cSourceCode: currentItem.value.cSouceCode,
-    cSourceVouchTypeCode: currentItem.value.cSouceVouchTypeCode
+    cSouceCode: currentItem.value.cSouceCode,
+    cSouceVouchTypeCode: currentItem.value.cSouceVouchTypeCode
   })
     .then((res) => {
       if (res.success) {
