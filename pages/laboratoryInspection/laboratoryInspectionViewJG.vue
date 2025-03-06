@@ -13,7 +13,7 @@
     <view style="box-sizing: border-box; padding: 0 10rpx; border: 1px solid #eee">
       <uni-row class="demo-uni-row formSty">
         <uni-col :span="12">
-          <view class="demo-uni-col">检验单号：{{ getByVal.cStandardCode }}</view>
+          <view class="demo-uni-col">检验单号：{{ getByVal.cCode }}</view>
         </uni-col>
         <uni-col :span="12">
           <view class="demo-uni-col">样品名称：{{ getByVal.cInvName }}</view>

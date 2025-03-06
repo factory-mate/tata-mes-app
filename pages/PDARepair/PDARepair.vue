@@ -429,7 +429,7 @@ const getSearch = () => {
   PDARepairVouch({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: 'iStatus',
     Conditions
   }).then((res) => {
     if (res.status == 200) {
