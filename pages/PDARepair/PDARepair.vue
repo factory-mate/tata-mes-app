@@ -203,7 +203,7 @@
                     <view class="demo-uni-col dark">维修人员：{{ item.cModifyUserName }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">维修时间：{{ item.dModifyTime }}</view>
+                    <view class="demo-uni-col dark">维修时间：{{ item.dEndTime }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
@@ -472,7 +472,7 @@ const getSearchss = () => {
   PDARepairVouch({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: 'dEndTime desc',
     Conditions
   }).then((res) => {
     if (res.status == 200) {
