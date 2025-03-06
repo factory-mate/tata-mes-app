@@ -1020,12 +1020,12 @@ const getListJG = () => {
   ]
   let obj = {
     OrderByFileds: '',
-    PageSize: 5,
+    PageSize: 100,
     PageIndex: currentPage.value,
     Conditions: filterModel(val)
   }
   GetForPage_S_V(obj).then((res) => {
-    listDataJG.value = res.data
+    listDataJG.value = res.data.data
   })
 }
 
@@ -1154,6 +1154,7 @@ const clckType = (v) => {
 }
 //
 const clickJYB = (v) => {
+  console.log(v)
   if (v.cAnalysisTypeName == '定量') {
     uni.navigateTo({
       url: '/pages/LineInspectionview/LineInspectionviewViewDL?obj=' + JSON.stringify(v)
