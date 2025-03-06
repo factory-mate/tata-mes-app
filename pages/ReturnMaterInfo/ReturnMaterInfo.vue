@@ -618,6 +618,13 @@ const clickNum = () => {
     })
     return
   }
+  if (slVal.value > xiangMObj.value.nQuinity) {
+    uni.showToast({
+      icon: 'none',
+      title: '数量不能大于箱码数量'
+    })
+    return
+  }
   xiangMObj.value.nQuinity = slVal.value
   xiangMList.value.unshift(xiangMObj.value)
   xmVal.value = ''
