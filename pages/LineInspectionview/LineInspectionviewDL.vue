@@ -164,22 +164,6 @@
           拍照
         </button>
       </view>
-      <uni-row
-        class="demo-uni-row"
-        style="display: flex; align-items: center; justify-content: flex-end"
-      >
-        <uni-col :span="14">
-          <button
-            class="mini-btn"
-            type="warn"
-            size="mini"
-            @click="clickTJ"
-            style=""
-          >
-            提交
-          </button>
-        </uni-col>
-      </uni-row>
     </view>
 
     <view class="content">
@@ -258,6 +242,23 @@
           <!-- <uni-load-more :status="more"></uni-load-more> -->
         </scroll-view>
       </view>
+
+      <uni-row
+        class="demo-uni-row"
+        style="display: flex; align-items: center; justify-content: flex-end"
+      >
+        <uni-col :span="14">
+          <button
+            class="mini-btn"
+            type="warn"
+            size="mini"
+            @click="clickTJ"
+            style=""
+          >
+            提交
+          </button>
+        </uni-col>
+      </uni-row>
     </view>
   </view>
 </template>
