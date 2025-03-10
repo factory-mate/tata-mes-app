@@ -547,21 +547,21 @@ const GetPageList = async () => {
   if (res.status == 200) {
     uni.hideLoading()
     uni.stopPullDownRefresh()
-    if (res.data.data.length == 0) {
-      uni.showModal({
-        showCancel: false,
-        content: '无数据，请重新输入',
-        success: function (res) {
-          if (res.confirm) {
-            HDsearchValue.value = ''
-            console.log('用户点击 确定')
-            GetPageList()
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-    }
+    // if (res.data.data.length == 0) {
+    //   uni.showModal({
+    //     showCancel: false,
+    //     content: '无数据，请重新输入',
+    //     success: function (res) {
+    //       if (res.confirm) {
+    //         HDsearchValue.value = ''
+    //         console.log('用户点击 确定')
+    //         GetPageList()
+    //       } else if (res.cancel) {
+    //         console.log('用户点击取消')
+    //       }
+    //     }
+    //   })
+    // }
     DJliST.value = [...DJliST.value, ...res.data.data]
     total.value = res.data.dataCount
     pageTotal.value = res.data.pageCount
