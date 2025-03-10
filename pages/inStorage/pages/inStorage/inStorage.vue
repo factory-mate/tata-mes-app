@@ -109,7 +109,7 @@
 
 <script setup>
 import { TimeCha, time } from '@/utils/time.js'
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { onLoad, onShow, onUnload, onHide, onBackPress } from '@dcloudio/uni-app'
@@ -344,7 +344,8 @@ const getWl = _.debounce(async () => {
         title: `扫描成功：${detailMsg.value.Pbarcode}`
       })
       wuList.value.unshift(detailMsg.value)
-      getCurrentInstance().instance?.proxy?.$forceUpdate()
+      console.log(uni.getStorageSync('wuList'), 'wuList')
+      console.log(wuList.value, 'wuList')
       uni.setStorageSync('wuList', JSON.stringify(wuList.value))
     } else {
       uni.showModal({

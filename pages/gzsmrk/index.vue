@@ -2,11 +2,8 @@
 import { ref } from 'vue'
 import { onLoad, onShow, onHide, onPullDownRefresh, onUnload } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
-import { handleScan, handleRemoveScan } from '@/features/scan'
-import { OtherStorageInAPI, WareHouseAPI } from '@/api'
-import { formatTime, formatString } from '@/features/formatter'
-import { queryBuilder } from '@/features/query'
 import { API } from './api'
+import { printTag } from './utils'
 
 // #ifdef APP-PLUS
 const printer = uni.requireNativePlugin('LcPrinter')
@@ -85,7 +82,20 @@ async function handlePackage() {
         icon: 'success',
         duration: 3000
       })
-      handlePrint(data)
+      printTag({
+        cCode: detailData.value.cCode,
+        PRODUCT_VOUCH_cDefindParm30: detailData.value.PRODUCT_VOUCH_cDefindParm30,
+        cProvinceCode: detailData.value.cProvinceCode,
+        cCityCode: detailData.value.cCityCode,
+        cPackageCode: data.cPackageCode,
+        cDefindParm05: detailData.value.cDefindParm05,
+        cCusName: detailData.value.cCusName,
+        PRODUCT_VOUCH_cDefindParm10: detailData.value.PRODUCT_VOUCH_cDefindParm10,
+        cAddress: detailData.value.cAddress,
+        iDefindParm14: detailData.value.iDefindParm14,
+        iDefindParm13: data.iDefindParm13,
+        packages: packages.value
+      })
       handleClear()
     }
   } catch (e) {
@@ -93,34 +103,8 @@ async function handlePackage() {
   }
 }
 
-function handlePrint(data = {}) {
-  // #ifdef APP-PLUS
-  printer.printQR2({
-    text: detailData?.cCode,
-    height: 150,
-    offset: 2
-  })
-  printer.printText({
-    content: `${detailData?.PRODUCT_VOUCH_cDefindParm30 ?? ''}-${detailData?.cCode ?? ''}${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
-  })
-  printer.printText({ content: `${detailData?.cCode ?? ''}\r\n` })
-  printer.printText({
-    content: `${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
-  })
-  printer.printText({ content: `${data?.cPackageCode ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cDefindParm05 ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cCusName ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.PRODUCT_VOUCH_cDefindParm10 ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cAddress ?? ''}\r\n` })
-  printer.printText({ content: `河南兰考县产业聚集区\r\n` })
-  printer.printText({ content: `兰考闼闼同创工贸有限公司(25厂)\r\n` })
-  printer.printText({ content: `数量：${data?.iDefindParm14 ?? '0'}\r\n` })
-  printer.printText({ content: `包号：第${data?.iDefindParm13 ?? '0'}包\r\n` })
-  packages.value.forEach((i) => {
-    printer.printText({ content: `${i.cInvName ?? ''}： ${i.nQuantity ?? ''}\r\n` })
-  })
-  printer.printGoToNextMark()
-  // #endif
+function handlePrint() {
+  uni.navigateTo({ url: '/pages/gzsmrk/print' })
 }
 
 function handleClear() {
@@ -129,8 +113,6 @@ function handleClear() {
   detailData.value = {}
   packages.value = []
 }
-
-function handleLight() {}
 
 const initPrinter = () => {
   // #ifdef APP-PLUS
@@ -147,7 +129,6 @@ onLoad(() => initPrinter())
 onShow(() => {})
 onHide(() => {})
 onUnload(() => {})
-
 onPullDownRefresh(async () => {
   uni.stopPullDownRefresh()
 })
@@ -192,20 +173,16 @@ onPullDownRefresh(async () => {
         <up-row justify="space-between">
           <up-col span="12"> 客户名称：{{ detailData.cCusName }} </up-col>
         </up-row>
-        <up-row
-          justify="space-between"
-          v-if="detailData.cCode"
-        >
-          <up-col span="12"> 工厂名称：二十五场 </up-col>
+        <up-row justify="space-between">
+          <up-col span="12"> 工厂名称：{{ detailData.cCode ? '二十五场' : '' }} </up-col>
         </up-row>
         <up-row justify="space-between">
           <up-col span="12"> 生产批次：{{ detailData.S_S_S_cBatch }} </up-col>
         </up-row>
-        <up-row
-          justify="space-between"
-          v-if="detailData.cCode"
-        >
-          <up-col span="12"> 打包状态：{{ detailData.cPackageCode ? '已打包' : '未打包' }} </up-col>
+        <up-row justify="space-between">
+          <up-col span="12">
+            打包状态：{{ detailData.cCode ? (detailData.cPackageCode ? '已打包' : '未打包') : '' }}
+          </up-col>
         </up-row>
         <up-row justify="space-between">
           <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
@@ -217,8 +194,10 @@ onPullDownRefresh(async () => {
         >
           <up-divider></up-divider>
           <up-row>
-            <up-col span="6"> 加工码：{{ i.cBarCode }} </up-col>
-            <up-col span="6"> 板件名称：{{ i.cInvName }} </up-col>
+            <up-col span="12"> 加工码：{{ i.cBarCode }} </up-col>
+          </up-row>
+          <up-row>
+            <up-col span="12"> 板件名称：{{ i.cInvName }} </up-col>
           </up-row>
           <up-row>
             <up-col span="6"> 数量：{{ i.nQuantity }} </up-col>
@@ -242,11 +221,10 @@ onPullDownRefresh(async () => {
         <up-button
           type="error"
           size="small"
-          text="打印标签"
+          text="补打标签"
           @click="handlePrint"
           style="margin-right: 8px"
         />
-
         <up-button
           type="error"
           size="small"
@@ -254,19 +232,12 @@ onPullDownRefresh(async () => {
           @click="handlePackage"
           style="margin-right: 8px"
         />
-
         <up-button
           type="error"
           size="small"
           text="重新扫码"
           @click="handleClear"
         />
-        <!-- <up-button
-          type="error"
-          size="small"
-          text="亮灯"
-          @click="handleLight"
-        /> -->
       </view>
     </view>
     <my-btn />

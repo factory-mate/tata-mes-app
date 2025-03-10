@@ -215,6 +215,10 @@ const AllSave = () => {
             title: '保存成功'
           })
           PicArr.value = []
+          // 返回上一页
+          uni.navigateBack({
+            delta: 1
+          })
         }
       })
     })
@@ -238,6 +242,10 @@ const AllSave = () => {
             title: '保存成功'
           })
           PicArr.value = []
+          // 返回上一页
+          uni.navigateBack({
+            delta: 1
+          })
         }
       })
     })

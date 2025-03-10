@@ -4,6 +4,7 @@ import URLIP from '@/utils/serviceIP.js'
 const API_PREFIX = URLIP.BASE_URL_PDAIN + '/api/Package'
 
 export const API = {
+  list: () => {},
   scan: (cBarCode) =>
     service({
       url: API_PREFIX + '/GetV_GZ_Package_CJ_Scan',

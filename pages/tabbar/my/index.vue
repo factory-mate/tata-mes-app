@@ -11,6 +11,14 @@
 
     <view class="main">
       <text style="margin-top: 140rpx; color: white">{{ userName }}</text>
+      <view v-if="URLIP.ENV === 'local'">
+        <up-button
+          style="width: 200px"
+          @click="handleDev"
+        >
+          开发自用
+        </up-button>
+      </view>
       <button
         class="log-out"
         @click="logout"
@@ -46,6 +54,12 @@ const logout = () => {
   uni.removeStorageSync('token')
   uni.removeStorageSync('account')
   uni.reLaunch({ url: '/pages/login/login' })
+}
+
+function handleDev() {
+  uni.navigateTo({
+    url: '/pages/test/index'
+  })
 }
 
 function handleUpgradeApp() {

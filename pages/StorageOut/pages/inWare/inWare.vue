@@ -313,7 +313,7 @@ import {
   PosScanOut,
   errLog
 } from '../../../../api/inStorage.js'
-import { reactive, ref, getCurrentInstance } from 'vue'
+import { reactive, ref } from 'vue'
 import {
   onLoad,
   onShow,

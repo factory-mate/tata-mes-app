@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <view>
     <button
       type="primary"
       @click="initPrinter"
@@ -60,7 +60,7 @@
     >
       回纸距离
     </button>
-  </div>
+  </view>
 </template>
 
 <script>

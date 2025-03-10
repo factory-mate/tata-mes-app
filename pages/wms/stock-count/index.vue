@@ -214,7 +214,7 @@ onPullDownRefresh(async () => {
             </up-row>
             <up-row justify="space-between">
               <up-col span="6"> 状态：{{ item.iStatusName }} </up-col>
-              <up-col span="6"> 库区名称：{{ item.cWareHouseName }} </up-col>
+              <up-col span="6"> 库区名称：{{ item.cDefindParm02 }} </up-col>
             </up-row>
             <up-row justify="space-between">
               <up-col span="6"> 物料编码：{{ item.cInvCode }} </up-col>
