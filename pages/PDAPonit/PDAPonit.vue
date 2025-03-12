@@ -186,6 +186,14 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
+                    <view class="demo-uni-col dark">维修状态：{{ item.iStatusName }}</view>
+                  </uni-col>
+                  <uni-col :span="12">
+                    <view class="demo-uni-col light">报修人：{{ item.cCreateUserName }}</view>
+                  </uni-col>
+                </uni-row>
+                <uni-row class="demo-uni-row">
+                  <uni-col :span="12">
                     <view class="demo-uni-col dark">指派人员：{{ item.cPARM06 }}</view>
                   </uni-col>
                   <uni-col :span="12">
@@ -268,6 +276,10 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+  DevList.value = []
+  currentPage.value = 1
+  total.value = 0
+  GetList()
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -295,7 +307,6 @@ onBackPress(() => {
 })
 //加载页面
 onLoad((option) => {
-  GetList()
   h.value = uni.getSystemInfoSync().windowHeight
 })
 
