@@ -101,6 +101,7 @@
                     class="mini-btn"
                     type="warn"
                     size="mini"
+                    :disabled="!(item.iStatus === 0)"
                     @click="goStart(item)"
                   >
                     开始
@@ -110,6 +111,7 @@
                     class="mini-btn"
                     type="warn"
                     size="mini"
+                    :disabled="!(item.iStatus === 1 || item.iStatus === 2)"
                     @click="goReapir(item)"
                   >
                     维修
