@@ -205,18 +205,20 @@ onPullDownRefresh(async () => {
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">
-              <view style="display: flex; align-items: flex-end; gap: 8px">
+              <view style="display: flex; align-items: flex-end">
                 <up-button
                   text="审核"
                   type="error"
                   size="small"
                   @click="handleAudit(item)"
+                  style="margin-right: 4px"
                 />
                 <up-button
                   text="驳回"
                   type="error"
                   size="small"
                   @click="openRejectModal(item)"
+                  style="margin-right: 4px"
                 />
                 <up-button
                   text="详情"
