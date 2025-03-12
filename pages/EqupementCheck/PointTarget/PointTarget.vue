@@ -67,9 +67,8 @@
                 <uni-section type="line">
                   <uni-data-select
                     v-model="item.DataInput"
-                    :localdata="range"
+                    :localdata="item.rangeValue"
                     @change="change"
-                    @click="GetSelectData(item)"
                     :placeholder="item.cActValue ? item.cActValue : '请输入'"
                     :disabled="item.cPARM01 ? true : false"
                   ></uni-data-select>
@@ -179,7 +178,6 @@ const pageTotal = ref(0)
 const TargetList = ref([])
 //指标值
 const TargetData = ref({})
-const range = ref([])
 const value = ref() //指标选中数据
 const SelectName = ref()
 const uid = ref()
@@ -240,6 +238,12 @@ const GetDataTarget = () => {
       TargetList.value = res.data
       TargetList.value.forEach((item) => {
         item.DataInput = item.cActValueName
+        item.rangeValue = item.itemsss.map((j) => {
+          return {
+            value: j.cScoreProgramName,
+            text: j.cScoreProgramName
+          }
+        })
       })
       uni.hideLoading()
       uni.stopPullDownRefresh()
@@ -253,12 +257,7 @@ const Arr = ref({})
 const StatusResult = ref()
 const GetSelectData = (i) => {
   Arr.value = i
-  range.value = i.itemsss.map((j) => {
-    return {
-      value: j.cScoreProgramName,
-      text: j.cScoreProgramName
-    }
-  })
+  console.log(Arr.value)
 }
 const Choose = ref()
 const change = (i) => {
