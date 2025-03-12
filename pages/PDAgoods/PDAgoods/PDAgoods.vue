@@ -388,10 +388,14 @@ onShow(() => {
   // #endif
 
   if (current.value == 0) {
+    DcurrentPage.value = 1
     ConfirmList.value = []
+    total.value = 0
+    pageTotal.value = 0
     getDH()
   }
   if (current.value == 1) {
+    currentPage.value = 1
     DayList.value = []
     Dtotal.value = 0
     DpageTotal.value = 0
