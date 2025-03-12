@@ -37,16 +37,24 @@ function resetPageParams() {
   listData.value = []
 }
 
-function handlePrint() {
-  console.log(detailData.value)
-  console.log(listData.value)
-  const printData = generatePrintData({ ...detailData.value, packages: listData.value })
-  console.log(printData)
+async function handlePrint() {
+  let printData
+  printData = generatePrintData({ ...detailData.value, packages: listData.value })
+  // try {
+  //   const { data } = await API.mockPrintTemplate({
+  //     ...detailData.value,
+  //     packages: listData.value
+  //   })
+  //   printData = data
+  // } catch {
+  //   //
+  // }
   sendPrintCommand({ data: printData })
 }
 
 onLoad((options) => {
   detailData.value.cPackageCode = options.code
+  getList()
 })
 onShow(() => {
   listData.value = []

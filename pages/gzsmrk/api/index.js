@@ -37,5 +37,11 @@ export const API = {
       url: API_PREFIX + '/GetV_GZ_Package_CJ',
       method: 'post',
       data
+    }),
+  mockPrintTemplate: (data) =>
+    service({
+      url: 'http://192.168.111.83:3000/print-template',
+      method: 'post',
+      data
     })
 }

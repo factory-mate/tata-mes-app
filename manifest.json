@@ -17,6 +17,8 @@
         "compatible" : {
             "ignoreVersion" : true
         },
+        "runmode": "liberate",
+        "optimization": true,
         "usingComponents" : true,
         "compilerVersion" : 3,
         "modules" : {
