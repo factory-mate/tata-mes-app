@@ -26,13 +26,20 @@
           class="search-wl"
           style="display: flex; align-items: center"
         >
-          <!-- 搜索框 -->
-          <input
-            class="inputSty"
+          <up-input
+            style="margin: 0 4px"
             v-model="searchValue"
             placeholder="请输入设备"
-            placeholder-style="font-size:12px"
-          />
+          >
+            <template #prefix>
+              <up-icon
+                name="scan"
+                color="#dd524d"
+                size="28"
+                @click="handleCameraScan('1')"
+              />
+            </template>
+          </up-input>
           <button
             class="mini-btn"
             style="
@@ -128,12 +135,20 @@
           class="search-wl"
           style="display: flex; align-items: center"
         >
-          <input
-            class="inputSty"
+          <up-input
+            style="margin: 4px"
             v-model="searchValue"
             placeholder="请输入设备"
-            placeholder-style="font-size:12px"
-          />
+          >
+            <template #prefix>
+              <up-icon
+                name="scan"
+                color="#dd524d"
+                size="28"
+                @click="handleCameraScan('2')"
+              />
+            </template>
+          </up-input>
           <button
             class="mini-btn"
             style="
@@ -410,6 +425,22 @@ const scrolltolower = () => {
 const clickLeft = () => {
   uni.navigateBack({
     delta: 1
+  })
+}
+
+const handleCameraScan = (status) => {
+  uni.scanCode({
+    onlyFromCamera: true,
+    success: (res) => {
+      console.log(res)
+      if (status === '1') {
+        searchValue.value = res.result
+        getSearch()
+      } else {
+        searchValue.value = res.result
+        getSearch()
+      }
+    }
   })
 }
 </script>

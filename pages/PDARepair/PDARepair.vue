@@ -26,13 +26,21 @@
           class="search-wl"
           style="display: flex; align-items: center"
         >
-          <!-- 搜索框 -->
-          <input
-            class="inputSty"
+          <up-input
+            style="margin-left: 4px"
             v-model="searchValuess"
             placeholder="请输入设备"
-            placeholder-style="font-size:12px"
-          />
+          >
+            <template #prefix>
+              <up-icon
+                name="scan"
+                color="#dd524d"
+                size="28"
+                @click="handleCameraScan('1')"
+              />
+            </template>
+          </up-input>
+
           <button
             class="mini-btn"
             style="
@@ -41,6 +49,7 @@
               bordercolor: #e8e873;
               width: 20%;
               height: 30px;
+              margin-left: 4px;
             "
             type="warn"
             size="mini"
@@ -49,6 +58,10 @@
             搜索
           </button>
         </view>
+        <uni-icon
+          type="scan"
+          size="30"
+        />
         <view class="listMain">
           <scroll-view
             :style="'height:' + (h - 200) + 'px'"
@@ -149,12 +162,21 @@
           class="search-wl"
           style="display: flex; align-items: center"
         >
-          <input
-            class="inputSty"
+          <up-input
+            style="margin-left: 4px"
             v-model="searchValuess"
             placeholder="请输入设备"
-            placeholder-style="font-size:12px"
-          />
+          >
+            <template #prefix>
+              <up-icon
+                name="scan"
+                color="#dd524d"
+                size="28"
+                @click="handleCameraScan('2')"
+              />
+            </template>
+          </up-input>
+
           <button
             class="mini-btn"
             style="
@@ -498,6 +520,7 @@ const getSearchss = () => {
     }
   })
 }
+
 // 开始
 const goStart = (i) => {
   PDABegin({
@@ -587,6 +610,22 @@ const scrolltolower = () => {
 const clickLeft = () => {
   uni.navigateBack({
     delta: 1
+  })
+}
+
+const handleCameraScan = (status) => {
+  uni.scanCode({
+    onlyFromCamera: true,
+    success: (res) => {
+      console.log(res)
+      if (status === '1') {
+        searchValuess.value = res.result
+        getSearch()
+      } else {
+        searchValuess.value = res.result
+        getSearchss()
+      }
+    }
   })
 }
 </script>

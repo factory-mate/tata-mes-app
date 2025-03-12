@@ -29,35 +29,22 @@
               style="display: flex; align-items: center; justify-content: flex-start"
             >
               <view style="width: 15%; margin: 0 10px">设备条码:</view>
-              <view style="width: 60%">
-                <!-- 搜索框 -->
-                <uni-section
-                  v-if="branch != 'alps'"
-                  title=""
-                  type="line"
-                >
-                  <uni-search-bar
-                    radius="100"
-                    cancelButton="none"
-                    :focus="focusType"
-                    @blur="setfocus"
-                    @confirm="GetData"
-                    v-model="Station"
-                    placeholder="请输入设备码"
-                  >
-                  </uni-search-bar>
-                </uni-section>
-                <input
-                  v-else
-                  class="inputSty"
-                  :disabled="disabled"
-                  v-model="Station"
-                  @input="GetData"
-                  :focus="focusType"
-                  placeholder="请扫描设备条码"
-                  placeholder-style="font-size:12px"
-                />
-              </view>
+              <up-input
+                v-model="Station"
+                :focus="focusType"
+                placeholder="请扫描设备条码"
+                style="margin-top: 4px"
+                @confirm="GetData"
+              >
+                <template #prefix>
+                  <up-icon
+                    name="scan"
+                    color="#dd524d"
+                    size="28"
+                    @click="handleCameraScan('1')"
+                  />
+                </template>
+              </up-input>
             </view>
             <view
               class="ChangTarg"
@@ -268,12 +255,20 @@
           class="search-wl"
           style="display: flex; align-items: center"
         >
-          <input
-            class="inputSty"
+          <up-input
             v-model="searchValue"
             placeholder="请输入设备"
-            placeholder-style="font-size:12px"
-          />
+            style="margin-right: 4px; margin-top: 4px; margin-left: 4px"
+          >
+            <template #prefix>
+              <up-icon
+                name="scan"
+                color="#dd524d"
+                size="28"
+                @click="handleCameraScan('2')"
+              />
+            </template>
+          </up-input>
           <button
             class="mini-btn"
             style="
@@ -477,7 +472,6 @@ const tirgger = ref(false)
 const confirmPopup = ref(null)
 const currentConfirmItem = ref(null)
 onShow(() => {
-  branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // #ifdef APP-PLUS
   plus.key.addEventListener('keyup', keypress)
   // #endif
@@ -888,6 +882,22 @@ const confirmRepair = () => {
       getForPage()
       confirmPopup.value.close()
     })
+}
+
+const handleCameraScan = (status) => {
+  uni.scanCode({
+    onlyFromCamera: true,
+    success: (res) => {
+      console.log(res)
+      if (status === '1') {
+        Station.value = res.result
+        GetData()
+      } else {
+        searchValue.value = res.result
+        getSearch()
+      }
+    }
+  })
 }
 </script>
 
