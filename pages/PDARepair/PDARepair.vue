@@ -121,6 +121,7 @@
                     class="mini-btn"
                     type="warn"
                     size="mini"
+                    :disabled="item.iStatus === 3"
                     @click="goClose(item)"
                   >
                     完成

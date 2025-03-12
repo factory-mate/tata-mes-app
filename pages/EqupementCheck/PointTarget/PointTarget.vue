@@ -68,7 +68,7 @@
                   <uni-data-select
                     v-model="item.DataInput"
                     :localdata="item.rangeValue"
-                    @change="change"
+                    @change="change($event, item)"
                     :placeholder="item.cActValue ? item.cActValue : '请输入'"
                     :disabled="item.cPARM01 ? true : false"
                   ></uni-data-select>
@@ -82,7 +82,6 @@
                   :placeholder="item.cActValue ? item.cActValue : '请输入'"
                   placeholder-style="font-size:12px"
                   type="number"
-                  @input="inputChange(item, index)"
                 />
               </view>
             </view>
@@ -123,7 +122,7 @@
             >
               <uni-col :span="24">
                 <view class="demo-uni-col dark"
-                  >结果：{{ item.cPARM01 ? item.cPARM01 : StatusResult }}</view
+                  >结果：{{ item.cPARM01 ? item.cPARM01 : item.statusResult }}</view
                 >
               </uni-col>
               <uni-col :span="12">
@@ -179,7 +178,6 @@ const TargetList = ref([])
 //指标值
 const TargetData = ref({})
 const value = ref() //指标选中数据
-const SelectName = ref()
 const uid = ref()
 const disInput = ref(false)
 const tagetVal = ref()
@@ -252,32 +250,22 @@ const GetDataTarget = () => {
     }
   })
 }
-//下拉数据
-const Arr = ref({})
-const StatusResult = ref()
-const GetSelectData = (i) => {
-  Arr.value = i
-  console.log(Arr.value)
-}
 const Choose = ref()
-const change = (i) => {
-  SelectName.value = i
-  StatusResult.value = ''
-  Arr.value.itemsss.forEach((j) => {
-    if (j.cScoreProgramName == i) {
+const change = (e, i) => {
+  i.SelectName = e
+  i.statusResult = ''
+  i.itemsss.forEach((j) => {
+    if (j.cScoreProgramName == e) {
       Choose.value = j
     }
   })
-  if (Choose.value.nWeightValue === Arr.value.cStandardValue) {
-    StatusResult.value = '正常'
+  if (Choose.value.nWeightValue === i.cStandardValue) {
+    i.statusResult = '正常'
   } else {
-    StatusResult.value = '不正常'
+    i.statusResult = '不正常'
   }
 }
 const DataInput = ref()
-const inputChange = (i, index) => {
-  // DataInput.value=i.UID
-}
 //保存
 const SaveTarget = (i) => {
   TargetSave({
@@ -285,9 +273,9 @@ const SaveTarget = (i) => {
     MIDs: i.MIDs,
     uid: i.UID,
     cActValue: i.DataInput ? +i.DataInput : '',
-    cScoreProgramName: SelectName.value,
-    cResult: StatusResult.value
-      ? StatusResult.value
+    cScoreProgramName: i.SelectName,
+    cResult: i.statusResult
+      ? i.statusResult
       : i.DataInput >= i.cMinValue && i.DataInput <= i.cMaxValue
         ? '正常'
         : '不正常'
