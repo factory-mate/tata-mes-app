@@ -386,6 +386,17 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+
+  if (current.value == 0) {
+    ConfirmList.value = []
+    getDH()
+  }
+  if (current.value == 1) {
+    DayList.value = []
+    Dtotal.value = 0
+    DpageTotal.value = 0
+    GetConfirm()
+  }
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -413,7 +424,6 @@ onBackPress(() => {
 })
 //加载页面
 onLoad((option) => {
-  getDH()
   h.value = uni.getSystemInfoSync().windowHeight
 })
 const setfocus = () => {

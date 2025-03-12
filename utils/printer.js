@@ -1,4 +1,4 @@
-export function sendPrintCommand({ data, encoding = 'utf-8', cmdType = 'zpl' }) {
+export function sendPrintCommand({ data, encoding = 'utf-8', cmdType = 'zpl', callback }) {
   // #ifdef APP-PLUS
   const printerModule = uni.requireNativePlugin('ammagician-printer')
   const modal = uni.requireNativePlugin('modal')
@@ -30,7 +30,9 @@ export function sendPrintCommand({ data, encoding = 'utf-8', cmdType = 'zpl' }) 
             (res) => {
               console.log(res)
               modal.toast({ message: res.msg })
-              printerModule.disconnect({ isUSB: true, isIP: false }, (res) => {})
+              printerModule.disconnect({ isUSB: true, isIP: false }, (res) => {
+                callback && callback()
+              })
             }
           )
         }

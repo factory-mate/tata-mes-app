@@ -359,6 +359,7 @@
                 type="warn"
                 size="mini"
                 @click="goSave"
+                :disabled="isSaveLoading"
               >
                 保存
               </button>
@@ -503,6 +504,7 @@ const project = ref()
 const projectrange = ref([])
 const part = ref()
 const partrange = ref([])
+const isSaveLoading = ref(false)
 //日期范围
 const Timerange = ref()
 //设备列表数据
@@ -966,24 +968,29 @@ const goSave = () => {
     })
     return
   }
-  RepairVouchSave(postList.value).then((res) => {
-    if (res.status == 200) {
-      uni.showToast({
-        icon: 'none',
-        title: res.msg,
-        duration: 1000
-      })
-      postList.value = []
-      uni.navigateBack({ delta: 1 })
-    } else {
-      let errVal = JSON.parse(res.errmsg?.[0].Value)?.[0]
-      uni.showToast({
-        icon: 'none',
-        title: errVal.name + errVal.msg,
-        duration: 1000
-      })
-    }
-  })
+  isSaveLoading.value = true
+  RepairVouchSave(postList.value)
+    .then((res) => {
+      if (res.status == 200) {
+        uni.showToast({
+          icon: 'none',
+          title: res.msg,
+          duration: 1000
+        })
+        postList.value = []
+        uni.navigateBack({ delta: 1 })
+      } else {
+        let errVal = JSON.parse(res.errmsg?.[0].Value)?.[0]
+        uni.showToast({
+          icon: 'none',
+          title: errVal.name + errVal.msg,
+          duration: 1000
+        })
+      }
+    })
+    .finally(() => {
+      isSaveLoading.value = false
+    })
 }
 // 文档
 const goFile = () => {

@@ -386,10 +386,11 @@ const GetList = () => {
   otherConditions.forEach((item) => {
     Conditions += ` && ${item}`
   })
+  const orderbyfileds = current.value == 0 ? '' : 'dEndTime desc'
   PDARepairVouch({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: orderbyfileds,
     Conditions
   }).then((res) => {
     if (res.status == 200) {

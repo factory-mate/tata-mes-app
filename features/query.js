@@ -10,6 +10,11 @@ export const queryBuilder = (list) => {
           conditionList.push(`${i.key} = ${i.val}`)
         }
         break
+      case 'neq':
+        if (i.key && i.val) {
+          conditionList.push(`${i.key} != ${i.val}`)
+        }
+        break
       case 'like':
         if (i.key && i.val) {
           conditionList.push(`${i.key} like ${i.val}`)

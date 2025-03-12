@@ -2435,26 +2435,36 @@
         "onReachBottomDistance": 50
       }
     },
-    // {
-    //   "path": "pages/gzsmrk/work",
-    //   "style": {
-    //     "navigationStyle": "custom",
-    //     "enablePullDownRefresh": true,
-    //     "onPullDownRefresh": true,
-    //     "onReachBottom": true,
-    //     "onReachBottomDistance": 50
-    //   }
-    // },
-    // {
-    //   "path": "pages/gzsmrk/detail",
-    //   "style": {
-    //     "navigationStyle": "custom",
-    //     "enablePullDownRefresh": true,
-    //     "onPullDownRefresh": true,
-    //     "onReachBottom": true,
-    //     "onReachBottomDistance": 50
-    //   }
-    // },
+    {
+      "path": "pages/gzsmrk/package",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/gzsmrk/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/gzsmrk/package-detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
     {
       "path": "pages/test/index"
     },

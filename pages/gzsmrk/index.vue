@@ -2,19 +2,20 @@
 import { ref } from 'vue'
 import { onLoad, onShow, onHide, onPullDownRefresh, onUnload } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
+import { usePageParams } from '@/hooks'
+import { queryBuilder } from '@/features/query'
 import { API } from './api'
-import { printTag } from './utils'
-
-// #ifdef APP-PLUS
-const printer = uni.requireNativePlugin('LcPrinter')
-// #endif
 
 const height = ref(getDeviceHeight().totalHeight)
 
-const isFocus = ref(true)
+const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
+  usePageParams()
+
+const tabItems = ref([{ name: '未完工' }, { name: '已完工' }])
+const currentTabIndex = ref(0)
 const scanInput = ref('')
-const detailData = ref({})
-const packages = ref([])
+const isFocus = ref(true)
+const listData = ref([])
 
 const setFocus = () => {
   isFocus.value = false
@@ -23,114 +24,65 @@ const setFocus = () => {
   }, 200)
 }
 
-async function scanCode() {
-  try {
-    const { data, success } = await API.scan(scanInput.value)
-    if (success) {
-      if (!data) {
-        uni.showToast({
-          title: '未找到数据',
-          icon: 'none'
-        })
-        scanInput.value = ''
-        setFocus()
-        return
-      }
-      if (detailData.value.cCode && data?.cCode !== detailData.value.cCode) {
-        uni.showToast({
-          title: '非同一单，不能合包',
-          icon: 'none'
-        })
-        scanInput.value = ''
-        setFocus()
-        return
-      }
-      if (!detailData.value.cCode) {
-        detailData.value = data
-      }
-      if (data.X > 0 && data.Y > 0) {
-        if (data.X * data.Y > 80) {
-          uni.showToast({
-            title: '超重',
-            icon: 'none'
-          })
-        }
-      }
-      packages.value.unshift({
-        cBarCode: data.cBarCode,
-        cInvName: data.cInvName,
-        nQuantity: data.nQuantity
-      })
-    }
-  } catch (e) {
-    console.log(e)
-  }
-  scanInput.value = ''
+function handleClickTab(item) {
+  currentTabIndex.value = item.index
+  resetPageParams()
+  getList()
+}
+
+function handleSearch() {
+  resetPageParams()
+  getList()
+}
+
+function resetPageParams() {
+  clearPageParams()
+  clearPageInfo()
+  listData.value = []
   setFocus()
 }
 
-function handleDeleteItem(idx) {
-  packages.value.splice(idx, 1)
-}
-
-async function handlePackage() {
+async function getList() {
   try {
-    const { data, success } = await API.package(packages.value.map((i) => i.cBarCode))
-    if (success) {
-      uni.showToast({
-        title: '打包成功',
-        icon: 'success',
-        duration: 3000
-      })
-      printTag({
-        cCode: detailData.value.cCode,
-        PRODUCT_VOUCH_cDefindParm30: detailData.value.PRODUCT_VOUCH_cDefindParm30,
-        cProvinceCode: detailData.value.cProvinceCode,
-        cCityCode: detailData.value.cCityCode,
-        cPackageCode: data.cPackageCode,
-        cDefindParm05: detailData.value.cDefindParm05,
-        cCusName: detailData.value.cCusName,
-        PRODUCT_VOUCH_cDefindParm10: detailData.value.PRODUCT_VOUCH_cDefindParm10,
-        cAddress: detailData.value.cAddress,
-        iDefindParm14: detailData.value.iDefindParm14,
-        iDefindParm13: data.iDefindParm13,
-        packages: packages.value
-      })
-      handleClear()
-    }
+    const { data } = await API.list({
+      cBarCode: scanInput.value,
+      PageIndex: pageParams.value.pageIndex,
+      PageSize: pageParams.value.pageSize,
+      OrderByFileds: 'dPlanDateStart,cCode',
+      Conditions: queryBuilder([
+        ...(currentTabIndex.value === 0
+          ? [{ type: 'neq', key: 'cDefindParm02', val: 1 }]
+          : [{ type: 'eq', key: 'cDefindParm02', val: 1 }])
+      ])
+    })
+    const { dataCount, pageCount } = data
+    listData.value = [...listData.value, ...data.data]
+    setPageInfo({ dataCount, pageCount })
   } catch (e) {
     console.log(e)
   }
+  uni.hideLoading()
+  uni.stopPullDownRefresh()
 }
 
-function handlePrint() {
-  uni.navigateTo({ url: '/pages/gzsmrk/print' })
+function handleDetail(item) {
+  uni.navigateTo({ url: `/pages/gzsmrk/detail?code=${item.cCode}` })
 }
 
-function handleClear() {
-  scanInput.value = ''
-  setFocus()
-  detailData.value = {}
-  packages.value = []
+function handlePackage(item) {
+  uni.navigateTo({ url: `/pages/gzsmrk/package?code=${item.cCode}` })
 }
 
-const initPrinter = () => {
-  // #ifdef APP-PLUS
-  printer.initPrinter({})
-  printer.printEnableMark({ enable: true })
-  printer.setConcentration({ level: 39 })
-  printer.setLineSpacing({ spacing: 1 })
-  printer.setFontSize({ fontSize: 8 })
-  printer.getsupportprint()
-  // #endif
-}
-
-onLoad(() => initPrinter())
-onShow(() => {})
+onLoad(() => {})
+onShow(() => {
+  listData.value = []
+  getList()
+})
 onHide(() => {})
 onUnload(() => {})
 onPullDownRefresh(async () => {
-  uni.stopPullDownRefresh()
+  resetPageParams()
+  await getList()
 })
 </script>
 
@@ -145,100 +97,86 @@ onPullDownRefresh(async () => {
     />
 
     <view class="container">
-      <view class="fix-area">
-        <up-gap height="8" />
+      <up-list
+        :height="`calc(100vh - ${height + 20}px)`"
+        @scrolltolower="handleScrollToLower(getList)"
+      >
+        <view class="fix-area">
+          <up-tabs
+            :list="tabItems"
+            :scrollable="false"
+            :current="currentTabIndex"
+            lineColor="#ff0000"
+            @click="handleClickTab"
+          />
 
-        <up-row justify="space-between">
-          <up-col span="12">
-            <up-input
-              v-model="scanInput"
-              @confirm="scanCode"
-              :focus="isFocus"
-              placeholder="请扫描"
-              border="surround"
-              clearable
-              maxlength="30"
-            />
-          </up-col>
-        </up-row>
+          <up-gap height="8" />
 
-        <up-gap height="8" />
-
-        <up-row justify="space-between">
-          <up-col span="12"> P单号：{{ detailData.cCode }} </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12"> 城市：{{ detailData.cCityCode }} </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12"> 客户名称：{{ detailData.cCusName }} </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12"> 工厂名称：{{ detailData.cCode ? '二十五场' : '' }} </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12"> 生产批次：{{ detailData.S_S_S_cBatch }} </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12">
-            打包状态：{{ detailData.cCode ? (detailData.cPackageCode ? '已打包' : '未打包') : '' }}
-          </up-col>
-        </up-row>
-        <up-row justify="space-between">
-          <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
-        </up-row>
-
-        <view
-          v-for="(i, idx) in packages"
-          :key="idx"
-        >
-          <up-divider></up-divider>
-          <up-row>
-            <up-col span="12"> 加工码：{{ i.cBarCode }} </up-col>
-          </up-row>
-          <up-row>
-            <up-col span="12"> 板件名称：{{ i.cInvName }} </up-col>
-          </up-row>
-          <up-row>
-            <up-col span="6"> 数量：{{ i.nQuantity }} </up-col>
-            <up-col span="6">
-              <view style="width: 100px">
-                <up-button
-                  type="error"
-                  size="small"
-                  text="删除"
-                  @click="handleDeleteItem(idx)"
-                />
-              </view>
+          <up-row justify="space-between">
+            <up-col span="10">
+              <up-input
+                placeholder="请扫描"
+                border="surround"
+                v-model="scanInput"
+                :focus="isFocus"
+                @confirm="handleSearch"
+                clearable
+              />
+            </up-col>
+            <up-col span="2">
+              <up-button
+                style="margin-left: 4rpx"
+                type="error"
+                @click="handleSearch"
+              >
+                搜索
+              </up-button>
             </up-col>
           </up-row>
+
+          <up-gap height="8" />
         </view>
 
-        <up-gap height="8" />
-      </view>
-
-      <view class="btn-area">
-        <up-button
-          type="error"
-          size="small"
-          text="补打标签"
-          @click="handlePrint"
-          style="margin-right: 8px"
-        />
-        <up-button
-          type="error"
-          size="small"
-          text="立即打包"
-          @click="handlePackage"
-          style="margin-right: 8px"
-        />
-        <up-button
-          type="error"
-          size="small"
-          text="重新扫码"
-          @click="handleClear"
-        />
-      </view>
+        <view style="padding-top: 120px">
+          <up-list-item
+            v-for="(item, index) in listData"
+            :key="index"
+          >
+            <up-row justify="space-between">
+              <up-col span="6"> P单号：{{ item.cCode }} </up-col>
+              <up-col span="6"> 仓位：{{ item.cDefindParm53 }} </up-col>
+            </up-row>
+            <up-row justify="space-between">
+              <up-col span="6"> 生产日期：{{ item.dPlanDateStartStr }} </up-col>
+              <up-col span="6"> 打包状态：{{ item.cDefindParm02Name }} </up-col>
+            </up-row>
+            <up-row justify="space-between">
+              <up-col span="6"> 已打包数：{{ item.iTotalQuantity }} </up-col>
+            </up-row>
+            <up-gap height="12" />
+            <up-row justify="flex-end">
+              <view style="display: flex; align-items: flex-end">
+                <up-button
+                  style="margin-right: 8px"
+                  text="详情"
+                  type="error"
+                  size="small"
+                  @click="handleDetail(item)"
+                />
+                <up-button
+                  v-if="currentTabIndex === 0"
+                  text="包装扫码"
+                  type="error"
+                  size="small"
+                  @click="handlePackage(item)"
+                />
+              </view>
+            </up-row>
+            <up-divider />
+          </up-list-item>
+        </view>
+        <up-loadmore :status="pageInfo.status" />
+      </up-list>
     </view>
     <my-btn />
   </view>
@@ -260,14 +198,5 @@ onPullDownRefresh(async () => {
   right: 10px;
   z-index: 99;
   border-bottom: 1px solid #f0f0f0;
-}
-
-.btn-area {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: space-between;
 }
 </style>
