@@ -312,6 +312,15 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+  DevList.value = []
+  currentPage.value = 1
+  searchValuess.value = ''
+  total.value = 0
+  if (current.value == 0) {
+    GetList()
+  } else {
+    GetList()
+  }
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -339,7 +348,6 @@ onBackPress(() => {
 })
 //加载页面
 onLoad((option) => {
-  GetList()
   h.value = uni.getSystemInfoSync().windowHeight
 })
 
