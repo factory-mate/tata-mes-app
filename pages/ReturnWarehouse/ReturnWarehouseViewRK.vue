@@ -323,6 +323,13 @@ const clickXM = () => {
       uni.stopPullDownRefresh()
 
       if (res.success) {
+        if (res.data.data.length == 0) {
+          uni.showToast({
+            icon: 'error',
+            title: '箱码不正确！'
+          })
+          return
+        }
         if (res.data.data[0].iStatus == 1) {
           uni.showToast({
             icon: 'error',
