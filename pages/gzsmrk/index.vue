@@ -51,8 +51,8 @@ async function getList() {
       OrderByFileds: 'dPlanDateStart,cCode',
       Conditions: queryBuilder([
         ...(currentTabIndex.value === 0
-          ? [{ type: 'neq', key: 'cDefindParm02', val: 1 }]
-          : [{ type: 'eq', key: 'cDefindParm02', val: 1 }])
+          ? [{ type: 'neq', key: 'cDefindParm02', val: 2 }]
+          : [{ type: 'eq', key: 'cDefindParm02', val: 2 }])
       ])
     })
     const { dataCount, pageCount } = data
