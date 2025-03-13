@@ -27,10 +27,10 @@
         style="margin-left: 20rpx"
       >
         <uni-col :span="12">
-          <view class="demo-uni-col dark">物料编码：{{ infoVal.cCode }}</view>
+          <view class="demo-uni-col dark">物料编码：{{ infoVal.cInvCode }}</view>
         </uni-col>
         <uni-col :span="12">
-          <view class="demo-uni-col dark">数量：{{ infoVal.cCode }}</view>
+          <view class="demo-uni-col dark">数量：{{ infoVal.sumInQuantity }}</view>
         </uni-col>
       </uni-row>
       <uni-row
@@ -65,10 +65,10 @@
               </uni-row>
               <uni-row class="demo-uni-row">
                 <uni-col :span="14">
-                  <view class="demo-uni-col dark">数量：{{ item.nQuantity }}</view>
+                  <view class="demo-uni-col dark">数量：{{ item.cDefindParm02 }}</view>
                 </uni-col>
                 <uni-col :span="14">
-                  <view class="demo-uni-col dark">批次号：{{ item.cInvStd }}</view>
+                  <view class="demo-uni-col dark">批次号：{{ item.cDefindParm03 }}</view>
                 </uni-col>
               </uni-row>
               <!-- <uni-row class="demo-uni-row">
