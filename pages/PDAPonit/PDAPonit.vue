@@ -376,7 +376,9 @@ const getSearch = () => {
     Conditions.push(`cPARM06 like ${searchUserValue.value}`)
   }
   let OrderByFileds = ''
-  if (current.value == 1) {
+  if (current.value == 0) {
+    OrderByFileds = 'dCreateTime'
+  } else {
     OrderByFileds = 'cPARM07 desc'
   }
   getRepairList({
