@@ -18,7 +18,6 @@
         :style-type="styleType"
         :active-color="activeColor"
         @clickItem="(e) => onClickItem(e)"
-        @click="clickTab"
       />
     </view>
     <view class="content">
@@ -448,18 +447,22 @@ const keypress = (e) => {
   // 	getWl()
   // }
 }
-const clickTab = () => {
-  if (current.value == 0) {
-    Vtype.value = false
-    getDH()
-  }
-}
+// const clickTab = () => {
+//   if (current.value == 0) {
+//     Vtype.value = false
+//     getDH()
+//   }
+// }
 const onClickItem = (e) => {
   Vtype.value = false
   if (current.value !== e.currentIndex) {
     current.value = e.currentIndex
   }
   if (current.value == 0) {
+    DcurrentPage.value = 1
+    ConfirmList.value = []
+    total.value = 0
+    pageTotal.value = 0
     getDH()
   }
   if (current.value == 1) {
