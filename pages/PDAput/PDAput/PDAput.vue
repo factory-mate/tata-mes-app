@@ -395,7 +395,7 @@ const h = ref('100') //页面高度
 const more = ref('more') //加载更多
 const focusType = ref(true)
 const XMfocusType = ref(false)
-const title = ref('采购入库')
+const title = ref('PDA上架')
 const Vtype = ref(false)
 //输入框值
 const xmdis = ref(true)
@@ -717,7 +717,9 @@ const RKList = () => {
   })
   PDAGetListUpFrameByUser({
     OrderByFileds: 'dcreateTIme',
-    Conditions: `cSourceCode=${DHCode.value} && cInvCode=${cInvCode.value} && cWareHouseLocationCode=${HWsearchValue.value}`
+    Conditions: ''
+    // #3146
+    // Conditions: `cSourceCode=${DHCode.value} && cInvCode=${cInvCode.value} && cWareHouseLocationCode=${HWsearchValue.value}`
   }).then((res) => {
     if (res.status == 200) {
       RKlist.value = res.data
