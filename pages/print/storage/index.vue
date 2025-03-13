@@ -22,9 +22,7 @@ const detailData = ref({})
 async function getList() {
   console.log(searchParams.value.cKeyCode)
   try {
-    const {
-      data: { data }
-    } = await API.getList(searchParams.value.cKeyCode)
+    const { data } = await API.getList(searchParams.value.cKeyCode)
     detailData.value = data[0]
   } catch (e) {
     console.log(e)
