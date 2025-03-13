@@ -708,7 +708,7 @@ const getXM = async () => {
   } else {
     uni.showToast({
       icon: 'none',
-      title: res.errmsg[0].Value || '没有库存'
+      title: '该箱码不正确'
     })
     XMsearchValue.value = ''
   }
