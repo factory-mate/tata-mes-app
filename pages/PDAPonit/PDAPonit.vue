@@ -357,6 +357,8 @@ const GetList = () => {
 }
 //搜索
 const getSearch = () => {
+  currentPage.value = 1
+  total.value = 0
   DevList.value = []
   uni.showLoading({
     title: '加载中'

@@ -439,7 +439,10 @@ const GetList = () => {
 }
 //搜索
 const getSearch = () => {
+  currentPage.value = 1
   DevList.value = []
+  searchValuess.value = ''
+  total.value = 0
   // if (Timerange.value) {
   // 	BeginTime.value = Timerange.value[0]
   // 	EndTime.value = Timerange.value[1]
