@@ -434,6 +434,7 @@ const onClickItem = (e) => {
   }
   if (current.value == 1) {
     //调取单据列表
+    DJliST.value = []
     GetPageList()
   }
 }
