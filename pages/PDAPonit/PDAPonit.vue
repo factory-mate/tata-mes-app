@@ -375,10 +375,14 @@ const getSearch = () => {
   if (current.value == 1 && searchUserValue.value) {
     Conditions.push(`cPARM06 like ${searchUserValue.value}`)
   }
+  let OrderByFileds = ''
+  if (current.value == 1) {
+    OrderByFileds = 'cPARM07 desc'
+  }
   getRepairList({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds,
     Conditions: Conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
