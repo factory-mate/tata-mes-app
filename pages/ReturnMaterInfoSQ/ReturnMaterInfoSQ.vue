@@ -171,25 +171,21 @@
             </view>
           </view>
         </view>
-        <view class="BTN-Two">
-          <button
-            class="mini-btn"
-            style="color: black; background-color: #1aad19; border-color: #1aad19"
-            type="warn"
-            size="mini"
+
+        <view class="btn-area">
+          <up-button
+            size="small"
+            text="保存"
             @click="clickAdd"
-          >
-            保存
-          </button>
-          <button
-            class="mini-btn"
-            type="warn"
-            style="color: black; background-color: #ffff7f; border-color: #ffff7f"
-            size="mini"
+            style="margin-right: 8px"
+          />
+          <up-button
+            type="error"
+            size="small"
+            text="提交"
             @click="clickTJ"
-          >
-            提交
-          </button>
+            style="margin-right: 8px"
+          />
         </view>
       </view>
       <!-- 单据 -->
@@ -1071,10 +1067,6 @@ const clickRight = () =>
     // 	font-size: 14px;
     // }
 
-    .BTN-Two {
-      display: flex;
-    }
-
     .listMain {
       margin-top: 2px;
       width: 100%;
@@ -1121,5 +1113,14 @@ const clickRight = () =>
 .uni-searchbar__box {
   height: 30px !important;
   padding: 0;
+}
+
+.btn-area {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
