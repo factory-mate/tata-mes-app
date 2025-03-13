@@ -124,7 +124,7 @@
                     <view class="demo-uni-col dark">进料数：{{ item.nQuantity }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">日期：{{ item.dDate }}</view>
+                    <view class="demo-uni-col dark">日期：{{ item.dCreateTime }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
