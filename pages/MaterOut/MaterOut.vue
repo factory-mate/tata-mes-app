@@ -752,7 +752,9 @@ const SaveLIst = async () => {
 const handelOutList = async () => {
   const res = OutList({
     OrderByFileds: '',
-    Conditions: `cInvCode=${cInvCode.value}`
+    Conditions: ''
+    // #3136
+    // Conditions: `cInvCode=${cInvCode.value}`
     // "OrderByFileds": "",
     // "Conditions": "cInvCode=''"
   })
