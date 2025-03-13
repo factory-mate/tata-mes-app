@@ -2,7 +2,7 @@
     "name" : "TATAMES",
     "appid" : "__UNI__605F22A",
     "description" : "",
-    "versionName" : "1.0.2",
+    "versionName" : "1.0.3",
     "versionCode" : "100",
     "transformPx" : false,
     "networkTimeout" : {
@@ -17,8 +17,8 @@
         "compatible" : {
             "ignoreVersion" : true
         },
-        "runmode": "liberate",
-        "optimization": true,
+        "runmode" : "liberate",
+        "optimization" : true,
         "usingComponents" : true,
         "compilerVersion" : 3,
         "modules" : {
