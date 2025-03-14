@@ -225,7 +225,7 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">维修人员：{{ item.cModifyUserName }}</view>
+                    <view class="demo-uni-col dark">维修人员：{{ item.cPARM04 }}</view>
                   </uni-col>
                   <uni-col :span="12">
                     <view class="demo-uni-col dark">维修时间：{{ item.dEndTime }}</view>
