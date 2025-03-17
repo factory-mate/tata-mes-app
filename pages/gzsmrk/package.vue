@@ -113,8 +113,8 @@ async function handlePackage() {
     const { list_PackageDetail, ...resData } = data
     const printData = generatePrintData({ ...resData, packages: list_PackageDetail })
     sendPrintCommand({
-      data: printData,
-      callback: () => uni.navigateBack({ delta: 1 })
+      data: printData
+      // callback: () => uni.navigateBack({ delta: 1 })
     })
   } catch (e) {
     console.log(e)
