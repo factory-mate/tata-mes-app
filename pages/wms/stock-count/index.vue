@@ -86,6 +86,7 @@ const handleFinish = async (data) => {
       title: '操作成功',
       icon: 'success'
     })
+    listData.value = []
     resetPageParams()
     getList()
   } catch {
