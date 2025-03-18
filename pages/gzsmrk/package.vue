@@ -42,7 +42,7 @@ async function scanCode() {
         setFocus()
         return
       }
-      if (data.bScan) {
+      if (data.list_PackageDetail && data.list_PackageDetail.length > 0) {
         uni.showToast({
           title: '已被包装',
           icon: 'none'
