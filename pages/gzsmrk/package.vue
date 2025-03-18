@@ -60,17 +60,27 @@ async function scanCode() {
         setFocus()
         return
       }
-      // if (data.X > 0 && data.Y > 0) {
-      //   if (data.X * data.Y > 80) {
-      //     uni.showToast({
-      //       title: '超重',
-      //       icon: 'none'
-      //     })
-      //     scanInput.value = ''
-      //     setFocus()
-      //     return
-      //   }
-      // }
+      // 扫码时判定当前条码的 cDefindParm09 和缓存里已扫过的不一样
+      if (packages.value.length > 0 && packages.value[0].cDefindParm09 !== data.cDefindParm09) {
+        uni.showToast({
+          title: '不同柜组之间不允许合包',
+          icon: 'none'
+        })
+        scanInput.value = ''
+        setFocus()
+        return
+      }
+      if (data.X > 0 && data.Y > 0) {
+        if ((data.X / 1000) * (data.Y / 1000) * 12 > 80) {
+          uni.showToast({
+            title: '超重',
+            icon: 'none'
+          })
+          scanInput.value = ''
+          setFocus()
+          return
+        }
+      }
       detailData.value = data
       packages.value.unshift({
         cBarCode: data.cBarCode,
