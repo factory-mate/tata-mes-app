@@ -23,20 +23,11 @@
               class="search-inpt"
               style="width: 60%"
             >
-              <!-- 搜索框 -->
-              <uni-section
-                title=""
-                type="line"
-              >
-                <uni-search-bar
-                  radius="100"
-                  cancelButton="none"
-                  @confirm="getXiangMa"
-                  v-model="nDestoryQuantity"
-                  placeholder="数量"
-                >
-                </uni-search-bar>
-              </uni-section>
+              <up-input
+                @confirm="getXiangMa"
+                v-model="nDestoryQuantity"
+                placeholder="数量"
+              />
             </view>
           </view>
         </uni-col>
@@ -109,20 +100,12 @@
                   class="search-inpt"
                   style="width: 80%"
                 >
-                  <uni-section
-                    title=""
-                    type="line"
-                  >
-                    <uni-search-bar
-                      radius="100"
-                      cancelButton="none"
-                      @blur="setXMfocus"
-                      @confirm="getXiangMa"
-                      v-model="xmVal"
-                      placeholder="请输入包号"
-                    >
-                    </uni-search-bar>
-                  </uni-section>
+                  <up-input
+                    @blur="setXMfocus"
+                    @confirm="getXiangMa"
+                    v-model="xmVal"
+                    placeholder="请输入包号"
+                  />
                 </view>
               </view>
             </uni-col>
