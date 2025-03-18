@@ -338,10 +338,16 @@ const GetList = () => {
   uni.showLoading({
     title: '加载中'
   })
+  let OrderByFileds = ''
+  if (current.value == 0) {
+    OrderByFileds = 'dCreateTime'
+  } else {
+    OrderByFileds = 'cPARM07 desc'
+  }
   getRepairList({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds,
     Conditions: current.value == 0 ? 'cPARM04=0' : 'cPARM04=1'
   }).then((res) => {
     if (res.status == 200) {
