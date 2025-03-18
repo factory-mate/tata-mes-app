@@ -316,8 +316,9 @@
                       ></uv-radio>
                     </uv-radio-group>
                   </uni-col>
-
-                  <uni-col :span="12">
+                </uni-row>
+                <uni-row class="demo-uni-row">
+                  <uni-col :span="24">
                     <view style="display: flex; align-items: center">
                       <view>备注：</view>
                       <up-input
@@ -829,12 +830,8 @@ const radioGroup = (obj, v) => {
     }
   })
 }
-const funChecked = () => {
-  return true
-}
 // 保存
 const clickbaocun = (v) => {
-  // console.log(v.radioType,'--radioVal.value');
   if (!v.radioType) {
     uni.showToast({
       icon: 'none',
@@ -842,50 +839,58 @@ const clickbaocun = (v) => {
     })
     return false
   }
-  let obj = {
-    UID: v.UID,
-    IsOk: v.radioType === '1' ? 'true' : 'false',
-    cMemo: v.cMemo
-  }
-
-  SetCheckVouchIsOK(obj).then((res) => {
-    if (res.success === false) {
-      let msgval = res.errmsg ? JSON.parse(res.errmsg[0].Value) : []
-      // console.log(msgval,"--666");
-      if (msgval.length && msgval[0].isFlow) {
-        console.log(111)
-        uni.showToast({
-          icon: 'none',
-          title: null,
-          duration: 0
+  //改成确认弹窗
+  uni.showModal({
+    title: '提示',
+    content: '是否确认保存',
+    success: function (res) {
+      if (res.confirm) {
+        let obj = {
+          UID: v.UID,
+          IsOk: v.radioType === '1' ? 'true' : 'false',
+          cMemo: v.cMemo
+        }
+        SetCheckVouchIsOK(obj).then((res) => {
+          if (res.success === false) {
+            let msgval = res.errmsg ? JSON.parse(res.errmsg[0].Value) : []
+            // console.log(msgval,"--666");
+            if (msgval.length && msgval[0].isFlow) {
+              console.log(111)
+              uni.showToast({
+                icon: 'none',
+                title: null,
+                duration: 0
+              })
+              inputDialog.value.open()
+              return false
+            } else {
+              console.log(22)
+              uni.showToast({
+                icon: 'none',
+                title: res.msg || msgval[0].msg || '失败'
+              })
+              listData.value.forEach((item) => {
+                item.radioType = ''
+              })
+              return false
+            }
+          }
+          if (res.success === true) {
+            console.log(33)
+            uni.showToast({
+              icon: 'none',
+              title: res.msg || '成功'
+            })
+            radioVal.value = ''
+            currentPage.value = 1
+            listData.value = []
+            listData.value.forEach((item) => {
+              item.radioType = ''
+            })
+            getList()
+          }
         })
-        inputDialog.value.open()
-        return false
-      } else {
-        console.log(22)
-        uni.showToast({
-          icon: 'none',
-          title: res.msg || msgval[0].msg || '失败'
-        })
-        listData.value.forEach((item) => {
-          item.radioType = ''
-        })
-        return false
       }
-    }
-    if (res.success === true) {
-      console.log(33)
-      uni.showToast({
-        icon: 'none',
-        title: res.msg || '成功'
-      })
-      radioVal.value = ''
-      currentPage.value = 1
-      listData.value = []
-      listData.value.forEach((item) => {
-        item.radioType = ''
-      })
-      getList()
     }
   })
 }
