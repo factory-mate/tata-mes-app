@@ -71,14 +71,24 @@ async function handlePackage() {
     return
   }
   try {
-    const { success } = await API.package(detailData.value.WJPBarcode)
+    const { data, success } = await API.package(detailData.value.WJPBarcode)
     if (success) {
       uni.showToast({
         title: '打包成功',
         icon: 'success'
       })
-      handlePrint()
-      handleClear()
+      const printData = generatePrintData({
+        ...detailData.value,
+        packages: packages.value,
+        cPackageCode: data.cPackageCode ?? detailData.value.cPackageCode,
+        PACKAGEVOUCH_S_iDefindParm14:
+          data.PACKAGEVOUCH_S_iDefindParm14 ?? detailData.value.PACKAGEVOUCH_S_iDefindParm14,
+        cDynamicsParm10: data.cDynamicsParm10 ?? detailData.value.cDynamicsParm10
+      })
+      sendPrintCommand({
+        data: printData,
+        callback: () => handleClear()
+      })
     }
   } catch (e) {
     console.log(e)
