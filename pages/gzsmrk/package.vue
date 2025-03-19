@@ -61,7 +61,7 @@ async function scanCode() {
         return
       }
       // 扫码时判定当前条码的 cDefindParm09 和缓存里已扫过的不一样
-      if (packages.value.length > 0 && packages.value[0].cDefindParm09 !== data.cDefindParm09) {
+      if (detailData.cDefindParm09 && detailData.cDefindParm09 !== data.cDefindParm09) {
         uni.showToast({
           title: '不同柜组之间不允许合包',
           icon: 'none'
