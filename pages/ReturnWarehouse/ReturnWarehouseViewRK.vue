@@ -240,7 +240,7 @@ const clickAdd = () => {
       xmList.value = []
     } else {
       uni.showToast({
-        icon: 'error',
+        icon: 'none',
         title: res.msg || ''
       })
     }
@@ -267,7 +267,7 @@ const clickHW = () => {
     .then((res) => {
       if (res.data.length == 0) {
         uni.showToast({
-          icon: 'error',
+          icon: 'none',
           title: '货位不存在！'
         })
         hwData.value = {}
@@ -293,7 +293,7 @@ const clickXM = () => {
   // 检查货位数据
   if (!hwData.value.cWareHouseLocationCode) {
     uni.showToast({
-      icon: 'error',
+      icon: 'none',
       title: '请扫描货位'
     })
     return
@@ -305,7 +305,7 @@ const clickXM = () => {
     })
   ) {
     uni.showToast({
-      icon: 'error',
+      icon: 'none',
       title: '箱码重复！'
     })
     return
@@ -325,14 +325,14 @@ const clickXM = () => {
       if (res.success) {
         if (res.data.data.length == 0) {
           uni.showToast({
-            icon: 'error',
+            icon: 'none',
             title: '箱码不正确！'
           })
           return
         }
         if (res.data.data[0].iStatus == 1) {
           uni.showToast({
-            icon: 'error',
+            icon: 'none',
             title: xmVal.value + '已入库！'
           })
           xmVal.value = ''
@@ -346,7 +346,7 @@ const clickXM = () => {
         }
       } else {
         uni.showToast({
-          icon: 'error',
+          icon: 'none',
           title: '请扫描线边仓！'
         })
       }

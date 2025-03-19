@@ -321,7 +321,7 @@ const clickTJ = () => {
       uni.stopPullDownRefresh()
       uni.showToast({
         icon: 'none',
-        title: res.msg || '1111222'
+        title: res.msg
       })
       // danjuList.value=[]
       getlist()

@@ -1494,7 +1494,7 @@ const mueAjax = async () => {
 const addItem = () => {
   uni.showToast({
     title: '敬请期待...',
-    icon: 'error'
+    icon: 'none'
   })
   // uni.navigateTo({
   // 	// url: "/pages/repairBill/serviceDetail/servicedetail",

@@ -205,7 +205,7 @@ const getinfo = () => {
       infoVal.value = res.data.data[0]
     } else {
       uni.showToast({
-        icon: 'error',
+        icon: 'none',
         title: res.msg || ''
       })
     }
@@ -228,7 +228,7 @@ const getList = () => {
       List.value = res.data.data
     } else {
       uni.showToast({
-        icon: 'error',
+        icon: 'none',
         title: res.msg || ''
       })
     }
