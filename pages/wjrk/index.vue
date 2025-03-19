@@ -7,10 +7,8 @@ import { OtherStorageInAPI, WareHouseAPI } from '@/api'
 import { formatTime, formatString } from '@/features/formatter'
 import { queryBuilder } from '@/features/query'
 import { API } from './api'
-
-// #ifdef APP-PLUS
-const printer = uni.requireNativePlugin('LcPrinter')
-// #endif
+import { generatePrintData } from './utils'
+import { sendPrintCommand } from '@/utils'
 
 const height = ref(getDeviceHeight().totalHeight)
 
@@ -30,7 +28,7 @@ async function scanCode() {
   try {
     const { data, success } = await API.scan(scanInput.value)
     if (success) {
-      if (!data) {
+      if (!data || data.length === 0) {
         uni.showToast({
           title: '未找到数据',
           icon: 'none'
@@ -39,19 +37,8 @@ async function scanCode() {
         setFocus()
         return
       }
-      if (detailData.value.cCode && data?.cCode !== detailData.value.cCode) {
-        uni.showToast({
-          title: '非同一单，不能合包',
-          icon: 'none'
-        })
-        scanInput.value = ''
-        setFocus()
-        return
-      }
-      if (!detailData.value.cCode) {
-        detailData.value = data
-      }
-      packages.value.push({ ...data })
+      detailData.value = data[0]
+      packages.value = data
     }
   } catch (e) {
     console.log(e)
@@ -60,53 +47,42 @@ async function scanCode() {
   setFocus()
 }
 
-function handleDeleteItem(idx) {
-  packages.value.splice(idx, 1)
+async function handlePrint() {
+  if (packages.value.length === 0) {
+    uni.showToast({
+      title: '请扫描',
+      icon: 'none'
+    })
+    return
+  }
+  const printData = generatePrintData({ ...detailData.value, packages: packages.value })
+  sendPrintCommand({
+    data: printData
+    // callback: () => uni.navigateBack({ delta: 1 })
+  })
 }
 
 async function handlePackage() {
+  if (packages.value.length === 0) {
+    uni.showToast({
+      title: '请扫描',
+      icon: 'none'
+    })
+    return
+  }
   try {
-    const { data, success } = await API.package(packages.value.map((i) => i.cBarCode))
+    const { success } = await API.package(detailData.value.WJPBarcode)
     if (success) {
       uni.showToast({
         title: '打包成功',
         icon: 'success'
       })
-      handlePrint(data)
+      handlePrint()
       handleClear()
     }
   } catch (e) {
     console.log(e)
   }
-}
-
-function handlePrint(data = {}) {
-  print()
-  printer.printQR2({
-    text: detailData?.cCode,
-    height: 150,
-    offset: 2
-  })
-  printer.printText({
-    content: `${detailData?.PRODUCT_VOUCH_cDefindParm30 ?? ''}-${detailData?.cCode ?? ''}${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
-  })
-  printer.printText({ content: `${detailData?.cCode ?? ''}\r\n` })
-  printer.printText({
-    content: `${detailData?.cProvinceCode ?? ''}${detailData?.cCityCode ?? ''}\r\n`
-  })
-  printer.printText({ content: `${data?.cPackageCode ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cDefindParm05 ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cCusName ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.PRODUCT_VOUCH_cDefindParm10 ?? ''}\r\n` })
-  printer.printText({ content: `${detailData?.cAddress ?? ''}\r\n` })
-  printer.printText({ content: `河南兰考县产业聚集区\r\n` })
-  printer.printText({ content: `兰考闼闼同创工贸有限公司(25厂)\r\n` })
-  printer.printText({ content: `数量：${data?.iDefindParm14 ?? '0'}\r\n` })
-  printer.printText({ content: `包号：第${data?.iDefindParm13 ?? '0'}包\r\n` })
-  packages.value.forEach((i) => {
-    printer.printText({ content: `${i.cInvName ?? ''}： ${i.nQuantity ?? ''}\r\n` })
-  })
-  printer.printGoToNextMark()
 }
 
 function handleClear() {
@@ -116,20 +92,7 @@ function handleClear() {
   packages.value = []
 }
 
-function handleLight() {}
-
-const initPrinter = () => {
-  // #ifdef APP-PLUS
-  printer.initPrinter({})
-  printer.printEnableMark({ enable: true })
-  printer.setConcentration({ level: 39 })
-  printer.setLineSpacing({ spacing: 1 })
-  printer.setFontSize({ fontSize: 8 })
-  printer.getsupportprint()
-  // #endif
-}
-
-onLoad(() => initPrinter())
+onLoad(() => {})
 onShow(() => {})
 onHide(() => {})
 onUnload(() => {})
@@ -169,6 +132,9 @@ onPullDownRefresh(async () => {
 
         <up-gap height="8" />
         <up-row justify="space-between">
+          <up-col span="12"> 包装任务单号：{{ detailData.WJPBarcode }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
           <up-col span="12"> P单号：{{ detailData.cCode }} </up-col>
         </up-row>
         <up-row justify="space-between">
@@ -179,36 +145,34 @@ onPullDownRefresh(async () => {
         <up-row justify="space-between">
           <up-col span="12"> 客户名称：{{ detailData.cCusName }} </up-col>
         </up-row>
-        <up-row
-          justify="space-between"
-          v-if="detailData.cCode"
-        >
+        <up-row justify="space-between">
+          <up-col span="12"> 产品名称：{{ detailData.cDefindParm08 }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
           <up-col span="12"> 工厂名称：二十五场 </up-col>
         </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 生产批次： {{ detailData.cBatch }}</up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 仓库名称： {{ detailData.cDefindParm30 }}</up-col>
+        </up-row>
 
-        <view
-          v-for="(i, idx) in packages"
-          :key="idx"
-        >
-          <up-divider></up-divider>
-          <up-row>
-            <up-col span="6"> 名称：{{ i.cInvName }} </up-col>
-            <up-col span="6"> 规格：{{ i.cInvStd }} </up-col>
-          </up-row>
-          <up-row>
-            <up-col span="6"> 数量：{{ i.nQuantity }} </up-col>
-            <up-col span="6">
-              <view style="width: 100px">
-                <up-button
-                  type="error"
-                  size="small"
-                  text="删除"
-                  @click="handleDeleteItem(idx)"
-                />
-              </view>
-            </up-col>
-          </up-row>
-        </view>
+        <up-list :height="`calc(100vh - ${height + 300}px)`">
+          <view
+            v-for="(i, idx) in packages"
+            :key="idx"
+          >
+            <up-divider></up-divider>
+            <up-row>
+              <up-col span="12"> 名称：{{ i.cInvName }} </up-col>
+            </up-row>
+            <up-row>
+              <up-col span="8"> 规格：{{ i.cInvStd }} </up-col>
+              <up-col span="4"> 数量：{{ i.nQuantity }} </up-col>
+            </up-row>
+          </view>
+        </up-list>
 
         <up-gap height="8" />
       </view>

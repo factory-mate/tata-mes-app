@@ -79,51 +79,51 @@ onPullDownRefresh(async () => {
     />
 
     <view class="container">
+      <view class="fix-area">
+        <up-gap height="8" />
+
+        <up-row justify="space-between">
+          <up-col span="12"> P单号：{{ detailData.cCode }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> D单号：{{ detailData.PRODUCT_VOUCH_cDefindParm05 }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 生产日期：{{ detailData.dPlanDateStartStr }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 打包状态：{{ detailData.dataCount }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 包装码：{{ detailData.cBarCode }} </up-col>
+        </up-row>
+        <up-row justify="space-between">
+          <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
+        </up-row>
+
+        <up-divider></up-divider>
+      </view>
+
       <up-list
-        :height="`calc(100vh - ${height + 20}px)`"
+        :height="`calc(100vh - ${height + 60}px)`"
         @scrolltolower="handleScrollToLower(getList)"
       >
-        <view class="fix-area">
-          <up-gap height="8" />
-
-          <up-row justify="space-between">
-            <up-col span="12"> P单号：{{ detailData.cCode }} </up-col>
+        <view>
+          <up-row>
+            <up-col span="7"> 加工码 </up-col>
+            <up-col span="3"> 板件名称 </up-col>
+            <up-col span="2"> 数量 </up-col>
           </up-row>
-          <up-row justify="space-between">
-            <up-col span="12"> D单号：{{ detailData.PRODUCT_VOUCH_cDefindParm05 }} </up-col>
+        </view>
+        <view
+          v-for="(i, idx) in listData"
+          :key="idx"
+        >
+          <up-row>
+            <up-col span="7"> {{ i.cDefindParm05 }} </up-col>
+            <up-col span="3"> {{ i.cInvName }} </up-col>
+            <up-col span="2"> {{ i.nQuantity }} </up-col>
           </up-row>
-          <up-row justify="space-between">
-            <up-col span="12"> 生产日期：{{ detailData.dPlanDateStartStr }} </up-col>
-          </up-row>
-          <up-row justify="space-between">
-            <up-col span="12"> 打包状态：{{ detailData.dataCount }} </up-col>
-          </up-row>
-          <up-row justify="space-between">
-            <up-col span="12"> 包装码：{{ detailData.cBarCode }} </up-col>
-          </up-row>
-          <up-row justify="space-between">
-            <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
-          </up-row>
-
-          <up-divider></up-divider>
-
-          <view>
-            <up-row>
-              <up-col span="7"> 加工码 </up-col>
-              <up-col span="3"> 板件名称 </up-col>
-              <up-col span="2"> 数量 </up-col>
-            </up-row>
-          </view>
-          <view
-            v-for="(i, idx) in listData"
-            :key="idx"
-          >
-            <up-row>
-              <up-col span="7"> {{ i.cDefindParm05 }} </up-col>
-              <up-col span="3"> {{ i.cInvName }} </up-col>
-              <up-col span="2"> {{ i.nQuantity }} </up-col>
-            </up-row>
-          </view>
         </view>
       </up-list>
 

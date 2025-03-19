@@ -197,7 +197,12 @@ onPullDownRefresh(async () => {
         <up-row justify="space-between">
           <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
         </up-row>
+      </view>
 
+      <up-list
+        :height="`calc(100vh - ${height + 60}px)`"
+        @scrolltolower="handleScrollToLower(getList)"
+      >
         <view
           v-for="(i, idx) in packages"
           :key="idx"
@@ -223,9 +228,9 @@ onPullDownRefresh(async () => {
             </up-col>
           </up-row>
         </view>
+      </up-list>
 
-        <up-gap height="8" />
-      </view>
+      <up-gap height="8" />
 
       <view class="btn-area">
         <up-button
