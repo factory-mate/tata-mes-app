@@ -145,7 +145,7 @@
                       size="mini"
                       @click="CheckEND(item)"
                     >
-                      查看质检单
+                      质检单
                     </button>
                   </uni-col>
                   <uni-col
@@ -341,7 +341,7 @@
                         size="mini"
                         @click="CheckEND(item)"
                       >
-                        查看质检单
+                        质检单
                       </button>
                     </view>
                   </uni-col>

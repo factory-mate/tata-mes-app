@@ -67,7 +67,7 @@
           @click="clickCK"
           style="margin-top: 50rpx"
         >
-          查看质检单
+          质检单
         </button>
       </view>
 
