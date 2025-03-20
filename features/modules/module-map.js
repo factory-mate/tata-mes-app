@@ -221,7 +221,7 @@ export const moduleMap = new Map([
   [
     'MobileApp.StoreRoom.KFWJ_In',
     {
-      title: '五金入库',
+      title: '五金出库',
       cModelCode: 'MobileApp.StoreRoom.KFWJ_In',
       src: getIcon('tuiliaosq.png'),
       url: '/pages/wjrk/index'

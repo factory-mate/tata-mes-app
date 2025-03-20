@@ -12,12 +12,30 @@ export const API = {
         WJPBarcode
       }
     }),
-  package: (codes) =>
+  package: (data) =>
     service({
       url: API_PREFIX + '/GZ_Package_KFWJ',
       method: 'post',
+      data
+    }),
+  getPBarcodeInfo: (pbarcode) =>
+    service({
+      url: API_PREFIX + '/GetPBarcodeInfo',
+      method: 'get',
       data: {
-        WJPBarcode: codes
+        pbarcode
       }
+    }),
+  bigPackage: (data) =>
+    service({
+      url: API_PREFIX + '/GZ_Package_KFWJ_Big',
+      method: 'post',
+      data
+    }),
+  getPrintData: (data) =>
+    service({
+      url: API_PREFIX + '/GZ_Package_KFWJ_GetBigPrintData',
+      method: 'get',
+      data
     })
 }

@@ -273,7 +273,7 @@ export function generatePrintData(data = {}, isMock = false) {
     { ...textConf, content: data?.cCusName ?? '', x: 350, y: 25 },
     { ...textConf, content: data?.PRODUCT_VOUCH_cDefindParm10 ?? '', x: 305, y: 25 },
     { ...textBlockConf, content: data?.cDefindParm04 ?? '', x: 260, y: 25, width: 430, height: 30 },
-    { ...qrcodeConf, content: data?.cCode ?? '', x: 320, y: 270 },
+    { ...qrcodeConf, content: data?.cPackageCode ?? '', x: 320, y: 270 },
     { ...textConf, content: `数量：${data?.PACKAGEVOUCH_S_iDefindParm14 ?? '??'}`, x: 215, y: 25 },
     { ...textConf, content: `包号：第${data?.cDynamicsParm10 ?? '??'}包`, x: 215, y: 230 },
     { ...textBlockConf, content: data?.cAddress ?? '', x: 170, y: 25, width: 430, height: 30 },
