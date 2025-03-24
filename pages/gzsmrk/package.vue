@@ -197,38 +197,38 @@ onPullDownRefresh(async () => {
         <up-row justify="space-between">
           <up-col span="12"> 仓位：{{ detailData.PRODUCT_VOUCH_cDefindParm53 }} </up-col>
         </up-row>
-      </view>
 
-      <up-list
-        :height="`calc(100vh - ${height + 60}px)`"
-        @scrolltolower="handleScrollToLower(getList)"
-      >
-        <view
-          v-for="(i, idx) in packages"
-          :key="idx"
+        <up-list
+          :height="`calc(100vh - ${height + 260}px)`"
+          @scrolltolower="handleScrollToLower(getList)"
         >
-          <up-divider></up-divider>
-          <up-row>
-            <up-col span="12"> 加工码：{{ i.cBarCode }} </up-col>
-          </up-row>
-          <up-row>
-            <up-col span="12"> 板件名称：{{ i.cInvName }} </up-col>
-          </up-row>
-          <up-row>
-            <up-col span="6"> 数量：{{ i.nQuantity }} </up-col>
-            <up-col span="6">
-              <view style="width: 100px">
-                <up-button
-                  type="error"
-                  size="small"
-                  text="删除"
-                  @click="handleDeleteItem(idx)"
-                />
-              </view>
-            </up-col>
-          </up-row>
-        </view>
-      </up-list>
+          <view
+            v-for="(i, idx) in packages"
+            :key="idx"
+          >
+            <up-divider></up-divider>
+            <up-row>
+              <up-col span="12"> 加工码：{{ i.cBarCode }} </up-col>
+            </up-row>
+            <up-row>
+              <up-col span="12"> 板件名称：{{ i.cInvName }} </up-col>
+            </up-row>
+            <up-row>
+              <up-col span="6"> 数量：{{ i.nQuantity }} </up-col>
+              <up-col span="6">
+                <view style="width: 100px">
+                  <up-button
+                    type="error"
+                    size="small"
+                    text="删除"
+                    @click="handleDeleteItem(idx)"
+                  />
+                </view>
+              </up-col>
+            </up-row>
+          </view>
+        </up-list>
+      </view>
 
       <up-gap height="8" />
 
