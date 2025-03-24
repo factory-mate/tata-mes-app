@@ -98,6 +98,13 @@ async function handlePrint() {
     })
     return
   }
+  if (!detailData.value.value.cSourcePackageCode) {
+    uni.showToast({
+      title: '无法补打',
+      icon: 'none'
+    })
+    return
+  }
   try {
     const { data, success } = await API.getPrintData({
       cSourcePackageCode: detailData.value.cSourcePackageCode
@@ -348,6 +355,7 @@ onPullDownRefresh(async () => {
 
       <view class="btn-area">
         <up-button
+          v-if="currentTabIndex === 1"
           type="error"
           size="small"
           text="补打标签"

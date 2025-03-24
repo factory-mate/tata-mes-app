@@ -18,7 +18,7 @@ async function getList() {
     const { data } = await API.packageDetail({
       PageIndex: pageParams.value.pageIndex,
       PageSize: pageParams.value.pageSize,
-      OrderByFileds: '',
+      OrderByFileds: 'PackageIndex desc',
       Conditions: `cCode=${detailData.value.code}`
     })
     const { dataCount, pageCount } = data
