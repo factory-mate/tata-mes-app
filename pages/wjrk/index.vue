@@ -27,6 +27,11 @@ const setFocus = () => {
 }
 
 async function scanCode() {
+  if (!scanInput.value) {
+    scanInput.value = ''
+    setFocus()
+    return
+  }
   if (currentTabIndex.value === 0) {
     try {
       const { data, success } = await API.scan(scanInput.value)
@@ -152,7 +157,7 @@ async function handlePackage() {
         })
         const printData = generatePrintData({
           ...detailData.value,
-          packages: packages,
+          packages: packages.value,
           cPackageCode: data.cPackageCode ?? detailData.value.cPackageCode,
           PACKAGEVOUCH_S_iDefindParm14:
             data.PACKAGEVOUCH_S_iDefindParm14 ?? detailData.value.PACKAGEVOUCH_S_iDefindParm14,
@@ -330,6 +335,9 @@ onPullDownRefresh(async () => {
               <up-row>
                 <up-col span="8"> 规格：{{ i.cInvStd }} </up-col>
                 <up-col span="4"> 数量：{{ i.nQuantity }} </up-col>
+              </up-row>
+              <up-row>
+                <up-col span="12"> 包号：{{ i.cPackageCode }} </up-col>
               </up-row>
             </view>
             <view v-else>
