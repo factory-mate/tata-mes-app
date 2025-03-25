@@ -1,4 +1,4 @@
-const CURRENT_ENV = 'local'
+const CURRENT_ENV = 'test'
 
 const URLIP = {
   BASE_URL_LOGO: 'http://171.13.38.93:8888',
@@ -32,7 +32,7 @@ if (CURRENT_ENV === 'prod') {
   URLIP.BASE_URL_PDEVICE = 'http://171.13.38.94:10700' //测试地址
   URLIP.BASE_URL_TOOL = 'http://171.13.38.94:10800'
   URLIP.BASE_URL_Quantity = 'http://171.13.38.94:11200' //QC
-  URLIP.BASE_URL_APS = 'http://192.168.200.33:12000'
+  URLIP.BASE_URL_APS = 'http://171.13.38.94:12000'
   URLIP.VERSION_NAME = '正式环境'
 }
 export default URLIP
