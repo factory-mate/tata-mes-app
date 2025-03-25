@@ -148,7 +148,9 @@ async function handlePackage() {
     try {
       const { data, success } = await API.package({
         WJPBarcode: detailData.value.WJPBarcode,
-        list_cInvName: packages.value.filter((i) => i.isSelected).map((i) => i.cInvName)
+        list_cInvName: packages.value
+          .filter((i) => i.isSelected && !i.cPackageCode)
+          .map((i) => i.cInvName)
       })
       if (success) {
         uni.showToast({
@@ -329,6 +331,7 @@ onPullDownRefresh(async () => {
                     :label="i.cInvName"
                     :name="i.cInvName"
                     v-model:checked="i.isSelected"
+                    :disabled="i.cPackageCode"
                   />
                 </up-col>
               </up-row>
