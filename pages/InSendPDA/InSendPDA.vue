@@ -253,10 +253,11 @@ const goReapirReturn = (i) => {
     url: '/pages/InSendPDA/ReturnReapir?itemInfo=' + JSON.stringify(i)
   })
 }
+
 //关闭
 const Close = async (i) => {
   const res = await ErrorListClose({
-    S_S_S_uid: i.S_S_S_uid
+    UID: i.UID
   })
   if (res.status == 200) {
     uni.showToast({

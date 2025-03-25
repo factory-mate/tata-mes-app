@@ -323,7 +323,7 @@ export function ErrorList(data) {
 //异常列表关闭
 export function ErrorListClose(data) {
   return service({
-    url: URLIP.BASE_URL_PDAIN + '/api/REPAIR_VOUCH/Close',
+    url: URLIP.BASE_URL_PDAIN + '/api/TaskActive/TaskReset',
     method: 'POST',
     data
   })
