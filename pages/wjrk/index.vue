@@ -148,9 +148,7 @@ async function handlePackage() {
     try {
       const { data, success } = await API.package({
         WJPBarcode: detailData.value.WJPBarcode,
-        list_cInvName: packages.value
-          .filter((i) => i.isSelected && !i.cPackageCode)
-          .map((i) => i.cInvName)
+        list_cInvName: packages.value.filter((i) => i.isSelected).map((i) => i.cInvName)
       })
       if (success) {
         uni.showToast({
@@ -159,7 +157,7 @@ async function handlePackage() {
         })
         const printData = generatePrintData({
           ...detailData.value,
-          packages: packages.value,
+          packages: packages.value.filter((i) => i.isSelected),
           cPackageCode: data.cPackageCode ?? detailData.value.cPackageCode,
           PACKAGEVOUCH_S_iDefindParm14:
             data.PACKAGEVOUCH_S_iDefindParm14 ?? detailData.value.PACKAGEVOUCH_S_iDefindParm14,
