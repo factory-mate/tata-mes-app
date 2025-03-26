@@ -175,7 +175,7 @@ async function handlePackage() {
     const findData = packages.value.find((i) => i.cSourcePackageCode)
     if (findData) {
       uni.showToast({
-        title: findData.cSourcePackageCode + ' 已打包',
+        title: findData.cPackageCode + ' 已打包',
         icon: 'none'
       })
       scanInput.value = ''
