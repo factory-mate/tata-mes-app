@@ -79,7 +79,11 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">图片：{{ item.FileName1?.split('&')[0] }}</view>
+                    <view
+                      class="demo-uni-col dark"
+                      @click="preview(1, item.FileName1)"
+                      >图片：{{ item.FileName1?.split('&')[0] }}</view
+                    >
                   </uni-col>
                   <uni-col :span="12">
                     <view class="demo-uni-col light">描述：{{ item.cMemo }}</view>
@@ -311,6 +315,18 @@ const ChangTab = () => {
     GETREpairView()
   }
 }
+
+const preview = (index, i, isOrigin) => {
+  console.log(i, '图片----')
+  let arr = []
+  let url = isOrigin ? i : i.split('&')[1]
+  arr.push(url)
+  uni.previewImage({
+    current: index,
+    urls: arr
+  })
+}
+
 //Tab切换
 const onClickItem = (e) => {
   if (current.value !== e.currentIndex) {
