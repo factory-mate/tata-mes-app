@@ -51,6 +51,12 @@
         搜索
       </button>
     </view>
+    <uni-datetime-picker
+      v-if="current === 1"
+      type="date"
+      v-model="dateValue"
+      placeholder="请输入日期"
+    />
     <view class="content">
       <view v-if="current === 0">
         <view class="listMain">
@@ -264,6 +270,7 @@ const currentPage = ref(1)
 const total = ref(0)
 //总页数
 const pageTotal = ref(0)
+const dateValue = ref()
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -380,6 +387,9 @@ const getSearch = () => {
   }
   if (current.value == 1 && searchUserValue.value) {
     Conditions.push(`cPARM06 like ${searchUserValue.value}`)
+  }
+  if (current.value === 1 && dateValue.value) {
+    Conditions.push(`cReportDate = ${dateValue.value}`)
   }
   let OrderByFileds = ''
   if (current.value == 0) {
