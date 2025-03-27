@@ -37,7 +37,7 @@
         style="margin: 20rpx 0"
       >
         <uni-col
-          :span="19"
+          :span="17"
           style="display: flex; align-items: center"
         >
           <view class="demo-uni-col">判定选项：</view>
@@ -61,7 +61,7 @@
             </uni-section>
           </view>
         </uni-col>
-        <uni-col :span="4">
+        <uni-col :span="6">
           <button
             class="mini-btn"
             type="warn"
