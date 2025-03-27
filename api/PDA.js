@@ -961,6 +961,14 @@ export function device_vouch_file(data) {
   })
 }
 
+export function deleteDeviceVouchFile(data) {
+  return service({
+    url: URLIP.BASE_URL_PDEVICE + '/api/device_vouch_file/Del',
+    method: 'DELETE',
+    data
+  })
+}
+
 export function factory_position_resource_list(data) {
   return service({
     url: URLIP.BASE_URL_DAOHUO + '/api/factory_position_resource/GetForList',

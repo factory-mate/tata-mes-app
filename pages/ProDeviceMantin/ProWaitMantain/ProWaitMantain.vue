@@ -93,22 +93,66 @@
               <view class="demo-uni-col dark">周期数值：{{ item.cPARM05 }}</view>
             </uni-col>
           </uni-row>
-          <view style="font-size: 14px; margin: 10px">
+          <view
+            style="font-size: 14px; margin: 10px"
+            v-if="item.FileUID1"
+          >
+            <view style="display: flex; align-items: center">
+              <view
+                style="font-size: 14px; margin: 10px"
+                @click="preview(1, item.FileName1)"
+              >
+                {{ item.FileName1?.split('&')[0] }}
+              </view>
+              <view style="width: 100rpx">
+                <up-button
+                  type="error"
+                  size="small"
+                  text="删除"
+                  @click="handleDeletePhotoItem(item.FileUID1)"
+                />
+              </view>
+            </view>
+
             <view
-              style="font-size: 14px; margin: 10px"
-              @click="preview(1, item.FileName1)"
-              >{{ item.FileName1?.split('&')[0] }}</view
+              style="display: flex; align-items: center"
+              v-if="item.FileUID2"
             >
+              <view
+                style="font-size: 14px; margin: 10px"
+                @click="preview(2, item.FileName2)"
+              >
+                {{ item.FileName2?.split('&')[0] }}
+              </view>
+              <view style="width: 100rpx">
+                <up-button
+                  type="error"
+                  size="small"
+                  text="删除"
+                  @click="handleDeletePhotoItem(item.FileUID2)"
+                />
+              </view>
+            </view>
+
             <view
-              style="font-size: 14px; margin: 10px"
-              @click="preview(2, item.FileName2)"
-              >{{ item.FileName2?.split('&')[0] }}</view
+              style="display: flex; align-items: center"
+              v-if="item.FileUID3"
             >
-            <view
-              style="font-size: 14px; margin: 10px"
-              @click="preview(3, item.FileName3)"
-              >{{ item.FileName3?.split('&')[0] }}</view
-            >
+              <view
+                style="font-size: 14px; margin: 10px"
+                @click="preview(3, item.FileName3)"
+              >
+                {{ item.FileName3?.split('&')[0] }}
+              </view>
+              <view style="width: 100rpx">
+                <up-button
+                  type="error"
+                  size="small"
+                  text="删除"
+                  @click="handleDeletePhotoItem(item.FileUID3)"
+                />
+              </view>
+            </view>
           </view>
           <view style="display: flex; justify-content: space-around">
             <view class="demo-uni-col dark">
@@ -197,9 +241,11 @@ import {
   onReachBottom,
   onPullDownRefresh
 } from '@dcloudio/uni-app'
-import { GetMianItemInfo, EndPost, device_vouch_file } from '@/api/PDA.js'
+import { GetMianItemInfo, EndPost, device_vouch_file, deleteDeviceVouchFile } from '@/api/PDA.js'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
+import URLIP from '@/utils/serviceIP.js'
+
 // import loginVue from '../login/login.vue';
 let branch = ref()
 const title = ref('设备保养')
@@ -340,8 +386,31 @@ const ToRepairt = (i) => {
 }
 //单据增加图片
 const ToPic = (i) => {
-  uni.navigateTo({
-    url: `/pages/ProDeviceMantin/ProAddPicture/ProAddPicture?uid=${i.UID}`
+  uni.chooseImage({
+    sizeType: ['compressed'],
+    sourceType: ['camera'],
+    success: (res) => {
+      if (res.tempFilePaths?.length > 0) {
+        uni.uploadFile({
+          url: URLIP.BASE_URL_PDEVICE + '/api/device_tourvouch/Vouch_S_FileAdd',
+          filePath: res.tempFilePaths[0],
+          name: 'file',
+          formData: {
+            uid: i.UID
+          },
+          header: {
+            Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
+          },
+          success: () => {
+            uni.showToast({
+              icon: 'none',
+              title: '上传成功'
+            })
+            getList()
+          }
+        })
+      }
+    }
   })
 }
 //设备添加图片
@@ -412,6 +481,17 @@ const clickLeft = () => {
   uni.navigateBack({
     delta: 1
   })
+}
+
+const handleDeletePhotoItem = async (id) => {
+  try {
+    const { success } = await deleteDeviceVouchFile([id])
+    if (success) {
+      getList()
+    }
+  } catch {
+    //
+  }
 }
 </script>
 
