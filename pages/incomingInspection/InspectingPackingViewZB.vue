@@ -27,14 +27,12 @@
                 title=""
                 type="line"
               >
-                <uni-search-bar
-                  radius="100"
-                  cancelButton="none"
+                <up-input
                   @confirm="getXiangMa"
                   v-model="slVal"
                   placeholder="数量"
                 >
-                </uni-search-bar>
+                </up-input>
               </uni-section>
             </view>
           </view>
