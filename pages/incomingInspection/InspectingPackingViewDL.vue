@@ -415,6 +415,9 @@ const clickTJ = () => {
     })
     baoVal.value = ''
     buslVal.value = ''
+    uni.navigateBack({
+      delta: 1
+    })
   })
 }
 // 箱码
