@@ -23,7 +23,7 @@
           type="warn"
           size="mini"
           style="background-color: green"
-          @click="DEVpic"
+          @click="takeMainPhoto"
         >
           设备拍照
         </button>
@@ -368,10 +368,34 @@ const ToPic = (i) => {
     }
   })
 }
-//设备添加图片
-const DEVpic = () => {
-  uni.navigateTo({
-    url: `/pages/ProEquipmentCheck/ProTackPicture/ProTackPicture?Devuid=${uid.value}`
+const takeMainPhoto = () => {
+  console.log(uid.value)
+  uni.chooseImage({
+    sizeType: ['compressed'],
+    sourceType: ['camera'],
+    success: (res) => {
+      if (res.tempFilePaths?.length > 0) {
+        uni.uploadFile({
+          url: URLIP.BASE_URL_PDEVICE + '/api/device_tourvouch/Vouch_FileAdd',
+          filePath: res.tempFilePaths[0],
+          name: 'file',
+          formData: {
+            uid: uid.value
+          },
+          header: {
+            Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
+          },
+          success: () => {
+            uni.showToast({
+              icon: 'none',
+              title: '上传成功'
+            })
+            getList()
+            getMainImage(uid.value)
+          }
+        })
+      }
+    }
   })
 }
 //获取数据

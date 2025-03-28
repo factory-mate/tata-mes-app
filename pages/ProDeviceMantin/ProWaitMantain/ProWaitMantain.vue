@@ -36,7 +36,7 @@
           type="warn"
           size="mini"
           style="background-color: green; white-space: nowrap"
-          @click="DEVpic"
+          @click="takeMainPhoto"
         >
           增加图片
         </button>
@@ -392,7 +392,7 @@ const ToPic = (i) => {
     success: (res) => {
       if (res.tempFilePaths?.length > 0) {
         uni.uploadFile({
-          url: URLIP.BASE_URL_PDEVICE + '/api/device_tourvouch/Vouch_S_FileAdd',
+          url: URLIP.BASE_URL_PDEVICE + '/api/device_preservevouch/Vouch_S_FileAdd',
           filePath: res.tempFilePaths[0],
           name: 'file',
           formData: {
@@ -413,12 +413,37 @@ const ToPic = (i) => {
     }
   })
 }
-//设备添加图片
-const DEVpic = () => {
-  uni.navigateTo({
-    url: `/pages/ProDeviceMantin/ProAddPicture/ProAddPicture?Devuid=${uid.value}`
+const takeMainPhoto = () => {
+  console.log(uid.value)
+  uni.chooseImage({
+    sizeType: ['compressed'],
+    sourceType: ['camera'],
+    success: (res) => {
+      if (res.tempFilePaths?.length > 0) {
+        uni.uploadFile({
+          url: URLIP.BASE_URL_PDEVICE + '/api/device_preservevouch/Vouch_FileAdd',
+          filePath: res.tempFilePaths[0],
+          name: 'file',
+          formData: {
+            uid: uid.value
+          },
+          header: {
+            Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
+          },
+          success: () => {
+            uni.showToast({
+              icon: 'none',
+              title: '上传成功'
+            })
+            getList()
+            imgfile()
+          }
+        })
+      }
+    }
   })
 }
+
 //备件
 const ToPart = (i) => {
   uni.navigateTo({
