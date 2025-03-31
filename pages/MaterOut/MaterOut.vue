@@ -666,17 +666,17 @@ const onCloseModal = () => {
 const getXM = async () => {
   const res = await MaterialPutDown(XMsearchValue.value)
 
-  let sum = 0
-  arrList.value.forEach((item) => {
-    sum += item.num
-  })
-  sum += res.data[0].nSumQuinity
-  if (sum > OutInfo.value.RestQuantity) {
-    showModal.value = true
-    return
-  }
+  if (res.success && res.data.length > 0) {
+    let sum = 0
+    arrList.value.forEach((item) => {
+      sum += item.num
+    })
+    sum += res.data[0].nSumQuinity
+    if (sum > OutInfo.value.RestQuantity) {
+      showModal.value = true
+      return
+    }
 
-  if (res.status == 200 && res.data.length > 0) {
     PUTinfo.value = res.data[0]
     let hw = res.data[0].cWareHouseLocationCode
     // let num = res.data.nQuantity
