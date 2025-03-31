@@ -339,11 +339,11 @@ onShow(() => {
   fetchList()
 })
 
-onPullDownRefresh(async () => {
-  resetPageParams()
-  await fetchList()
-  uni.stopPullDownRefresh()
-})
+// onPullDownRefresh(async () => {
+//   resetPageParams()
+//   await fetchList()
+//   uni.stopPullDownRefresh()
+// })
 </script>
 
 <style scoped lang="scss">
