@@ -315,10 +315,11 @@
         <view
           v-if="!OUTLIST.length"
           style="text-align: center; margin: 20px 0; font-size: 16px; color: #b5b5b5"
-          >暂无数据,请先下架物料</view
         >
+          暂无数据,请先下架物料
+        </view>
         <view v-if="OUTLIST.length">
-          <view class="RUDetail">
+          <!-- <view class="RUDetail">
             <uni-row class="demo-uni-row">
               <uni-col :span="16">
                 <view class="demo-uni-col dark">物料编码：{{}}</view>
@@ -335,14 +336,14 @@
                 <view class="demo-uni-col dark">箱数：{{}}</view>
               </uni-col>
             </uni-row>
-          </view>
+          </view> -->
           <view
             class="listMain"
             :style="'height:' + (h - 260) + 'px'"
           >
             <view
               class="RUlist"
-              v-for="(item, index) in OUTLIST[0].Items"
+              v-for="(item, index) in OUTLIST[0].items"
               :key="index"
             >
               <uni-row class="demo-uni-row">
@@ -350,10 +351,10 @@
                   <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
                 </uni-col>
                 <uni-col :span="18">
-                  <view class="demo-uni-col dark">箱码：{{}}</view>
+                  <view class="demo-uni-col dark">箱码：{{ item.cBarCode }}</view>
                 </uni-col>
                 <uni-col :span="12">
-                  <view class="demo-uni-col dark">数量：{{}}</view>
+                  <view class="demo-uni-col dark">数量：{{ item.nQuantity }}</view>
                 </uni-col>
               </uni-row>
               <uni-row class="demo-uni-row">
@@ -361,10 +362,10 @@
                   <view class="demo-uni-col dark"></view>
                 </uni-col>
                 <uni-col :span="22">
-                  <view class="demo-uni-col dark">批次号：{{}}</view>
+                  <view class="demo-uni-col dark">批次号：{{ item.cBatch }}</view>
                 </uni-col>
                 <uni-col :span="15">
-                  <view class="demo-uni-col dark">货位：{{}}</view>
+                  <view class="demo-uni-col dark">货位：{{ item.cWareHouseLocationCode }}</view>
                 </uni-col>
               </uni-row>
             </view>
@@ -750,7 +751,7 @@ const SaveLIst = async () => {
 }
 //已出库列表
 const handelOutList = async () => {
-  const res = OutList({
+  const res = await OutList({
     OrderByFileds: '',
     Conditions: ''
     // #3136
@@ -758,12 +759,8 @@ const handelOutList = async () => {
     // "OrderByFileds": "",
     // "Conditions": "cInvCode=''"
   })
-  if (res.status == 200) {
-    OUTLIST.value = res.data.data
-    uni.showToast({
-      icon: 'none',
-      title: res.msg
-    })
+  if (res.success) {
+    OUTLIST.value = res.data
   } else {
     // uni.showToast({
     // 	icon: "none",
