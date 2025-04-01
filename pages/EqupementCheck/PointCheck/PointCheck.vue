@@ -49,143 +49,147 @@
           lower-threshold="50"
           show-scrollbar="true"
         >
-          <view
-            class="project"
+          <template
             v-for="(item, index) in dataList"
             :key="index"
           >
-            <uni-row class="demo-uni-row">
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
-              </uni-col>
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">状态：{{ item.iStatusName }}</view>
-              </uni-col>
-            </uni-row>
-            <uni-row class="demo-uni-row">
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">项目编码：{{ item.cProgramCode }}</view>
-              </uni-col>
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">项目名称：{{ item.cProgramName }}</view>
-              </uni-col>
-            </uni-row>
-            <uni-row class="demo-uni-row">
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">周期单位：{{ item.cPARM04 }}</view>
-              </uni-col>
-              <uni-col :span="12">
-                <view class="demo-uni-col dark">周期数值：{{ item.cPARM05 }}</view>
-              </uni-col>
-            </uni-row>
             <view
-              style="font-size: 14px; margin: 10px"
-              v-if="item.FileUID1"
+              class="project"
+              :class="item.iStatusName === '已完成' && 'list-item-finish'"
             >
-              <view style="display: flex; align-items: center">
-                <view
-                  style="font-size: 14px; margin: 10px"
-                  @click="preview(1, item.FileName1)"
-                >
-                  {{ item.FileName1?.split('&')[0] }}
+              <uni-row class="demo-uni-row">
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
+                </uni-col>
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">状态：{{ item.iStatusName }}</view>
+                </uni-col>
+              </uni-row>
+              <uni-row class="demo-uni-row">
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">项目编码：{{ item.cProgramCode }}</view>
+                </uni-col>
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">项目名称：{{ item.cProgramName }}</view>
+                </uni-col>
+              </uni-row>
+              <uni-row class="demo-uni-row">
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">周期单位：{{ item.cPARM04 }}</view>
+                </uni-col>
+                <uni-col :span="12">
+                  <view class="demo-uni-col dark">周期数值：{{ item.cPARM05 }}</view>
+                </uni-col>
+              </uni-row>
+              <view
+                style="font-size: 14px; margin: 10px"
+                v-if="item.FileUID1"
+              >
+                <view style="display: flex; align-items: center">
+                  <view
+                    style="font-size: 14px; margin: 10px"
+                    @click="preview(1, item.FileName1)"
+                  >
+                    {{ item.FileName1?.split('&')[0] }}
+                  </view>
+                  <view style="width: 100rpx">
+                    <up-button
+                      type="error"
+                      size="small"
+                      text="删除"
+                      @click="handleDeletePhotoItem(item.FileUID1)"
+                    />
+                  </view>
                 </view>
-                <view style="width: 100rpx">
-                  <up-button
-                    type="error"
-                    size="small"
-                    text="删除"
-                    @click="handleDeletePhotoItem(item.FileUID1)"
-                  />
+
+                <view
+                  style="display: flex; align-items: center"
+                  v-if="item.FileUID2"
+                >
+                  <view
+                    style="font-size: 14px; margin: 10px"
+                    @click="preview(2, item.FileName2)"
+                  >
+                    {{ item.FileName2?.split('&')[0] }}
+                  </view>
+                  <view style="width: 100rpx">
+                    <up-button
+                      type="error"
+                      size="small"
+                      text="删除"
+                      @click="handleDeletePhotoItem(item.FileUID2)"
+                    />
+                  </view>
+                </view>
+
+                <view
+                  style="display: flex; align-items: center"
+                  v-if="item.FileUID3"
+                >
+                  <view
+                    style="font-size: 14px; margin: 10px"
+                    @click="preview(3, item.FileName3)"
+                  >
+                    {{ item.FileName3?.split('&')[0] }}
+                  </view>
+                  <view style="width: 100rpx">
+                    <up-button
+                      type="error"
+                      size="small"
+                      text="删除"
+                      @click="handleDeletePhotoItem(item.FileUID3)"
+                    />
+                  </view>
                 </view>
               </view>
-
-              <view
-                style="display: flex; align-items: center"
-                v-if="item.FileUID2"
-              >
-                <view
-                  style="font-size: 14px; margin: 10px"
-                  @click="preview(2, item.FileName2)"
-                >
-                  {{ item.FileName2?.split('&')[0] }}
+              <view style="display: flex; justify-content: space-around">
+                <view class="demo-uni-col dark">
+                  <button
+                    class="mini-btn"
+                    type="warn"
+                    size="mini"
+                    style="background-color: green"
+                    @click="ToPic(item)"
+                  >
+                    项目拍照
+                  </button>
                 </view>
-                <view style="width: 100rpx">
-                  <up-button
-                    type="error"
-                    size="small"
-                    text="删除"
-                    @click="handleDeletePhotoItem(item.FileUID2)"
-                  />
+                <view class="demo-uni-col dark">
+                  <button
+                    class="mini-btn"
+                    type="warn"
+                    size="mini"
+                    style="background-color: orange"
+                    @click="ToGtagrt(item)"
+                  >
+                    指标
+                  </button>
                 </view>
-              </view>
-
-              <view
-                style="display: flex; align-items: center"
-                v-if="item.FileUID3"
-              >
-                <view
-                  style="font-size: 14px; margin: 10px"
-                  @click="preview(3, item.FileName3)"
-                >
-                  {{ item.FileName3?.split('&')[0] }}
+                <view class="demo-uni-col dark">
+                  <button
+                    class="mini-btn"
+                    type="warn"
+                    size="mini"
+                    style="background-color: rosybrown"
+                    @click="goFile(item)"
+                  >
+                    文档
+                  </button>
                 </view>
-                <view style="width: 100rpx">
-                  <up-button
-                    type="error"
-                    size="small"
-                    text="删除"
-                    @click="handleDeletePhotoItem(item.FileUID3)"
-                  />
+                <view class="demo-uni-col dark">
+                  <button
+                    class="mini-btn"
+                    type="warn"
+                    size="mini"
+                    style="background-color: firebrick"
+                    @click="ToRepairt(item)"
+                  >
+                    报修
+                  </button>
                 </view>
               </view>
             </view>
-            <view style="display: flex; justify-content: space-around">
-              <view class="demo-uni-col dark">
-                <button
-                  class="mini-btn"
-                  type="warn"
-                  size="mini"
-                  style="background-color: green"
-                  @click="ToPic(item)"
-                >
-                  项目拍照
-                </button>
-              </view>
-              <view class="demo-uni-col dark">
-                <button
-                  class="mini-btn"
-                  type="warn"
-                  size="mini"
-                  style="background-color: orange"
-                  @click="ToGtagrt(item)"
-                >
-                  指标
-                </button>
-              </view>
-              <view class="demo-uni-col dark">
-                <button
-                  class="mini-btn"
-                  type="warn"
-                  size="mini"
-                  style="background-color: rosybrown"
-                  @click="goFile(item)"
-                >
-                  文档
-                </button>
-              </view>
-              <view class="demo-uni-col dark">
-                <button
-                  class="mini-btn"
-                  type="warn"
-                  size="mini"
-                  style="background-color: firebrick"
-                  @click="ToRepairt(item)"
-                >
-                  报修
-                </button>
-              </view>
-            </view>
-          </view>
+          </template>
         </scroll-view>
       </view>
     </view>
@@ -572,5 +576,9 @@ const handleDeletePhotoItem = async (id) => {
       margin: 0 10px;
     }
   }
+}
+
+.list-item-finish {
+  background-color: #95ed6b !important;
 }
 </style>

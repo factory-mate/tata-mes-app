@@ -75,7 +75,7 @@
               v-for="(item, index) in DevList"
               :key="index"
             >
-              <view class="wLIst">
+              <view :class="item.iStatusName === '已完成' && 'list-item-success'">
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
                     <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
@@ -206,7 +206,7 @@
               v-for="(item, index) in DevList"
               :key="index"
             >
-              <view class="wLIst">
+              <view>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
                     <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
@@ -741,5 +741,9 @@ const handleCameraScan = (status) => {
       }
     }
   }
+}
+
+.list-item-success {
+  background-color: #95ed6b;
 }
 </style>

@@ -66,7 +66,7 @@
             @scrolltolower="scrolltolower"
           >
             <view
-              class="project"
+              :class="item.iStatusName === '进行中' && 'list-item-finish'"
               v-for="(item, index) in DevList"
               :key="index"
             >
@@ -551,5 +551,8 @@ const handleCameraScan = (status) => {
       }
     }
   }
+}
+.list-item-finish {
+  background-color: #95ed6b;
 }
 </style>
