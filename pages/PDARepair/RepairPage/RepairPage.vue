@@ -61,7 +61,7 @@
             @scrolltolower="scrolltolower"
           >
             <view>
-              <view
+              <!-- <view
                 class="ChangTarg"
                 style="display: flex; align-items: center"
               >
@@ -81,7 +81,7 @@
                     </uni-section>
                   </view>
                 </view>
-              </view>
+              </view> -->
               <view
                 class="ChangTarg"
                 style="display: flex; align-items: center"
@@ -740,8 +740,6 @@ const Getpart = () => {
           text: i.cInvName
         }
       })
-    } else {
-      console.log('88')
     }
   })
 }
@@ -765,7 +763,6 @@ const programchange = (i) => {
     }
   })
   Getpart()
-  console.log(ProItem.value, 'ProItem.value----------')
 }
 const proiectItem = ref({})
 const projectchange = (i) => {
