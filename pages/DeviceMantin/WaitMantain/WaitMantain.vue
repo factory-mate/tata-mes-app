@@ -68,7 +68,7 @@
           >
             <uni-row class="demo-uni-row">
               <uni-col :span="12">
-                <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
+                <view class="demo-uni-col dark">序号：{{ item.iPARM11 }}</view>
               </uni-col>
               <uni-col :span="18">
                 <view class="demo-uni-col dark"></view>
