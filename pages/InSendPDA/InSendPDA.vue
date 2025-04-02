@@ -17,7 +17,7 @@
         @click="onClickTabItem"
       ></up-tabs>
 
-      <view
+      <up-list
         class="listMain"
         :style="'height:' + (h - 140) + 'px'"
       >
@@ -156,7 +156,7 @@
             </button>
           </view>
         </view>
-      </view>
+      </up-list>
     </view>
   </view>
 </template>
@@ -226,11 +226,10 @@ const fetchList = async () => {
         PageSize: pageParams.value.pageSize,
         Conditions: 'cVerifyUserCode like ' + cLoginName
       })
-      resData = data ?? []
+      resData = [{}, {}, {}, {}, {}, {}] ?? data ?? []
       pc = pageCount
       dc = dataCount
     }
-    console.log(resData)
     listData.value = [...listData.value, ...resData]
     setPageInfo({ dataCount: dc, pageCount: pc })
     uni.hideLoading()
@@ -361,7 +360,6 @@ onPullDownRefresh(async () => {
     margin-top: 2px;
     width: 100%;
     height: calc(100% - 240rpx);
-    overflow-y: auto;
     font-size: 14px;
 
     .project {
