@@ -199,7 +199,6 @@ onPullDownRefresh(async () => {
             <up-col span="9">
               <up-input
                 v-model="inputData.hw"
-                type="number"
                 placeholder=""
                 border="surround"
                 clearable
