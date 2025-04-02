@@ -725,6 +725,13 @@ const SaveLIst = async () => {
   arrList.value.forEach((item) => {
     BarCodeList.value.push(item.xm)
   })
+  if (BarCodeList.value.length == 0) {
+    uni.showToast({
+      icon: 'none',
+      title: '请先添加数据'
+    })
+    return
+  }
   const res = await PDACommitOut({
     MID: ID.value.MID,
     UID: ID.value.UID,
