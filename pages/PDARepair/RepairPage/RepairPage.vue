@@ -86,6 +86,15 @@
                 class="ChangTarg"
                 style="display: flex; align-items: center"
               >
+                <view style="width: 20%; margin: 0 10px">设备名称:</view>
+                <view style="width: 60%">
+                  <view> {{ itemInfo.cDeviceName }} </view>
+                </view>
+              </view>
+              <view
+                class="ChangTarg"
+                style="display: flex; align-items: center"
+              >
                 <view
                   style="width: 20%; margin: 0 10px"
                   class="required"
@@ -720,17 +729,18 @@ const getProiet = () => {
 //备件
 const partArr = ref([])
 const Getpart = () => {
-  if (!ProItem.value.cProgramCode) {
-    uni.showToast({
-      icon: 'none',
-      title: '请选择项目',
-      duration: 1000
-    })
-    return
-  }
+  // if (!ProItem.value.cProgramCode) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请选择项目',
+  //     duration: 1000
+  //   })
+  //   return
+  // }
   PDAPART({
     OrderByFileds: '',
-    Conditions: `cDeviceCode=${itemInfo.value.cDeviceCode} && cProgramCode=${ProItem.value.cProgramCode}`
+    Conditions: `cDeviceCode=${itemInfo.value.cDeviceCode}`
+    //  && cProgramCode=${ProItem.value.cProgramCode}`
   }).then((res) => {
     if (res.status == 200) {
       partArr.value = res.data
@@ -931,8 +941,8 @@ const ListAdd = () => {
         let obj = {
           FileUID: arr.value,
           UID: itemInfo.value.UID,
-          cProgramCode: ProItem.value.cProgramCode,
-          cProgramName: ProItem.value.cProgramName,
+          // cProgramCode: ProItem.value.cProgramCode,
+          // cProgramName: ProItem.value.cProgramName,
           cPARM01: faultItem.value.cFaultCode,
           cPARM02: proiectItem.value.cProjectCode,
           cMemo: Textvalue.value,
