@@ -61,15 +61,11 @@
             @scrolltolower="scrolltolower"
           >
             <view>
-              <!-- <view
+              <view
                 class="ChangTarg"
                 style="display: flex; align-items: center"
               >
-                <view
-                  style="width: 20%; margin: 0 10px"
-                  class="required"
-                  >项目名称:</view
-                >
+                <view style="width: 20%; margin: 0 10px">项目名称:</view>
                 <view style="width: 60%">
                   <view>
                     <uni-section type="line">
@@ -81,7 +77,7 @@
                     </uni-section>
                   </view>
                 </view>
-              </view> -->
+              </view>
               <view
                 class="ChangTarg"
                 style="display: flex; align-items: center"
@@ -737,10 +733,13 @@ const Getpart = () => {
   //   })
   //   return
   // }
+  let conditions = `cDeviceCode=${itemInfo.value.cDeviceCode}`
+  if (ProItem.value.cProgramCode) {
+    conditions = `cDeviceCode=${itemInfo.value.cDeviceCode} && cProgramCode=${ProItem.value.cProgramCode}`
+  }
   PDAPART({
     OrderByFileds: '',
-    Conditions: `cDeviceCode=${itemInfo.value.cDeviceCode}`
-    //  && cProgramCode=${ProItem.value.cProgramCode}`
+    Conditions: conditions
   }).then((res) => {
     if (res.status == 200) {
       partArr.value = res.data
@@ -941,8 +940,8 @@ const ListAdd = () => {
         let obj = {
           FileUID: arr.value,
           UID: itemInfo.value.UID,
-          // cProgramCode: ProItem.value.cProgramCode,
-          // cProgramName: ProItem.value.cProgramName,
+          cProgramCode: ProItem.value.cProgramCode,
+          cProgramName: ProItem.value.cProgramName,
           cPARM01: faultItem.value.cFaultCode,
           cPARM02: proiectItem.value.cProjectCode,
           cMemo: Textvalue.value,
