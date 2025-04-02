@@ -212,22 +212,14 @@
       </view>
     </view>
 
-    <uni-row
-      class="demo-uni-row"
-      style="display: flex; align-items: center; justify-content: flex-end"
-    >
-      <uni-col :span="14">
-        <button
-          class="mini-btn"
-          type="warn"
-          size="mini"
-          @click="clickTJ"
-          style=""
-        >
-          提交
-        </button>
-      </uni-col>
-    </uni-row>
+    <view class="btn-area">
+      <up-button
+        type="error"
+        size="small"
+        text="提交"
+        @click="clickTJ"
+      />
+    </view>
   </view>
 </template>
 
@@ -805,5 +797,13 @@ const clickRight = () =>
 
 .demo-uni-row {
   margin-bottom: 30rpx;
+}
+.btn-area {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
