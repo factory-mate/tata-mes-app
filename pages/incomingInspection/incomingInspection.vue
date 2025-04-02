@@ -522,7 +522,7 @@
                     <view class="demo-uni-col dark">状态:已检验</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">检验结果：{{ item.IsOKName_PC }}</view>
+                    <view class="demo-uni-col dark">是否合格：{{ item.IsOKName }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
