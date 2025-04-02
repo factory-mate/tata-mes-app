@@ -80,7 +80,8 @@ const handleFinish = async (data) => {
   uni.showLoading({ title: '处理中' })
   try {
     await API.finish({
-      UID: data.UID
+      UID: data.UID,
+      RowUID: data.RowUID
     })
     uni.showToast({
       title: '操作成功',

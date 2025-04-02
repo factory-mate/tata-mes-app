@@ -26,7 +26,7 @@ export const API = {
   finish: (data) =>
     service({
       url: API_PREFIX + '/End',
-      method: 'get',
+      method: 'post',
       data
     }),
   begin: (data) =>
