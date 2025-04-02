@@ -366,6 +366,13 @@
                   >
                     维修确认
                   </button>
+                  <button
+                    type="warn"
+                    size="mini"
+                    @click="handleDel(item)"
+                  >
+                    删除
+                  </button>
                 </uni-row>
               </view>
             </view>
@@ -415,7 +422,8 @@ import {
   getRepairListByUser,
   getDevListPage,
   DeviceFalutVouchClose,
-  factory_position_resource_page
+  factory_position_resource_page,
+  DeviceFalutVouchDel
 } from '@/api/PDA.js'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
@@ -860,6 +868,28 @@ const onClickConfirmRepair = (item) => {
   currentConfirmItem.value = item
   confirmPopup.value.open()
 }
+
+const handleDel = (item) => {
+  uni.showModal({
+    content: '确认删除？',
+    cancelText: '取消',
+    confirmText: '确定',
+    success: function (res) {
+      if (res.confirm) {
+        DeviceFalutVouchDel([item.UID]).then((res) => {
+          if (res.success) {
+            uni.showToast({ title: '删除成功' })
+            PageList.value = []
+            currentPage.value = 1
+            total.value = 0
+            getForPage()
+          }
+        })
+      }
+    }
+  })
+}
+
 const confirmRepair = () => {
   DeviceFalutVouchClose([currentConfirmItem.value.UID])
     .then((res) => {

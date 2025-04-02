@@ -714,6 +714,14 @@ export function DeviceFalutVouchClose(data) {
   })
 }
 
+export function DeviceFalutVouchDel(data) {
+  return service({
+    url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/Del',
+    method: 'DELETE',
+    data
+  })
+}
+
 export function GetEmployee(data) {
   return service({
     url: URLIP.BASE_URL_LOGO + '/api/Employee/GetForPage',
