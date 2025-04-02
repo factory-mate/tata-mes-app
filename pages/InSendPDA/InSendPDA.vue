@@ -226,7 +226,7 @@ const fetchList = async () => {
         PageSize: pageParams.value.pageSize,
         Conditions: 'cVerifyUserCode like ' + cLoginName
       })
-      resData = [{}, {}, {}, {}, {}, {}] ?? data ?? []
+      resData = data ?? []
       pc = pageCount
       dc = dataCount
     }
