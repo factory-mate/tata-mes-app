@@ -419,7 +419,7 @@ const GetList = () => {
   otherConditions.forEach((item) => {
     Conditions += ` && ${item}`
   })
-  const orderbyfileds = current.value == 0 ? 'iStatus' : 'dEndTime desc'
+  const orderbyfileds = current.value == 0 ? 'iOrder' : 'dEndTime desc'
   PDARepairVouch({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
