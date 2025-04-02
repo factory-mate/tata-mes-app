@@ -131,25 +131,20 @@
             </view>
           </view>
         </view>
-        <view class="BTN-Two">
-          <button
-            class="mini-btn"
-            style="color: black; backgroundcolor: #1aad19; bordercolor: #1aad19"
-            type="warn"
-            size="mini"
+        <view class="btn-area">
+          <up-button
+            type="error"
+            size="small"
+            text="保存"
             @click="clickAdd"
-          >
-            保存
-          </button>
-          <button
-            class="mini-btn"
-            type="warn"
-            style="color: black; backgroundcolor: #ffff7f; bordercolor: #ffff7f"
-            size="mini"
+            style="margin-right: 8px"
+          />
+          <up-button
+            type="error"
+            size="small"
+            text="查看"
             @click="clickView"
-          >
-            查看
-          </button>
+          />
         </view>
       </view>
     </view>
@@ -575,5 +570,13 @@ const clickRight = () =>
 .uni-searchbar__box {
   height: 30px !important;
   padding: 0;
+}
+.btn-area {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
