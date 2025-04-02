@@ -667,7 +667,7 @@ const GETREpairView = () => {
 const getProgram = () => {
   PDAPROGRAMs({
     OrderByFileds: '',
-    Conditions: `cDeviceCode=${cDevCode.value}`
+    Conditions: `cDeviceCode=${cDevCode.value} && cProgramTypeCode = 5`
   }).then((res) => {
     if (res.status == 200) {
       ProgramArr.value = res.data
