@@ -760,7 +760,7 @@ const getList = () => {
     title: '加载中'
   })
   if (current.value == '0') {
-    Pre_GetForPage_Two(obj).then((res) => {
+    Pre_GetForPage_Two({ ...obj, OrderByFileds: 'dCreateTime' }).then((res) => {
       uni.hideLoading()
       uni.stopPullDownRefresh()
       pageTotal.value = res.data.pageCount
