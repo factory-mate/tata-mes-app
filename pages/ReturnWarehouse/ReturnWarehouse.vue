@@ -246,8 +246,8 @@ const getlist = async () => {
     PageSize: 5,
     OrderByFileds: '',
     Conditions: codeVal.value
-      ? 'cVouchTypeCode=02 && iStatus=1 && cCode like ' + codeVal.value
-      : 'cVouchTypeCode=02 && iStatus=1'
+      ? 'cVouchTypeCode=02 && iStatus in (1,15) && cCode like ' + codeVal.value
+      : 'cVouchTypeCode=02 && iStatus in (1,15)'
   }
   uni.showLoading({
     title: '加载中'
