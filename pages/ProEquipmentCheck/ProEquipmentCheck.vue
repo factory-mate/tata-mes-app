@@ -66,11 +66,11 @@
             @scrolltolower="scrolltolower"
           >
             <view
-              :class="item.iStatusName === '进行中' && 'list-item-finish'"
               v-for="(item, index) in DevList"
               :key="index"
+              class="project"
             >
-              <view class="wLIst">
+              <view :class="item.iStatusName === '进行中' && 'list-item-finish'">
                 <uni-row class="demo-uni-row">
                   <uni-col :span="10">
                     <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
