@@ -503,7 +503,7 @@ const getDH = _.debounce(async () => {
   const res = await awaitPDAList({
     PageIndex: currentPage.value,
     pageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: 'dArriveDate',
     Conditions: searchValue.value ? `cCode like ${searchValue.value}` : ''
   })
   if (res.status == 200) {
