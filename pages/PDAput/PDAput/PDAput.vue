@@ -167,20 +167,8 @@
         <view class="listMain">
           <view class="projects">
             <uni-row class="demo-uni-row">
-              <uni-col :span="18">
+              <uni-col :span="24">
                 <view class="demo-uni-col dark">物料名称：{{ PUTiNFO.cInvName }}</view>
-              </uni-col>
-              <uni-col :span="8">
-                <view class="demo-uni-col dark">
-                  <button
-                    class="mini-btn"
-                    type="warn"
-                    size="mini"
-                    @click="() => PUTXM(false)"
-                  >
-                    新增提交
-                  </button>
-                </view>
               </uni-col>
             </uni-row>
             <uni-row class="demo-uni-row">
@@ -291,6 +279,14 @@
           </view>
         </view>
         <view class="two-button">
+          <button
+            class="mini-btn"
+            type="warn"
+            size="mini"
+            @click="() => PUTXM(false)"
+          >
+            新增提交
+          </button>
           <button
             class="mini-btn"
             type="warn"
