@@ -57,43 +57,63 @@ function resetPageParams() {
   listData.value = []
 }
 
-const handleStart = async (data) => {
-  uni.showLoading({ title: '处理中' })
-  try {
-    await API.begin({
-      UID: data.UID,
-      RowUID: data.RowUID
-    })
-    uni.showToast({
-      title: '操作成功',
-      icon: 'success'
-    })
-    resetPageParams()
-    getList()
-  } catch {
-    //
-  }
-  uni.hideLoading()
+const handleStart = (data) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        uni.showLoading({ title: '处理中' })
+        try {
+          await API.begin({
+            UID: data.UID,
+            RowUID: data.RowUID
+          })
+          uni.showToast({
+            title: '操作成功',
+            icon: 'success'
+          })
+          resetPageParams()
+          getList()
+        } catch {
+          //
+        }
+        uni.hideLoading()
+      }
+    }
+  })
 }
 
-const handleFinish = async (data) => {
-  uni.showLoading({ title: '处理中' })
-  try {
-    await API.finish({
-      UID: data.UID,
-      RowUID: data.RowUID
-    })
-    uni.showToast({
-      title: '操作成功',
-      icon: 'success'
-    })
-    listData.value = []
-    resetPageParams()
-    getList()
-  } catch {
-    //
-  }
-  uni.hideLoading()
+const handleFinish = (data) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        uni.showLoading({ title: '处理中' })
+        try {
+          await API.finish({
+            UID: data.UID,
+            RowUID: data.RowUID
+          })
+          uni.showToast({
+            title: '操作成功',
+            icon: 'success'
+          })
+          listData.value = []
+          resetPageParams()
+          getList()
+        } catch {
+          //
+        }
+        uni.hideLoading()
+      }
+    }
+  })
 }
 
 const handleCount = (data) =>
@@ -233,17 +253,17 @@ onPullDownRefresh(async () => {
                   @click="handleStart(item)"
                 />
                 <up-button
+                  text="盘点"
+                  type="error"
+                  size="small"
+                  @click="handleCount(item)"
+                />
+                <up-button
                   style="margin-right: 4px"
                   text="完成"
                   type="error"
                   size="small"
                   @click="handleFinish(item)"
-                />
-                <up-button
-                  text="盘点"
-                  type="error"
-                  size="small"
-                  @click="handleCount(item)"
                 />
               </view>
             </up-row>
