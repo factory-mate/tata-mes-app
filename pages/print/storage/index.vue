@@ -33,6 +33,7 @@ async function getList() {
 
 function print() {
   // #ifdef APP-PLUS
+  const data = detailData.value
   printer.printQR2({
     text: data?.cKeyCode,
     height: 150,
