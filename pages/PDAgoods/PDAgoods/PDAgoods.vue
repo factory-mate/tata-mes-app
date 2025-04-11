@@ -577,23 +577,33 @@ const getWL = _.debounce(async () => {
   }
 }, 300)
 //确认到货
-const ConfirmDH = async (v) => {
-  const res = await confirmPDAList({
-    MID: v.MID,
-    Items: [v.UID]
+const ConfirmDH = (v) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        const res = await confirmPDAList({
+          MID: v.MID,
+          Items: [v.UID]
+        })
+        if (res.status == 200) {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg
+          })
+          DHDetailList(UID.value)
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.errmsg
+          })
+        }
+      }
+    }
   })
-  if (res.status == 200) {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg
-    })
-    DHDetailList(UID.value)
-  } else {
-    uni.showToast({
-      icon: 'none',
-      title: res.errmsg
-    })
-  }
 }
 
 const handleSearch = () => {

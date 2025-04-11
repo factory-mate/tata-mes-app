@@ -732,8 +732,8 @@ const PUTXM = (addition) => {
     content: '确定执行该操作吗',
     confirmText: '确定',
     cancelText: '取消',
-    success: async function (res) {
-      if (res.confirm) {
+    success: async function (r) {
+      if (r.confirm) {
         arrList.value.forEach((item) => {
           XMlist.value.push(item.xm)
         })

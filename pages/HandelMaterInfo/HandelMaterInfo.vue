@@ -621,8 +621,8 @@ const Save = () => {
     content: '确定执行该操作吗',
     confirmText: '确定',
     cancelText: '取消',
-    success: async function (res) {
-      if (res.confirm) {
+    success: async function (r) {
+      if (r.confirm) {
         const cDepCode = uni.getStorageSync('User').Parm01
         const res = await MaterialApplyForSave({
           IsCommit: false,
@@ -675,8 +675,8 @@ const Commit = () => {
     content: '确定执行该操作吗',
     confirmText: '确定',
     cancelText: '取消',
-    success: async function (res) {
-      if (res.confirm) {
+    success: async function (r) {
+      if (r.confirm) {
         const cDepCode = uni.getStorageSync('User').Parm01
         const res = await MaterialApplyForSave({
           IsCommit: true,
