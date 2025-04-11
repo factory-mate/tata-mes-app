@@ -726,44 +726,50 @@ const RKList = () => {
   })
 }
 //提交
-const PUTXM = async (addition) => {
-  arrList.value.forEach((item) => {
-    XMlist.value.push(item.xm)
-  })
-  const res = await PDACommit({
-    bAddition: addition,
-    UID: PUTiNFO.value.UID,
-    cInvCode: PUTiNFO.value.cInvCode,
-    cWareHouseLocationCode: HWsearchValue.value,
-    cBarCodes: XMlist.value
-  })
-  if (res.status == 200) {
-    uni.showToast({
-      icon: 'none',
-      title: '提交成功'
-    })
-    //提交成功到已入库列表
-    current.value = 2
-    RKList()
-    arrList.value = []
-    XMlist.value = []
-  } else {
-    uni.showModal({
-      // title: '提示',
-      showCancel: false,
-      content: res.errmsg[0].Value,
-      success: function (res) {
-        if (res.confirm) {
-          //箱码不正确，清空列表
+const PUTXM = (addition) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (res) {
+      if (res.confirm) {
+        arrList.value.forEach((item) => {
+          XMlist.value.push(item.xm)
+        })
+        const res = await PDACommit({
+          bAddition: addition,
+          UID: PUTiNFO.value.UID,
+          cInvCode: PUTiNFO.value.cInvCode,
+          cWareHouseLocationCode: HWsearchValue.value,
+          cBarCodes: XMlist.value
+        })
+        if (res.status == 200) {
+          uni.showToast({
+            icon: 'none',
+            title: '提交成功'
+          })
+          //提交成功到已入库列表
+          current.value = 2
+          RKList()
           arrList.value = []
           XMlist.value = []
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+        } else {
+          uni.showModal({
+            showCancel: false,
+            content: res.errmsg[0].Value,
+            success: function (res) {
+              if (res.confirm) {
+                //箱码不正确，清空列表
+                arrList.value = []
+                XMlist.value = []
+              }
+            }
+          })
         }
       }
-    })
-  }
+    }
+  })
 }
 //重置货位
 const ClearInput = () => {
