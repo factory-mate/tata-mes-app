@@ -27,79 +27,90 @@
           :key="index"
         >
           <uni-row class="demo-uni-row">
-            <uni-col :span="10">
+            <uni-col :span="24">
               <view
                 v-if="currentTabIndex == 0"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
-                >申报人：{{ item.EndOperator }}</view
               >
+                申报工位：{{ item.EndOperator }}
+              </view>
               <view v-else>
                 <view
                   class="demo-uni-col dark"
                   style="font-size: 16px; color: blue"
-                  >处理人：{{ item.cCreateUserName }}</view
                 >
+                  处理人：{{ item.cCreateUserName }}
+                </view>
               </view>
             </uni-col>
-            <uni-col :span="14">
+            <uni-col :span="24">
               <!-- <view
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
                 >申报日期：{{ item.max_Error_dReportDate }}</view
               > -->
-
+              <view
+                v-if="currentTabIndex == 0"
+                class="demo-uni-col dark"
+                style="font-size: 16px; color: blue"
+              >
+                生产时间：{{ item.dProductDate }}
+              </view>
               <view
                 v-if="currentTabIndex == 1"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
-                >处理时间：{{ item.dCreateTime }}</view
               >
+                处理时间：{{ item.dCreateTime }}
+              </view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="16">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">产品名称：{{ item.cInvName }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="16">
-              <view class="demo-uni-col dark">生产单号：{{ item.cCode }}</view>
+              <view class="demo-uni-col dark">单号：{{ item.cCode }}</view>
             </uni-col>
-          </uni-row>
-          <uni-row class="demo-uni-row">
             <uni-col :span="8">
               <view class="demo-uni-col dark">单序号：{{ item.iOrderIndex }}</view>
             </uni-col>
-            <uni-col :span="8">
-              <view class="demo-uni-col dark">总序号：{{ item.S_S_S_iIndex }}</view>
-            </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="6">
-              <view class="demo-uni-col dark">材质：{{ item.cDynamicsParm06 }}</view>
-            </uni-col>
-            <uni-col :span="16">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">尺寸：{{ item.X }}*{{ item.Y }}*{{ item.Z }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="8">
+            <uni-col :span="24">
+              <view class="demo-uni-col dark">材质：{{ item.cDynamicsParm06 }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">面板分号：{{ item.cBOMDefindParm13 }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="8">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">包装产线：{{ item.PackageUnitName }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="8">
+            <uni-col :span="24">
+              <view class="demo-uni-col dark">总序号：{{ item.S_S_S_iIndex }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">申报时间：{{ item.EndTime }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="8">
+            <uni-col :span="24">
               <view class="demo-uni-col dark">加工码：{{ item.cBarCode }}</view>
             </uni-col>
           </uni-row>
@@ -198,7 +209,7 @@ const fetchList = async () => {
         PageIndex: pageParams.value.pageIndex,
         PageSize: pageParams.value.pageSize
       })
-      resData = data
+      resData = data ?? []
       pc = pageCount
       dc = dataCount
     } else if (currentTabIndex.value == 1) {
