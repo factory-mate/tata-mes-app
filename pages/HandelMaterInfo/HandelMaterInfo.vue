@@ -608,7 +608,7 @@ const DelID = (i, index) => {
   })
 }
 //保存按钮
-const Save = async () => {
+const Save = () => {
   if (!InfoList.value.length) {
     uni.showToast({
       icon: 'none',
@@ -616,35 +616,45 @@ const Save = async () => {
     })
     return
   }
-  const cDepCode = uni.getStorageSync('User').Parm01
-  const res = await MaterialApplyForSave({
-    IsCommit: false,
-    cDepCode: cDepCode, //部门（用户登录带出来）
-    cInWareHouseCode: WsearchValue.value, //线边仓code
-    // cReasonName: ReasonsearchValue.value, //原因
-    cSourceAppType: '002', //设备（固定）
-    cVouchTypeCode: '01',
-    cCode: '', //订单号（可不传）
-    Items: InfoList.value
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (res) {
+      if (res.confirm) {
+        const cDepCode = uni.getStorageSync('User').Parm01
+        const res = await MaterialApplyForSave({
+          IsCommit: false,
+          cDepCode: cDepCode, //部门（用户登录带出来）
+          cInWareHouseCode: WsearchValue.value, //线边仓code
+          // cReasonName: ReasonsearchValue.value, //原因
+          cSourceAppType: '002', //设备（固定）
+          cVouchTypeCode: '01',
+          cCode: '', //订单号（可不传）
+          Items: InfoList.value
+        })
+        if (res.status == 200) {
+          //模拟
+          UIDS.value = res.data.UID
+          uni.showToast({
+            icon: 'none',
+            title: res.msg
+          })
+          InfoList.value = []
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg || res.errmsg[0].Value
+          })
+        }
+      }
+    }
   })
-  if (res.status == 200) {
-    //模拟
-    UIDS.value = res.data.UID
-    uni.showToast({
-      icon: 'none',
-      title: res.msg
-    })
-    InfoList.value = []
-  } else {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg || res.errmsg[0].Value
-    })
-  }
 }
 
 //提交按钮
-const Commit = async () => {
+const Commit = () => {
   // #2172 可以直接提交
   // if (!UIDS.value) {
   //   uni.showToast({
@@ -660,34 +670,45 @@ const Commit = async () => {
     })
     return
   }
-  const cDepCode = uni.getStorageSync('User').Parm01
-  const res = await MaterialApplyForSave({
-    IsCommit: true,
-    cDepCode: cDepCode, //部门（用户登录带出来）
-    cInWareHouseCode: WsearchValue.value, //线边仓code
-    // cReasonName: ReasonsearchValue.value, //原因
-    cSourceAppType: '002', //设备（固定）
-    cVouchTypeCode: '01',
-    cCode: '', //订单号（可不传）
-    Items: InfoList.value
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (res) {
+      if (res.confirm) {
+        const cDepCode = uni.getStorageSync('User').Parm01
+        const res = await MaterialApplyForSave({
+          IsCommit: true,
+          cDepCode: cDepCode, //部门（用户登录带出来）
+          cInWareHouseCode: WsearchValue.value, //线边仓code
+          // cReasonName: ReasonsearchValue.value, //原因
+          cSourceAppType: '002', //设备（固定）
+          cVouchTypeCode: '01',
+          cCode: '', //订单号（可不传）
+          Items: InfoList.value
+        })
+        if (res.status == 200) {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg
+          })
+          //再次获取单据列表
+          DJliST.value = []
+          currentPage.value = 1
+          GetPageList()
+          InfoList.value = []
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg || res.errmsg[0].Value
+          })
+        }
+      }
+    }
   })
-  if (res.status == 200) {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg
-    })
-    //再次获取单据列表
-    DJliST.value = []
-    currentPage.value = 1
-    GetPageList()
-    InfoList.value = []
-  } else {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg || res.errmsg[0].Value
-    })
-  }
 }
+
 //单据列表
 const GetPageList = async () => {
   currentPage.value = 1
