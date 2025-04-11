@@ -768,7 +768,7 @@ const getList = () => {
       listData.value = [...listData.value, ...res.data.data]
     })
   } else {
-    GetForPage_Two({ ...obj, OrderByFileds: 'dDate desc' }).then((res) => {
+    GetForPage_Two({ ...obj, OrderByFileds: 'dCreateTime desc' }).then((res) => {
       uni.hideLoading()
       uni.stopPullDownRefresh()
       pageTotal.value = res.data.pageCount
