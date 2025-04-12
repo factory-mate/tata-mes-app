@@ -412,13 +412,14 @@ const GetList = () => {
   })
   let Conditions = current.value == 0 ? 'iStatus in (0,1,2)' : 'iStatus in (3,4)'
   const otherConditions = []
-  if (searchValuess.value) {
-    otherConditions.push(`cDeviceName like ${searchValuess.value}`)
-  }
-
   otherConditions.forEach((item) => {
     Conditions += ` && ${item}`
   })
+
+  if (searchValuess.value) {
+    Conditions = `${Conditions} && cDeviceName like ${searchValuess.value} || ${Conditions} && cDeviceCode = ${searchValuess.value}`
+  }
+
   const orderbyfileds = current.value == 0 ? 'iOrder' : 'dEndTime desc'
   PDARepairVouch({
     PageIndex: currentPage.value,
@@ -441,7 +442,7 @@ const GetList = () => {
 const getSearch = () => {
   currentPage.value = 1
   DevList.value = []
-  searchValuess.value = ''
+  // searchValuess.value = ''
   total.value = 0
   // if (Timerange.value) {
   // 	BeginTime.value = Timerange.value[0]
@@ -455,13 +456,13 @@ const getSearch = () => {
   let Conditions = 'iStatus in (0,1,2)'
 
   const otherConditions = []
-  if (searchValuess.value) {
-    otherConditions.push(`cDeviceName like ${searchValuess.value}`)
-  }
-
   otherConditions.forEach((item) => {
     Conditions += ` && ${item}`
   })
+
+  if (searchValuess.value) {
+    Conditions = `${Conditions} && cDeviceName like ${searchValuess.value} || ${Conditions} && cDeviceCode = ${searchValuess.value}`
+  }
 
   PDARepairVouch({
     PageIndex: currentPage.value,
@@ -498,13 +499,14 @@ const getSearchss = () => {
   if (EndTime.value) {
     otherConditions.push(`OperateDate<=${EndTime.value}`)
   }
-  if (searchValuess.value) {
-    otherConditions.push(`cDeviceName like ${searchValuess.value}`)
-  }
 
   otherConditions.forEach((item) => {
     Conditions += ` && ${item}`
   })
+
+  if (searchValuess.value) {
+    Conditions = `${Conditions} && cDeviceName like ${searchValuess.value} || ${Conditions} && cDeviceCode = ${searchValuess.value}`
+  }
 
   PDARepairVouch({
     PageIndex: currentPage.value,
