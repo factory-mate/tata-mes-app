@@ -502,36 +502,46 @@ const DELXM = (i, index) => {
   XMlIST.value.splice(index, 1)
 }
 //保存
-const SaveBarcode = async () => {
-  XMlIST.value.forEach((item) => {
-    BarCode.value.push(item.cBarCode)
+const SaveBarcode = () => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        XMlIST.value.forEach((item) => {
+          BarCode.value.push(item.cBarCode)
+        })
+        if (!WsearchValue.value || !BarCode.value.length) {
+          uni.showToast({
+            icon: 'none',
+            title: '请先扫描信息'
+          })
+          return
+        }
+        const res = await LineWareHouseCommit({
+          cWareHouseCode: WsearchValue.value,
+          cBarCodes: BarCode.value
+        })
+        if (res.status == 200) {
+          uni.showToast({
+            icon: 'none',
+            title: '保存成功'
+          })
+          XMlIST.value = []
+          XMinfo.value = {}
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg || res.errmsg[0].Value
+          })
+          XMlIST.value = []
+          XMinfo.value = {}
+        }
+      }
+    }
   })
-  if (!WsearchValue.value || !BarCode.value.length) {
-    uni.showToast({
-      icon: 'none',
-      title: '请先扫描信息'
-    })
-    return
-  }
-  const res = await LineWareHouseCommit({
-    cWareHouseCode: WsearchValue.value,
-    cBarCodes: BarCode.value
-  })
-  if (res.status == 200) {
-    uni.showToast({
-      icon: 'none',
-      title: '保存成功'
-    })
-    XMlIST.value = []
-    XMinfo.value = {}
-  } else {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg || res.errmsg[0].Value
-    })
-    XMlIST.value = []
-    XMinfo.value = {}
-  }
 }
 //单据列表
 const GetPageList = async () => {
