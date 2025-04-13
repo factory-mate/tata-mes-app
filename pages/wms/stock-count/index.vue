@@ -118,7 +118,7 @@ const handleFinish = (data) => {
 
 const handleCount = (data) =>
   uni.navigateTo({
-    url: `/pages/wms/stock-count/count?UID=${data.UID}&cInvCode=${data.cInvCode}&cInvName=${data.cInvName}&cWareHouseName=${data.cWareHouseName}`
+    url: `/pages/wms/stock-count/count?UID=${data.UID}&cInvCode=${data.cInvCode}&cInvName=${data.cInvName}&cWareHouseName=${data.cWareHouseName}&cTakeTypeCode=${data.cTakeTypeCode}`
   })
 
 const getType = async () => {
@@ -253,13 +253,13 @@ onPullDownRefresh(async () => {
                   @click="handleStart(item)"
                 />
                 <up-button
+                  style="margin-right: 4px"
                   text="盘点"
                   type="error"
                   size="small"
                   @click="handleCount(item)"
                 />
                 <up-button
-                  style="margin-right: 4px"
                   text="完成"
                   type="error"
                   size="small"

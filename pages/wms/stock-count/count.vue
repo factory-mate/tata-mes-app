@@ -49,7 +49,7 @@ const scanCode = async () => {
     const { data, success } = await API.getByBarcode({ val: inputData.value.code })
     if (success) {
       // 校验物料编码是否一致
-      if (data.cInvCode !== formData.value.cInvCode) {
+      if (formData.value.cTakeTypeCode === 2 && data.cInvCode !== formData.value.cInvCode) {
         uni.showToast({
           title: '物料编码不一致',
           icon: 'none'
@@ -145,6 +145,7 @@ onLoad((options) => {
   formData.value.cInvCode = options.cInvCode
   formData.value.cInvName = options.cInvName
   formData.value.cWareHouseName = options.cWareHouseName
+  formData.value.cTakeTypeCode = options.cTakeTypeCode
 })
 onShow(() => {})
 onHide(() => {})
