@@ -35,7 +35,8 @@ async function getList() {
         { type: 'in', key: 'iStatus', val: ['1', '51'] },
         { type: 'like', key: 'cInWareHouseName', val: searchParams.value.cInWareHouseName },
         { type: 'like', key: 'cCode', val: searchParams.value.cCode }
-      ])
+      ]),
+      OrderByFileds: 'dDate desc'
     })
     listData.value = [...listData.value, ...data]
     setPageInfo({ dataCount, pageCount })
