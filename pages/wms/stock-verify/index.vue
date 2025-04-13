@@ -64,24 +64,34 @@ const openRejectModal = (data) => {
   currentRejectId.value = data.UID
 }
 
-const handleAudit = async (data) => {
-  uni.showLoading({ title: '处理中' })
-  try {
-    const { success } = await API.audit({
-      UIDs: [data.UID]
-    })
-    if (success) {
-      uni.showToast({
-        title: '操作成功',
-        icon: 'success'
-      })
-      resetPageParams()
-      getList()
+const handleAudit = (data) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        uni.showLoading({ title: '处理中' })
+        try {
+          const { success } = await API.audit({
+            UIDs: [data.UID]
+          })
+          if (success) {
+            uni.showToast({
+              title: '操作成功',
+              icon: 'success'
+            })
+            resetPageParams()
+            getList()
+          }
+        } catch {
+          //
+        }
+        uni.hideLoading()
+      }
     }
-  } catch {
-    //
-  }
-  uni.hideLoading()
+  })
 }
 
 const handleReject = async (data) => {
