@@ -552,7 +552,7 @@ const GetPageList = async () => {
   const res = await PDAGetRDRecordList({
     PageIndex: currentPage.value,
     pageSize: pageSize.value,
-    OrderByFileds: '',
+    OrderByFileds: 'applyForCode desc',
     Conditions: HDsearchValue.value ? `applyForCode=${HDsearchValue.value}` : ''
   })
   if (res.status == 200) {

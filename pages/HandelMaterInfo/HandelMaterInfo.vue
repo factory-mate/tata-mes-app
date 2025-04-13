@@ -565,7 +565,7 @@ const getWL = async () => {
 }
 //确定按钮
 const confirm = () => {
-  if (!WLsearchValue.value) {
+  if (!WLsearchValue.value || !WLInfo.value) {
     uni.showToast({
       icon: 'none',
       title: '请先扫描物料'
@@ -575,7 +575,7 @@ const confirm = () => {
   let obj = {
     cInvCode: WLsearchValue.value,
     name: WLInfo.value,
-    cInvStd: '22222-00', //规格（扫描物料获取）#3415
+    cInvStd: WLInfo.value.split(' ')[1] ?? '', //规格（扫描物料获取）
     cReasonName: ReasonsearchValue.value,
     nQuantity: NUMsearchValue.value,
     cUnitCode: 'string', //计量单位
