@@ -25,6 +25,16 @@ export function confirmPDAList(data) {
     data
   })
 }
+
+//拒收
+export function arriveVouchRefuse(data) {
+  return service({
+    url: URLIP.BASE_URL_DAOHUO + '/api/ArriveVouch/Refuse',
+    method: 'get',
+    data
+  })
+}
+
 //当天已确认列表
 export function confirmDayList(data) {
   return service({

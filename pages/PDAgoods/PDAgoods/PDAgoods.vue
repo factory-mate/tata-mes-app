@@ -235,6 +235,14 @@
                       class="mini-btn"
                       type="warn"
                       size="mini"
+                      @click="refuse(item)"
+                    >
+                      拒收
+                    </button>
+                    <button
+                      class="mini-btn"
+                      type="warn"
+                      size="mini"
                       @click="ConfirmDH(item)"
                     >
                       确认到货
@@ -336,6 +344,7 @@ import {
   awaitPDAList,
   confirmPDADetialList,
   confirmPDAList,
+  arriveVouchRefuse,
   confirmDayList,
   getWLInfo
 } from '@/api/PDA.js'
@@ -576,6 +585,35 @@ const getWL = _.debounce(async () => {
     }
   }
 }, 300)
+
+const refuse = (v) => {
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: async function (r) {
+      if (r.confirm) {
+        const res = await arriveVouchRefuse({
+          val: v.UID
+        })
+        if (res.success) {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg
+          })
+          DHDetailList(UID.value)
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.errmsg
+          })
+        }
+      }
+    }
+  })
+}
+
 //确认到货
 const ConfirmDH = (v) => {
   uni.showModal({
