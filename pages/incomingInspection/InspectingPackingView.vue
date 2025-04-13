@@ -12,44 +12,35 @@
       @clickRight="clickRight"
     />
     <view style="box-sizing: border-box; padding: 0 10rpx; border: 1px solid #eee">
-      <uni-row class="demo-uni-row formSty">
-        <uni-col :span="10">
+      <uni-row class="formSty">
+        <uni-col :span="24">
           <view class="demo-uni-col">质检单号：{{ routeVal.cCode }}</view>
         </uni-col>
-        <uni-col :span="14">
+        <uni-col
+          :span="24"
+          style="margin-bottom: 8rpx; margin-top: 8rpx"
+        >
           <view style="display: flex; align-items: center">
             <view style="width: 90px">单破坏性数量：</view>
-            <view
-              class="search-inpt"
-              style="width: 60%"
+
+            <up-input
+              @confirm="getXiangMa"
+              v-model="nDestoryQuantity"
+              placeholder="数量"
             >
-              <!-- 搜索框 -->
-              <uni-section
-                title=""
-                type="line"
-              >
-                <up-input
-                  @confirm="getXiangMa"
-                  v-model="nDestoryQuantity"
-                  placeholder="数量"
-                >
-                </up-input>
-              </uni-section>
-            </view>
+            </up-input>
+
+            <button
+              style="margin-left: 10rpx"
+              type="warn"
+              size="mini"
+              @click="clickSave"
+            >
+              保存
+            </button>
           </view>
         </uni-col>
       </uni-row>
-      <view style="margin-left: 80%; margin-top: -30rpx; padding-bottom: 20rpx">
-        <button
-          class="mini-btn"
-          type="warn"
-          size="mini"
-          @click="clickSave"
-          style="margin-top: 50rpx"
-        >
-          保存
-        </button>
-      </view>
     </view>
 
     <view class="content">
@@ -639,8 +630,6 @@ const clickRight = () =>
 }
 .formSty {
   width: 100%;
-  align-items: center;
-  display: flex;
   font-size: 12px;
   .uni-searchbar {
     padding: 0;
