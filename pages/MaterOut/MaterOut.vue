@@ -596,21 +596,31 @@ const ID = ref({})
 //下架按钮
 let cInvCode = ref('')
 const OutWare = (i) => {
-  // 已下架列表接口需要code参数
-  cInvCode.value = i.cInvCode
-  //保存时需要MID/UID
-  ID.value = i
-  let obj = {
-    cCode: cCode.value,
-    cInvCode: i.cInvCode,
-    cInvName: i.cInvName,
-    RestQuantity: i.RestQuantity
-  }
-  OutInfo.value = obj
-  current.value = 1
-  //箱码输入框解除禁用
-  xmdisabled.value = false
-  XMsetfocus()
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: function (r) {
+      if (r.confirm) {
+        // 已下架列表接口需要code参数
+        cInvCode.value = i.cInvCode
+        //保存时需要MID/UID
+        ID.value = i
+        let obj = {
+          cCode: cCode.value,
+          cInvCode: i.cInvCode,
+          cInvName: i.cInvName,
+          RestQuantity: i.RestQuantity
+        }
+        OutInfo.value = obj
+        current.value = 1
+        //箱码输入框解除禁用
+        xmdisabled.value = false
+        XMsetfocus()
+      }
+    }
+  })
 }
 //箱码输入框验证箱码
 const PUTinfo = ref({})
