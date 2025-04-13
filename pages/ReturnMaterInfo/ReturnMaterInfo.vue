@@ -625,6 +625,7 @@ const clickNum = () => {
   xiangMList.value.unshift(xiangMObj.value)
   xmVal.value = ''
   slVal.value = ''
+  setXMfocus()
 }
 //Tab切换
 const onClickItem = (e) => {
