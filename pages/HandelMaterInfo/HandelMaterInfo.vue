@@ -575,7 +575,7 @@ const confirm = () => {
   let obj = {
     cInvCode: WLsearchValue.value,
     name: WLInfo.value,
-    cInvStd: '22222-00', //规格（扫描物料获取）
+    cInvStd: '22222-00', //规格（扫描物料获取）#3415
     cReasonName: ReasonsearchValue.value,
     nQuantity: NUMsearchValue.value,
     cUnitCode: 'string', //计量单位

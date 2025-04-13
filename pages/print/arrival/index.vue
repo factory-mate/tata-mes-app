@@ -56,13 +56,10 @@ async function getList() {
 }
 
 function print(data) {
+  console.log(data)
   // #ifdef APP-PLUS
-  printer.printQR2({
-    text: data?.cKeyCode,
-    height: 150,
-    offset: 2
-  })
-  printer.printText({ content: '箱码：' + (data?.cKeyCode ?? '') + '\r\n' })
+  printer.printQR2({ text: data?.cBarCode, height: 150, offset: 2 })
+  printer.printText({ content: '箱码：' + (data?.cBarCode ?? '') + '\r\n' })
   printer.printText({ content: '物料编码：' + (data?.cInvCode ?? '') + '\r\n' })
   printer.printText({ content: '物料名称：' + (data?.cInvName ?? '') + '\r\n' })
   printer.printText({ content: '数量：' + (data?.Rest_nQuantity ?? '') + '\r\n' })
