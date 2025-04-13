@@ -660,9 +660,7 @@ const getDanList = () => {
     PageIndex: currentPage.value,
     PageSize: 5,
     OrderByFileds: '',
-    Conditions: dhVal.value
-      ? 'cVouchTypeCode=02 && iStatus=0 && cCode like ' + dhVal.value
-      : 'cVouchTypeCode=02 && iStatus=0'
+    Conditions: dhVal.value ? 'cVouchTypeCode=02 && cCode like ' + dhVal.value : 'cVouchTypeCode=02'
   }
   uni.showLoading({
     title: '加载中'
