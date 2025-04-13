@@ -721,70 +721,97 @@ const clickShaom = (v) => {
   UID.value = v.UID
 }
 const clickAdd = () => {
-  console.log(xiangMObj.value, '1111')
-  if (xiangMList.value.length) {
-    uni.showLoading({
-      title: '加载中'
+  if (xiangMList.value.length === 0) {
+    uni.showToast({
+      icon: 'none',
+      title: '请先扫描箱码'
     })
-    xiangMList.value.forEach((item) => {
-      item.nAccQuantity = '1'
-      item.SumnQuantity = item.nQuinity
-      item.nQuantity = item.nQuinity
-    })
-    let obj = {
-      IsCommit: false, //是否提交
-      cCode: cCode.value,
-      UID: UID.value || '00000000-0000-0000-0000-000000000000',
-      Items: xiangMList.value,
-      cDefindParm02: changkuData.value.cWareHouseCode, //编码
-      cDefindParm03: changkuData.value.cWareHouseName, //名称
-      cVouchSourceTypeCode: '002',
-      cVouchTypeCode: '02'
-    }
-    CheckApplyForAdd(obj).then((res) => {
-      console.log(res, '---3333')
-      uni.hideLoading()
-      uni.stopPullDownRefresh()
-      uni.showToast({
-        icon: 'none',
-        title: res.msg || ''
-      })
-      xiangMList.value = []
-    })
+    return
   }
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: function (r) {
+      if (r.confirm) {
+        uni.showLoading({
+          title: '加载中'
+        })
+        xiangMList.value.forEach((item) => {
+          item.nAccQuantity = '1'
+          item.SumnQuantity = item.nQuinity
+          item.nQuantity = item.nQuinity
+        })
+        let obj = {
+          IsCommit: false, //是否提交
+          cCode: cCode.value,
+          UID: UID.value,
+          Items: xiangMList.value,
+          cDefindParm02: changkuData.value.cWareHouseCode, //编码
+          cDefindParm03: changkuData.value.cWareHouseName, //名称
+          cVouchSourceTypeCode: '002',
+          cVouchTypeCode: '02'
+        }
+        CheckApplyForAdd(obj).then((res) => {
+          uni.hideLoading()
+          uni.stopPullDownRefresh()
+          uni.showToast({
+            icon: 'none',
+            title: res.msg || ''
+          })
+          xiangMList.value = []
+        })
+      }
+    }
+  })
 }
-const clickTJ = () => {
-  if (xiangMList.value.length) {
-    uni.showLoading({
-      title: '加载中'
-    })
-    xiangMList.value.forEach((item) => {
-      item.nAccQuantity = '1'
-      item.SumnQuantity = item.nQuinity
-      item.nQuantity = item.nQuinity
-    })
-    let obj = {
-      IsCommit: true, //是否提交
-      cCode: cCode.value,
-      UID: UID.value || '00000000-0000-0000-0000-000000000000',
-      Items: xiangMList.value,
-      cDefindParm02: xiangMObj.value.cWareHouseCode, //编码
-      cDefindParm03: xiangMObj.value.cWareHouseName, //名称
-      cVouchSourceTypeCode: '002',
-      cVouchTypeCode: '02'
-    }
-    CheckApplyForAdd(obj).then((res) => {
-      console.log(res, '---3333')
 
-      uni.hideLoading()
-      uni.stopPullDownRefresh()
-      uni.showToast({
-        icon: 'none',
-        title: res.msg || '1111222'
-      })
-      xiangMList.value = []
+const clickTJ = () => {
+  if (xiangMList.value.length === 0) {
+    uni.showToast({
+      icon: 'none',
+      title: '请先扫描箱码'
     })
+    return
   }
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: function (r) {
+      if (r.confirm) {
+        uni.showLoading({
+          title: '加载中'
+        })
+        xiangMList.value.forEach((item) => {
+          item.nAccQuantity = '1'
+          item.SumnQuantity = item.nQuinity
+          item.nQuantity = item.nQuinity
+        })
+        let obj = {
+          IsCommit: true, //是否提交
+          cCode: cCode.value,
+          UID: UID.value,
+          Items: xiangMList.value,
+          cDefindParm02: xiangMObj.value.cWareHouseCode, //编码
+          cDefindParm03: xiangMObj.value.cWareHouseName, //名称
+          cVouchSourceTypeCode: '002',
+          cVouchTypeCode: '02'
+        }
+        CheckApplyForAdd(obj).then((res) => {
+          uni.hideLoading()
+          uni.stopPullDownRefresh()
+          uni.showToast({
+            icon: 'none',
+            title: res.msg
+          })
+          xiangMList.value = []
+        })
+      }
+    }
+  })
 }
 //继续扫描
 const ScanXM = () => {
