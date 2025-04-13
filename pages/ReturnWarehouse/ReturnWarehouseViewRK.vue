@@ -215,29 +215,39 @@ const isHWFocus = ref(false)
 const isXMFocus = ref(false)
 
 const clickAdd = () => {
-  let obj = {
-    Head: {
-      PID: objVal.value.MID,
-      cSourceCode: objVal.value.cCode,
-      cWareHouseCode: hwData.value.cWareHouseCode,
-      cWareHouseName: hwData.value.cWareHouseName,
-      cMemo: 'string'
-    },
-    Bodys: xmList.value
-  }
-  uni.showLoading({
-    title: '加载中'
-  })
-  Return_Add(obj).then((res) => {
-    uni.hideLoading()
-    uni.stopPullDownRefresh()
-    if (res.status == 200) {
-      xmList.value = []
-    } else {
-      uni.showToast({
-        icon: 'none',
-        title: res.msg || ''
-      })
+  uni.showModal({
+    showCancel: true,
+    content: '确定执行该操作吗',
+    confirmText: '确定',
+    cancelText: '取消',
+    success: function (r) {
+      if (r.confirm) {
+        let obj = {
+          Head: {
+            PID: objVal.value.MID,
+            cSourceCode: objVal.value.cCode,
+            cWareHouseCode: hwData.value.cWareHouseCode,
+            cWareHouseName: hwData.value.cWareHouseName,
+            cMemo: 'string'
+          },
+          Bodys: xmList.value
+        }
+        uni.showLoading({
+          title: '加载中'
+        })
+        Return_Add(obj).then((res) => {
+          uni.hideLoading()
+          uni.stopPullDownRefresh()
+          if (res.status == 200) {
+            xmList.value = []
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.msg || ''
+            })
+          }
+        })
+      }
     }
   })
 }
