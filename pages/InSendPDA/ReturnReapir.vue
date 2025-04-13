@@ -118,13 +118,22 @@
             <text style="color: blue; font-size: 18px">返修编辑</text>
             <view class="info">
               <uni-row class="demo-uni-row">
-                <uni-col :span="16">
-                  <view class="demo-uni-col dark">返修原因：{{ ReasonName.label }}</view>
-                </uni-col>
-                <uni-col :span="8">
-                  <view class="demo-uni-col dark">
+                <uni-col :span="24">
+                  <view
+                    class="demo-uni-col dark"
+                    style="display: flex; align-items: center"
+                  >
+                    返修原因：
+                    <view style="width: 200px">
+                      <up-input
+                        v-model="ReasonName.label"
+                        size="small"
+                        disabled
+                      />
+                    </view>
                     <button
                       class="mini-btn"
+                      style="margin: 0 8rpx"
                       type="warn"
                       size="mini"
                       @click="check"
@@ -479,6 +488,21 @@ const getLineName = () => {
 }
 //保存
 const SaveEdit = async () => {
+  // 校验返修原因和返修类型必填
+  if (!ReasonName.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择返修原因'
+    })
+    return
+  }
+  if (!TypeCode.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择返修类型'
+    })
+    return
+  }
   getLineName()
   const auditUserCode = auditUsers.value.find(
     (item) => item.cUserName == auditUser.value
