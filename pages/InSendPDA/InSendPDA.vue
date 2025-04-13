@@ -68,7 +68,9 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">产品名称：{{ item.cInvName }}</view>
+              <view class="demo-uni-col dark"
+                >产品名称：{{ item.PRODUCT_VOUCH_S_S_S_cInvName }}</view
+              >
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
@@ -81,7 +83,11 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">尺寸：{{ item.X }}*{{ item.Y }}*{{ item.Z }}</view>
+              <view class="demo-uni-col dark">
+                尺寸：{{ item.PRODUCT_VOUCH_S_S_S_X }}*{{ item.PRODUCT_VOUCH_S_S_S_Y }}*{{
+                  item.PRODUCT_VOUCH_S_S_S_Z
+                }}
+              </view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
@@ -90,28 +96,48 @@
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="24">
-              <view class="demo-uni-col dark">面板分号：{{ item.cBOMDefindParm13 }}</view>
+            <uni-col :span="12">
+              <view class="demo-uni-col dark">产线：{{ item.cFactoryUnitName }}</view>
+            </uni-col>
+            <uni-col :span="12">
+              <view class="demo-uni-col dark">产线序号：{{ item.S_S_S_iIndex }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">包装产线：{{ item.PackageUnitName }}</view>
+              <view class="demo-uni-col dark">来源产线：{{ item.PackageUnitName }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">总序号：{{ item.S_S_S_iIndex }}</view>
+              <view class="demo-uni-col dark">来源产线序号：{{ item.cBOMDefindParm13 }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">申报时间：{{ item.EndTime }}</view>
+              <view class="demo-uni-col dark">物料名称：{{ item.cInvName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
+              <view class="demo-uni-col dark"
+                >物料尺寸：{{ item.X }}*{{ item.Y }}*{{ item.Z }}</view
+              >
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
               <view class="demo-uni-col dark">加工码：{{ item.cBarCode }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
+              <view class="demo-uni-col dark">申报人：{{ item.cCreateUserName }}</view>
+            </uni-col>
+          </uni-row>
+          <uni-row class="demo-uni-row">
+            <uni-col :span="24">
+              <view class="demo-uni-col dark">申报时间：{{ item.EndTime }}</view>
             </uni-col>
           </uni-row>
           <view class="Two-btn">
