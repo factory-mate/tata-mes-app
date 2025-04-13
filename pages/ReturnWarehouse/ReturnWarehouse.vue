@@ -19,7 +19,6 @@
             v-model="XMsearchValue"
             :focus="focusType"
             @confirm="getXM"
-            @blur="setfocus"
             placeholder="请扫描线边仓"
           />
         </view>
@@ -57,9 +56,6 @@
                 <input
                   class="inputSty"
                   v-model="codeVal"
-                  @input=""
-                  focus=""
-                  @blur=""
                   placeholder="请输入通知单"
                   placeholder-style="font-size:12px"
                   style="line-height: 30px; height: 30px"
