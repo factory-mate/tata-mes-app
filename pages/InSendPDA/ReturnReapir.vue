@@ -507,32 +507,40 @@ const SaveEdit = async () => {
   const auditUserCode = auditUsers.value.find(
     (item) => item.cUserName == auditUser.value
   )?.cLoginName
-  console.log(auditUserCode)
-  const res = await GetRouteSave({
-    S_S_S_uid: ItemInfo.value.S_S_S_uid,
-    cRepairTypeCode: TypeCode.value, //返修类型code
-    cRepairReasonTypeCode: ReasonName.value.key, //返修原因code
-    cMemo: Cemo.value, //备注
-    cRepairReasonTypeName: ReasonName.value.label, //返修原因name
-    list_Process: LineArr.value
+  uni.showLoading({
+    title: '正在提交'
   })
-  if (res.success) {
-    uni.showToast({
-      icon: 'none',
-      title: '保存成功'
+  try {
+    const res = await GetRouteSave({
+      S_S_S_uid: ItemInfo.value.S_S_S_uid,
+      cRepairTypeCode: TypeCode.value, //返修类型code
+      cRepairReasonTypeCode: ReasonName.value.key, //返修原因code
+      cMemo: Cemo.value, //备注
+      cRepairReasonTypeName: ReasonName.value.label, //返修原因name
+      list_Process: LineArr.value
     })
-    SaveAtate.value = true
-    uni.removeStorageSync('LineName')
-    uni.removeStorageSync('ItemInfo')
-    uni.navigateTo({
-      url: '/pages/InSendPDA/InSendPDA'
-    })
-  } else {
-    uni.showToast({
-      icon: 'error',
-      title: '失败'
-    })
+    uni.hideLoading()
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: '保存成功'
+      })
+      SaveAtate.value = true
+      uni.removeStorageSync('LineName')
+      uni.removeStorageSync('ItemInfo')
+      uni.navigateTo({
+        url: '/pages/InSendPDA/InSendPDA'
+      })
+    } else {
+      uni.showToast({
+        icon: 'error',
+        title: '失败'
+      })
+    }
+  } catch {
+    //
   }
+  uni.hideLoading()
 }
 //头部左侧,返回上一页
 const clickLeft = () => {
