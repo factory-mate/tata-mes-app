@@ -29,19 +29,10 @@
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
               <view
-                v-if="currentTabIndex == 0"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
               >
                 申报工位：{{ item.EndOperator }}
-              </view>
-              <view v-else>
-                <view
-                  class="demo-uni-col dark"
-                  style="font-size: 16px; color: blue"
-                >
-                  处理人：{{ item.cCreateUserName }}
-                </view>
               </view>
             </uni-col>
             <uni-col :span="24">
@@ -51,7 +42,6 @@
                 >申报日期：{{ item.max_Error_dReportDate }}</view
               > -->
               <view
-                v-if="currentTabIndex == 0"
                 class="demo-uni-col dark"
                 style="font-size: 16px; color: blue"
               >
@@ -63,6 +53,16 @@
                 style="font-size: 16px; color: blue"
               >
                 处理时间：{{ item.dCreateTime }}
+              </view>
+            </uni-col>
+            <uni-col :span="24">
+              <view v-if="currentTabIndex == 2">
+                <view
+                  class="demo-uni-col dark"
+                  style="font-size: 16px; color: blue"
+                >
+                  处理人：{{ item.cCreateUserName }}
+                </view>
               </view>
             </uni-col>
           </uni-row>
@@ -105,12 +105,12 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">来源产线：{{ item.PackageUnitName }}</view>
+              <view class="demo-uni-col dark">来源产线：{{ item.SourceUnitName }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">来源产线序号：{{ item.cBOMDefindParm13 }}</view>
+              <view class="demo-uni-col dark">来源产线序号：{{ item.SourceIndex }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">

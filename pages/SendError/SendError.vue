@@ -10,10 +10,9 @@
       @clickLeft="clickLeft"
     />
     <view style="padding: 5px 20px">
-      <view style="display: flex; align-items: center; justify-content: flex-start">
+      <!-- <view style="display: flex; align-items: center; justify-content: flex-start">
         <view style="width: 60px">工位:</view>
         <view>
-          <!-- 搜索框 -->
           <uni-section
             v-if="branch != 'alps'"
             title=""
@@ -42,7 +41,7 @@
             placeholder-style="font-size:12px"
           />
         </view>
-      </view>
+      </view> -->
       <view style="display: flex; align-items: center; justify-content: flex-start">
         <view style="width: 60px">加工码:</view>
         <view>
@@ -76,63 +75,84 @@
           />
         </view>
       </view>
+
+      <view style="display: flex; align-items: center; justify-content: flex-start">
+        产线工序：
+        <uni-data-select
+          v-model="selectedId"
+          :localdata="ProductInfoList"
+          @change="handleSelect"
+          :clear="false"
+        ></uni-data-select>
+      </view>
       <view class="info">
         <uni-row class="demo-uni-row">
-          <uni-col :span="16">
-            <view class="demo-uni-col dark">工位名称：{{ gwData.cFactoryUnitName }}</view>
+          <uni-col :span="24">
+            <view class="demo-uni-col dark"
+              >产品名称：{{ ProductInfo.PRODUCT_VOUCH_S_S_S_cInvName }}</view
+            >
           </uni-col>
         </uni-row>
         <uni-row class="demo-uni-row">
           <uni-col :span="16">
-            <view class="demo-uni-col dark">产品名称：{{ ProductInfo.cInvName }}</view>
+            <view class="demo-uni-col dark">单号：{{ ProductInfo.cCode }}</view>
+          </uni-col>
+          <uni-col :span="8">
+            <view class="demo-uni-col dark">单序号：{{ ProductInfo.iOrderIndex }}</view>
           </uni-col>
         </uni-row>
         <uni-row class="demo-uni-row">
-          <uni-col :span="14">
-            <view class="demo-uni-col dark">生产编号：{{ ProductInfo.cCode }}</view>
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">
+              尺寸：{{ ProductInfo.PRODUCT_VOUCH_S_S_S_X }}*{{
+                ProductInfo.PRODUCT_VOUCH_S_S_S_Y
+              }}*{{ ProductInfo.PRODUCT_VOUCH_S_S_S_Z }}
+            </view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">材质：{{ ProductInfo.cDynamicsParm06 }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="12">
+            <view class="demo-uni-col dark">产线：{{ ProductInfo.cFactoryUnitName }}</view>
           </uni-col>
           <uni-col :span="12">
-            <view class="demo-uni-col dark">生产日期：{{ ProductInfo.dProductDate }}</view>
+            <view class="demo-uni-col dark">产线序号：{{ ProductInfo.S_S_S_iIndex }}</view>
           </uni-col>
         </uni-row>
         <uni-row class="demo-uni-row">
-          <uni-col :span="16">
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">来源产线：{{ ProductInfo.SourceUnitName }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">来源产线序号：{{ ProductInfo.SourceIndex }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">物料名称：{{ ProductInfo.cInvName }}</view>
+          </uni-col>
+        </uni-row>
+        <uni-row class="demo-uni-row">
+          <uni-col :span="24">
             <view class="demo-uni-col dark"
-              >产品类型：{{ ProductInfo.PACKAGEVOUCH_S_cDefindParm01 }}</view
+              >物料尺寸：{{ ProductInfo.X }}*{{ ProductInfo.Y }}*{{ ProductInfo.Z }}</view
             >
           </uni-col>
         </uni-row>
         <uni-row class="demo-uni-row">
-          <uni-col :span="10">
-            <view class="demo-uni-col dark">线内序号：{{ ProductInfo.iIndxs }}</view>
-          </uni-col>
-          <uni-col :span="10">
-            <view class="demo-uni-col dark">序号：{{ ProductInfo.iOrderIndex }}</view>
-          </uni-col>
-        </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="10">
-            <view class="demo-uni-col dark">材质：{{ ProductInfo.cDefindParm01 }}</view>
-          </uni-col>
-          <uni-col :span="10">
-            <view class="demo-uni-col dark">AB面：{{ ProductInfo.cDefindParm05 }}</view>
-          </uni-col>
-        </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="16">
-            <view class="demo-uni-col dark"
-              >尺寸：{{ ProductInfo.X }} *{{ ProductInfo.Y }}*{{ ProductInfo.Z }}</view
-            >
-          </uni-col>
-        </uni-row>
-        <uni-row class="demo-uni-row">
-          <uni-col :span="8">
-            <view class="demo-uni-col dark">描述：{{ ProductInfo.cMemo }}</view>
+          <uni-col :span="24">
+            <view class="demo-uni-col dark">加工码：{{ ProductInfo.cBarCode }}</view>
           </uni-col>
         </uni-row>
       </view>
       <view class="picBtn">
-        <text style="margin-right: -s20px">照片列表</text>
+        <text style="margin-right: 20px">照片列表</text>
         <button
           class="mini-btn"
           type="warn"
@@ -210,6 +230,7 @@ const h = ref('100') //页面高度
 const title = ref('发起异常')
 //产品信息
 const ProductInfo = ref({})
+const ProductInfoList = ref([])
 //工位
 const focusType = ref(true)
 const disabled = ref(false)
@@ -221,6 +242,7 @@ const WorkCode = ref('') //加工码
 const PicArr = ref([]) //照片数组
 const cNodeResourceCode = ref('')
 const gwData = ref({})
+const selectedId = ref('')
 onShow(() => {
   branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
   // branch = uni.getStorageSync('unit')
@@ -312,27 +334,39 @@ const getWorkCode = async () => {
   }
   GetTaskLists()
 }
+
+const handleSelect = (v) => {
+  selectedId.value = v
+  ProductInfo.value = ProductInfoList.value.find((i) => i.UID === v) ?? {}
+}
 //获取信息
 const GetTaskLists = async () => {
-  if (!cNodeResourceCode.value) {
-    uni.showToast({
-      icon: 'none',
-      title: '请先扫描工位'
-    })
-    return
-  }
+  // if (!cNodeResourceCode.value) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请先扫描工位'
+  //   })
+  //   return
+  // }
   const res = await GetTaskList({
     OrderByFileds: '',
     Conditions: `cBarCode = ${WorkCode.value}`
   })
   if (res.success && res.data.length > 0) {
-    ProductInfo.value = res.data[0]
+    ProductInfoList.value =
+      res.data.map((i) => ({
+        ...i,
+        text: `${i.cFactoryUnitName} ${i.cProcessName}`,
+        value: i.UID
+      })) ?? []
   } else {
     uni.showToast({
       icon: 'none',
       title: '加工码不存在'
     })
+    ProductInfoList.value = []
   }
+  ProductInfo.value = {}
 }
 
 //调取拍照
@@ -378,17 +412,24 @@ const DELPicList = (item, index) => {
 }
 //保存
 const AllSave = () => {
-  if (!Station.value) {
-    uni.showToast({
-      icon: 'none',
-      title: '请扫描工位'
-    })
-    return
-  }
+  // if (!Station.value) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请扫描工位'
+  //   })
+  //   return
+  // }
   if (!WorkCode.value) {
     uni.showToast({
       icon: 'none',
       title: '请扫描加工码'
+    })
+    return
+  }
+  if (!ProductInfo.value.cFactoryUnitCode || !ProductInfo.value.cProcessCode) {
+    uni.showToast({
+      icon: 'none',
+      title: '请选择产线、工序'
     })
     return
   }
@@ -399,7 +440,9 @@ const AllSave = () => {
       name: 'list_file',
       formData: {
         cBarCode: WorkCode.value,
-        cStationCode: Station.value
+        // cStationCode: Station.value,
+        cFactoryUnitCode: ProductInfo.value.cFactoryUnitCode,
+        cProcessCode: ProductInfo.value.cProcessCode
       },
       header: {
         //请求头配置
@@ -421,7 +464,7 @@ const AllSave = () => {
         }
 
         PicArr.value = []
-        ProductInfo.value = []
+        ProductInfo.value = {}
         WorkCode.value = ''
         Station.value = ''
         setfocus()
