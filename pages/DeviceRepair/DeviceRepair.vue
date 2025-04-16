@@ -624,8 +624,7 @@ const opens = () => {
 const ChoseDevData = (i) => {
   showRight.value.close()
   DevName.value = i.cResourceName //选择设备回显输入框
-  DevData.value = i
-  console.log(i)
+  DevData.value = { ...i, cDeviceName: i.cResourceName, cDeviceCode: i.cResourceCode }
   GetSelect()
 }
 //设备搜索
@@ -666,12 +665,13 @@ const GetData = () => {
 }
 //获取下故障拉数据（设备存在为前提）
 const GetSelect = () => {
-  if (!DevData.value?.cResourceCode) {
+  if (!DevData.value?.cDeviceCode) {
+    Faurange.value = []
     return
   }
   GetFaultLists({
     OrderByFileds: '',
-    Conditions: `cDeviceCode=${DevData.value?.cResourceCode}`
+    Conditions: `cDeviceCode=${DevData.value?.cDeviceCode}`
   }).then((res) => {
     if (res.status == 200) {
       Faurange.value = res.data.map((i) => {
@@ -752,7 +752,7 @@ const Save = () => {
     url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/Add',
     files: PicArr.value.map((i) => ({ name: 'list_file', uri: i })),
     formData: {
-      cDeviceCode: DevData.value.cResourceCode,
+      cDeviceCode: DevData.value.cDeviceCode,
       cFaultCode: FauCode.value,
       IsStop: checked.value,
       // 'cPARM01': Parm01.value,
