@@ -127,7 +127,7 @@
           <!-- 搜索框 -->
           <uni-datetime-picker
             v-model="Timerange"
-            type="daterange"
+            type="date"
             @maskClick="maskClick"
           />
         </view>
@@ -383,8 +383,8 @@ const getSearch = () => {
   currentPage.value = 1
 
   if (Timerange.value) {
-    BeginTime.value = Timerange.value[0]
-    EndTime.value = Timerange.value[1]
+    BeginTime.value = Timerange.value
+    EndTime.value = Timerange.value
   }
   GetList()
 }
