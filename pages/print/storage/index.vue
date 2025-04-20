@@ -23,7 +23,12 @@ async function getList() {
   console.log(searchParams.value.cKeyCode)
   try {
     const { data } = await API.getList(searchParams.value.cKeyCode)
-    detailData.value = data[0]
+    if (data.length > 0) {
+      detailData.value = data[0]
+    } else {
+      uni.showToast({ title: '未找到数据', icon: 'none' })
+      detailData.value = {}
+    }
   } catch (e) {
     console.log(e)
     detailData.value = {}
