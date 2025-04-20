@@ -70,7 +70,7 @@
               v-for="(item, index) in DevList"
               :key="index"
             >
-              <view :class="item.iStatusName === '进行中' && 'list-item-finish'">
+              <view :class="item.iStatusName === '完成' && 'list-item-finish'">
                 <uni-row class="demo-uni-row">
                   <uni-col :span="10">
                     <view class="demo-uni-col dark">序号：{{ index + 1 }}</view>
