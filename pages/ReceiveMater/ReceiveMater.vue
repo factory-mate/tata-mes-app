@@ -452,8 +452,8 @@ const getWares = _.debounce(async () => {
   const res = await GetWare({
     Conditions: `cWareHouseCode=${WsearchValue.value} && cWareHouseTypeCode=2`
   })
-  if (res.status == 200) {
-    if (res.data.length) {
+  if (res.success) {
+    if (res.data.length > 0) {
       disabled.value = true
       wldisabled.value = false
       WLsetfocus()

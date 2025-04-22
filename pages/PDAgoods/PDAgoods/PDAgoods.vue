@@ -240,6 +240,7 @@
                       拒收
                     </button>
                     <button
+                      style="margin-left: 10rpx"
                       class="mini-btn"
                       type="warn"
                       size="mini"

@@ -14,7 +14,6 @@ const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams,
   usePageParams()
 
 const scanCode = ref('')
-const currentFocus = ref(false)
 const keyword = ref('')
 const storageData = ref(null)
 const listData = ref([])
@@ -60,31 +59,30 @@ function resetPageParams() {
   listData.value = []
 }
 
-async function scanStorage(code) {
-  const { data } = await WareHouseAPI.GetByCode({ code })
-  if (!data) {
+async function scanStorage() {
+  if (!scanCode.value) {
     uni.showToast({
-      title: '未找到仓库',
+      title: '请扫描仓库',
       icon: 'none'
     })
     return
   }
-  storageData.value = data
-  resetPageParams()
-  getList()
-}
-
-async function processScan() {
-  // #ifdef APP-PLUS
-  if (!currentFocus.value) {
-    return
+  try {
+    const { data } = await WareHouseAPI.GetByCode({ code: scanCode.value })
+    if (!data) {
+      uni.showToast({
+        title: '未找到仓库',
+        icon: 'none'
+      })
+      return
+    }
+    storageData.value = data
+    resetPageParams()
+    getList()
+  } catch {
+    //
   }
-  // #endif
-  if (scanCode.value === scanStorage.value?.cWareHouseCode) {
-    return
-  }
-
-  await scanStorage(scanCode.value)
+  scanCode.value = ''
 }
 
 const navToMaterial = (item) => {
@@ -108,9 +106,9 @@ const navToMaterial = (item) => {
 }
 
 onLoad(() => {})
-onShow(() => handleScan(processScan))
-onHide(() => handleRemoveScan(processScan))
-onUnload(() => handleRemoveScan(processScan))
+onShow(() => {})
+onHide(() => {})
+onUnload(() => {})
 
 onPullDownRefresh(async () => {
   resetPageParams()
@@ -144,13 +142,7 @@ onPullDownRefresh(async () => {
                 suffixIcon="scan"
                 clearable
                 maxlength="30"
-                @focus="
-                  () => {
-                    scanCode = ''
-                    currentFocus = true
-                  }
-                "
-                @blur="currentFocus = false"
+                @confirm="scanStorage"
               />
             </up-col>
           </up-row>

@@ -14,7 +14,6 @@ const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams,
   usePageParams()
 
 const scanCode = ref('')
-const currentFocus = ref(false)
 const keyword = ref('')
 const storageData = ref(null)
 const listData = ref([])
@@ -60,15 +59,15 @@ function resetPageParams() {
   listData.value = []
 }
 
-async function scanStorage(code) {
-  if (!code) {
+async function scanStorage() {
+  if (!scanCode.value) {
     uni.showToast({
       title: '请扫描仓库',
       icon: 'none'
     })
     return
   }
-  const { data } = await WareHouseAPI.GetByCode({ code })
+  const { data } = await WareHouseAPI.GetByCode({ code: scanCode.value })
   if (!data) {
     uni.showToast({
       title: '未找到仓库',
@@ -79,19 +78,6 @@ async function scanStorage(code) {
   storageData.value = data
   resetPageParams()
   getList()
-}
-
-async function processScan() {
-  // #ifdef APP-PLUS
-  if (!currentFocus.value) {
-    return
-  }
-  // #endif
-  if (scanCode.value === scanStorage.value?.cWareHouseCode) {
-    return
-  }
-
-  await scanStorage(scanCode.value)
 }
 
 const navToMaterial = (item) => {
@@ -115,9 +101,9 @@ const navToMaterial = (item) => {
 }
 
 onLoad(() => {})
-onShow(() => handleScan(processScan))
-onHide(() => handleRemoveScan(processScan))
-onUnload(() => handleRemoveScan(processScan))
+onShow(() => {})
+onHide(() => {})
+onUnload(() => {})
 
 onPullDownRefresh(async () => {
   resetPageParams()
@@ -151,13 +137,7 @@ onPullDownRefresh(async () => {
                 suffixIcon="scan"
                 clearable
                 maxlength="30"
-                @focus="
-                  () => {
-                    scanCode = ''
-                    currentFocus = true
-                  }
-                "
-                @blur="currentFocus = false"
+                @confirm="scanStorage"
               />
             </up-col>
           </up-row>
