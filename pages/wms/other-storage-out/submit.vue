@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { onLoad, onShow, onHide, onPullDownRefresh, onUnload } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
 import { usePageParams } from '@/hooks'
-import { handleScan, handleRemoveScan } from '@/features/scan'
 import { OtherStorageOutAPI } from '@/api'
 import { urlQueryBuilder } from '@/features/query'
 
@@ -14,7 +13,6 @@ const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams,
 
 const scanCode = ref('')
 const scanResult = ref({})
-const currentFocus = ref(false)
 const showDeleteModal = ref(false)
 const pageQuery = ref({})
 const listData = ref([])
@@ -41,44 +39,42 @@ function resetPageParams() {
   listData.value = []
 }
 
-async function scanBox(code) {
-  const { data } = await OtherStorageOutAPI.ScanningBarCode_Out({
-    MATERIALAPPLYFOR_S_UID: pageQuery.value.UID,
-    BarCode: code,
-    cWareHouseCode: pageQuery.value.cWareHouseCode
-  })
-  if (!data) {
+async function scanBox() {
+  if (!scanCode.value) {
     uni.showToast({
-      title: '未找到该箱码',
+      title: '请扫描仓库',
       icon: 'none'
     })
     return
   }
-  const { cInvCode } = data
-  if (cInvCode !== pageQuery.value.cInvCode) {
-    uni.showToast({
-      title: '箱码物料与单据物料不匹配',
-      icon: 'none'
+  try {
+    const { data } = await OtherStorageOutAPI.ScanningBarCode_Out({
+      MATERIALAPPLYFOR_S_UID: pageQuery.value.UID,
+      BarCode: scanCode.value,
+      cWareHouseCode: pageQuery.value.cWareHouseCode
     })
-    return
+    if (!data) {
+      uni.showToast({
+        title: '未找到该箱码',
+        icon: 'none'
+      })
+      return
+    }
+    const { cInvCode } = data
+    if (cInvCode !== pageQuery.value.cInvCode) {
+      uni.showToast({
+        title: '箱码物料与单据物料不匹配',
+        icon: 'none'
+      })
+      return
+    }
+    listData.unshift(data)
+    scanResult.value = data
+    getList()
+  } catch {
+    //
   }
-  listData.unshift(data)
-  scanResult.value = data
-  getList()
-}
-
-async function processScan() {
-  // #ifdef APP-PLUS
-  if (!currentFocus.value) {
-    return
-  }
-  // #endif
-  // 处理扫码结果
-  if (scanCode.value === scanResult.value.cBarCode) {
-    return
-  }
-
-  await scanBox(scanCode.value)
+  scanCode.value = ''
 }
 
 function removeBox() {
@@ -134,9 +130,9 @@ const navToDetail = () =>
 onLoad((options) => {
   pageQuery.value = options
 })
-onShow(() => handleScan(processScan))
-onHide(() => handleRemoveScan(processScan))
-onUnload(() => handleRemoveScan(processScan))
+onShow(() => {})
+onHide(() => {})
+onUnload(() => {})
 
 onPullDownRefresh(() => {
   resetPageParams()
@@ -169,13 +165,7 @@ onPullDownRefresh(() => {
                 suffixIcon="scan"
                 clearable
                 maxlength="30"
-                @focus="
-                  () => {
-                    scanCode = ''
-                    currentFocus = true
-                  }
-                "
-                @blur="currentFocus = false"
+                @confirm="scanBox"
               />
             </up-col>
           </up-row>
