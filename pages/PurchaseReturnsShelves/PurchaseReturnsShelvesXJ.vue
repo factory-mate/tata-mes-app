@@ -226,6 +226,9 @@ const clickAdd = () => {
     uni.stopPullDownRefresh()
     if (res.status == 200) {
       xmList.value = []
+      uni.navigateBack({
+        delta: 1
+      })
     } else {
       uni.showToast({
         icon: 'error',
