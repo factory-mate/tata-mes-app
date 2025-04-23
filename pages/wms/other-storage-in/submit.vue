@@ -53,6 +53,7 @@ async function scanBox() {
       BarCode: scanCode.value,
       cWareHouseCode: pageQuery.value.cWareHouseCode
     })
+    console.log(data)
     if (!data) {
       uni.showToast({
         title: '未找到该箱码',
@@ -68,7 +69,7 @@ async function scanBox() {
       })
       return
     }
-    listData.unshift(data)
+    listData.value.unshift(data)
     scanResult.value = data
     getList()
   } catch {
@@ -80,7 +81,7 @@ async function scanBox() {
 function removeBox() {
   const { UID } = currentItem.value
   const index = listData.value.findIndex((item) => item.UID === UID)
-  listData.splice(index, 1)
+  listData.value.splice(index, 1)
   showDeleteModal.value = false
 }
 
