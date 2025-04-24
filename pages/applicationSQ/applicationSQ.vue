@@ -644,6 +644,15 @@ const clickDel = (i) => {
 }
 // 确定
 const clickNum = () => {
+  // 数量必填，且大于 0
+  if (!slVal.value) {
+    uni.showToast({
+      icon: 'none',
+      title: '数量必填且大于 0'
+    })
+    return
+  }
+
   if (!xiangMObj.value.cInvCode) {
     uni.showToast({
       icon: 'none',
