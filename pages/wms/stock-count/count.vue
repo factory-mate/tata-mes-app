@@ -112,7 +112,7 @@ const handleDelete = (index) => {
   listData.value.splice(index, 1)
 }
 
-const handleSave = async (data) => {
+const handleSave = async () => {
   if (!listData.value.length) {
     uni.showToast({
       title: '请添加盘点数据',
@@ -123,8 +123,7 @@ const handleSave = async (data) => {
   uni.showLoading({ title: '处理中' })
   try {
     await API.save({
-      list_InvInfo: listData.value,
-      MID: formData.value.UID
+      list_InvInfo: listData.value.map((i) => ({ ...i, MID: formData.value.UID }))
     })
     uni.hideLoading()
     uni.showToast({
