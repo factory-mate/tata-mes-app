@@ -32,7 +32,7 @@ async function getList() {
 }
 
 const navToSubmit = (item) => {
-  const { UID, MID, cInvCode, cInvName, ...rest } = item
+  const { UID, MID, cInvCode, cInvName, nQuantity, nAccQuantity, ...rest } = item
   uni.navigateTo({
     url:
       `/pages/wms/other-storage-in/submit` +
@@ -41,7 +41,9 @@ const navToSubmit = (item) => {
         MID,
         cInvCode,
         cInvName,
-        cWareHouseCode: pageQuery.value.code
+        cWareHouseCode: pageQuery.value.code,
+        nQuantity,
+        nAccQuantity
       })
   })
 }

@@ -61,12 +61,30 @@ async function scanBox() {
       })
       return
     }
-    const { cInvCode } = data
+    const { cInvCode, nQuantity } = data
     if (cInvCode !== pageQuery.value.cInvCode) {
       uni.showToast({
         title: '箱码物料与单据物料不匹配',
         icon: 'none'
       })
+      return
+    }
+    if (pageQuery.value.nQuantity && pageQuery.value.nAccQuantity) {
+      if (nQuantity !== pageQuery.value.nQuantity / pageQuery.value.nAccQuantity) {
+        uni.showModal({
+          showCancel: true,
+          content: '箱码中数量是否与每包数量不一致，确定执行该操作吗',
+          confirmText: '确定',
+          cancelText: '取消',
+          success: function (r) {
+            if (r.confirm) {
+              listData.value.unshift(data)
+              scanResult.value = data
+              getList()
+            }
+          }
+        })
+      }
       return
     }
     listData.value.unshift(data)
@@ -93,6 +111,29 @@ async function handleSubmit() {
     })
     return
   }
+  // 计算箱码总数量和总数量是否一致
+  let allCount = 0
+  listData.value.forEach((i) => {
+    allCount += i.nQuantity ?? 0
+  })
+  if (pageQuery.value.nQuantity !== allCount) {
+    uni.showModal({
+      showCancel: true,
+      content: '通知数量与所有箱码内数量总数不一致，确定执行该操作吗',
+      confirmText: '确定',
+      cancelText: '取消',
+      success: function (r) {
+        if (r.confirm) {
+          handleSubmitData()
+        }
+      }
+    })
+    return
+  }
+  handleSubmitData()
+}
+
+async function handleSubmitData() {
   uni.showLoading({ title: '保存中' })
   try {
     await OtherStorageInAPI.PDA_Save_Other({
