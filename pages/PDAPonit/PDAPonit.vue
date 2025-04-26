@@ -98,6 +98,11 @@
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
+                  <uni-col :span="24">
+                    <view class="demo-uni-col dark">报修人：{{ item.cCreateUserName }}</view>
+                  </uni-col>
+                </uni-row>
+                <uni-row class="demo-uni-row">
                   <uni-col :span="12">
                     <view class="demo-uni-col dark">来源类型：{{ item.cPARM02 }}</view>
                   </uni-col>
