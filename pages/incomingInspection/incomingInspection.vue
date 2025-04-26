@@ -527,7 +527,7 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">检验时间：{{ item.dDate }}</view>
+                    <view class="demo-uni-col dark">检验时间：{{ item.dCreateTime }}</view>
                     <!-- <view class="demo-uni-col dark">不良数量：{{item.nNoPassQuantity}}</view> -->
                   </uni-col>
                   <uni-col :span="12">
