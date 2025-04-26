@@ -123,7 +123,10 @@ const handleSave = async () => {
   uni.showLoading({ title: '处理中' })
   try {
     await API.save({
-      list_InvInfo: listData.value.map((i) => ({ ...i, MID: formData.value.UID }))
+      list_InvInfo: listData.value.map((i) => ({
+        ...i,
+        MID: formData.value.UID
+      }))
     })
     uni.hideLoading()
     uni.showToast({
