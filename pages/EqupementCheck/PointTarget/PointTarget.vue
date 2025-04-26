@@ -286,6 +286,9 @@ const SaveTarget = (i) => {
         icon: 'none',
         title: res.msg
       })
+      uni.navigateBack({
+        delta: 1
+      })
     } else {
       uni.showToast({
         icon: 'none',
