@@ -64,7 +64,7 @@
         >
           <view
             class="project"
-            :class="item.iStatusName === '已完成' && 'list-item-finish'"
+            :class="item.iStatusName === '是' && 'list-item-finish'"
           >
             <uni-row class="demo-uni-row">
               <uni-col :span="12">
