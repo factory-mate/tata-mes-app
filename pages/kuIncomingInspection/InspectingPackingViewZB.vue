@@ -23,19 +23,11 @@
               class="search-inpt"
               style="width: 60%"
             >
-              <uni-section
-                title=""
-                type="line"
-              >
-                <uni-search-bar
-                  radius="100"
-                  cancelButton="none"
-                  @confirm="getXiangMa"
-                  v-model="slVal"
-                  placeholder="数量"
-                >
-                </uni-search-bar>
-              </uni-section>
+              <up-input
+                @confirm="getXiangMa"
+                v-model="slVal"
+                type="number"
+              />
             </view>
           </view>
         </uni-col>
@@ -332,8 +324,15 @@ const clickSave = () => {
     cMemo: ''
   }
   SetPackageIsOk(obj).then((res) => {
-    console.log(res)
-    if (res.success === false) {
+    if (res.success) {
+      uni.showToast({
+        icon: 'none',
+        title: res.msg || '成功'
+      })
+      uni.navigateBack({
+        delta: 1
+      })
+    } else {
       let msgval = res.errmsg ? JSON.parse(res.errmsg[0].Value) : []
       if (msgval.length && msgval[0].isFlow) {
         console.log(111)
@@ -351,12 +350,6 @@ const clickSave = () => {
         })
         return false
       }
-    }
-    if (res.success === true) {
-      uni.showToast({
-        icon: 'none',
-        title: res.msg || '成功'
-      })
     }
   })
 }
