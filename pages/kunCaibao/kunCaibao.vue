@@ -31,17 +31,12 @@
                 "
               >
                 <view style="width: 50px">箱码：</view>
-                <view
-                  class="search-inpt"
-                  style="width: 60%"
+                <up-input
+                  @confirm="getXiangMa"
+                  v-model="xmVal"
+                  placeholder="请扫描箱码"
                 >
-                  <up-input
-                    @confirm="getXiangMa"
-                    v-model="xmVal"
-                    placeholder="请扫描箱码"
-                  >
-                  </up-input>
-                </view>
+                </up-input>
               </view>
             </uni-col>
           </uni-row>
@@ -49,7 +44,7 @@
             class="demo-uni-row"
             style="margin-top: 4px"
           >
-            <uni-col :span="18">
+            <uni-col :span="24">
               <view
                 style="
                   display: flex;
@@ -66,18 +61,20 @@
                 </up-input>
               </view>
             </uni-col>
-            <uni-col :span="6">
+          </uni-row>
+          <view style="display: flex; justify-content: flex-end; width: 100%">
+            <view>
               <button
                 class="mini-btn"
                 type="warn"
                 size="mini"
                 @click="clickCai"
-                style="margin-top: 50rpx"
               >
                 拆分
               </button>
-            </uni-col>
-          </uni-row>
+            </view>
+          </view>
+
           <uni-row class="demo-uni-row itemTxt">
             <uni-col :span="14">
               <view class="demo-uni-col dark">物料编码：{{ xiangMObj.cInvCode }}</view>
