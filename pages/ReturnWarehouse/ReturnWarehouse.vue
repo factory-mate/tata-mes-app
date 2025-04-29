@@ -100,7 +100,7 @@
               </uni-row>
               <uni-row class="demo-uni-row">
                 <uni-col :span="10">
-                  <view class="demo-uni-col dark">线边仓：{{ item.cDefindParm02 }}</view>
+                  <view class="demo-uni-col dark">线边仓：{{ item.cOutWareHouseName }}</view>
                 </uni-col>
                 <uni-col :span="16">
                   <view class="demo-uni-col dark">制单时间：{{ item.dCreateTime }}</view>
