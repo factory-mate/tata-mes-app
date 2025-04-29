@@ -23,11 +23,17 @@
       <!-- <text  style="font-size: 16px;margin: 20px 30%;">暂无数据，请添加</text> :style="{background:disInput == true ? '#b5b5b5' : ''}" -->
       <view
         class="listMain"
-        :style="'height:' + (h - 240) + 'px'"
+        :style="'height:' + (h - 120) + 'px'"
       >
         <view
           class="project"
-          v-for="(item, index) in TargetList"
+          v-for="(item, index) in TargetList.concat(TargetList)
+            .concat(TargetList)
+            .concat(TargetList)
+            .concat(TargetList)
+            .concat(TargetList)
+            .concat(TargetList)
+            .concat(TargetList)"
           :key="index"
         >
           <uni-row class="demo-uni-row">
@@ -102,7 +108,7 @@
                   }}
                 </view>
               </uni-col>
-              <uni-col :span="12">
+              <!-- <uni-col :span="12">
                 <view class="demo-uni-col dark">
                   <button
                     class="mini-btn"
@@ -114,7 +120,7 @@
                     保存
                   </button>
                 </view>
-              </uni-col>
+              </uni-col> -->
             </uni-row>
             <uni-row
               class="demo-uni-row"
@@ -125,7 +131,7 @@
                   >结果：{{ item.cPARM01 ? item.cPARM01 : item.statusResult }}</view
                 >
               </uni-col>
-              <uni-col :span="12">
+              <!-- <uni-col :span="12">
                 <view class="demo-uni-col dark">
                   <button
                     class="mini-btn"
@@ -137,10 +143,20 @@
                     保存
                   </button>
                 </view>
-              </uni-col>
+              </uni-col> -->
             </uni-row>
           </view>
         </view>
+      </view>
+      <view style="display: flex; align-items: center; justify-content: center">
+        <button
+          class="mini-btn"
+          type="warn"
+          size="mini"
+          @click="SaveAllTarget"
+        >
+          保存
+        </button>
       </view>
     </view>
   </view>
@@ -266,6 +282,51 @@ const change = (e, i) => {
   }
 }
 const DataInput = ref()
+const SaveAllTarget = () => {
+  const saveItems = []
+  TargetList.value
+    .filter((i) => !i.cPARM01)
+    .forEach((i) => {
+      saveItems.push(i)
+    })
+  if (saveItems.length === 0) {
+    uni.showToast({ icon: 'none', title: '没有数据可以保存' })
+    return
+  }
+  Promise.all(
+    saveItems.map((i) =>
+      TargetSave({
+        MID: i.MID,
+        MIDs: i.MIDs,
+        uid: i.UID,
+        cActValue: i.DataInput ? +i.DataInput : '',
+        cScoreProgramName: i.SelectName,
+        cResult: i.statusResult
+          ? i.statusResult
+          : i.DataInput >= i.cMinValue && i.DataInput <= i.cMaxValue
+            ? '正常'
+            : '不正常'
+      })
+    )
+  ).then((res) => {
+    if (res.filter((i) => i.success).length === res.length) {
+      uni.showToast({
+        icon: 'none',
+        title: '操作成功'
+      })
+      uni.navigateBack({
+        delta: 1
+      })
+    } else {
+      const errorItem = res.filter((i) => !i.success)?.[0]
+      uni.showToast({
+        icon: 'none',
+        title: errorItem?.msg ?? errorItem?.errmsg
+      })
+    }
+  })
+}
+
 //保存
 const SaveTarget = (i) => {
   TargetSave({
