@@ -74,7 +74,7 @@
 						</uni-col> -->
           </uni-row>
           <uni-row class="demo-uni-row">
-            <uni-col :span="24">
+            <uni-col :span="18">
               <view
                 style="
                   display: flex;
@@ -84,21 +84,21 @@
                 "
               >
                 <view style="width: 50px">箱码：</view>
-                <view class="search-inpt">
-                  <up-input
-                    @blur="setXMfocus"
-                    @confirm="getXiangMa"
-                    v-model="xmVal"
-                    placeholder="请输入箱码"
-                    clearable
-                  />
 
-                  <!-- <input v-else class="inputSty" v-model="xmVal" @input="getXiangMa"
+                <up-input
+                  @blur="setXMfocus"
+                  @confirm="getXiangMa"
+                  v-model="xmVal"
+                  placeholder="请输入箱码"
+                  clearable
+                />
+
+                <!-- <input v-else class="inputSty" v-model="xmVal" @input="getXiangMa"
 										:focus="focusXM" @blur="setXMfocus"  placeholder="请扫描箱码"
 										placeholder-style="font-size:12px" /> -->
-                </view>
               </view>
             </uni-col>
+            <uni-col :span="6"> </uni-col>
             <!-- <uni-col :span="6">
 							<view class="demo-uni-col light">
 							</view>
@@ -645,7 +645,7 @@ const clickDel = (i) => {
 // 确定
 const clickNum = () => {
   // 数量必填，且大于 0
-  if (!slVal.value) {
+  if (!slVal.value && slVal.value <= 0) {
     uni.showToast({
       icon: 'none',
       title: '数量必填且大于 0'
