@@ -302,7 +302,7 @@
                       style="color: black; background-color: #00aa7f; border-color: #00aa7f"
                       type="warn"
                       size="mini"
-                      @click="ScanXM"
+                      @click="ScanXM(item)"
                     >
                       继续扫描
                     </button>
@@ -765,8 +765,11 @@ const Search = async () => {
   }
 }
 //继续扫描
-const ScanXM = () => {
+const ScanXM = (item) => {
   current.value = 0
+  WsearchValue.value = item.cInWareHouseName
+  getWares()
+  WLsetfocus()
 }
 //提交单据
 const DJPUT = async (i) => {
