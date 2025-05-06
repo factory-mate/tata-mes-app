@@ -299,35 +299,27 @@ const SaveAllTarget = () => {
     uni.showToast({ icon: 'none', title: '没有数据可以保存' })
     return
   }
-  Promise.all(
-    saveItems.map((i) =>
-      TargetSave({
-        MID: i.MID,
-        MIDs: i.MIDs,
-        uid: i.UID,
-        cActValue: i.DataInput ? +i.DataInput : '',
-        cScoreProgramName: i.SelectName,
-        cResult: i.statusResult
-          ? i.statusResult
-          : i.DataInput >= i.cMinValue && i.DataInput <= i.cMaxValue
-            ? '正常'
-            : '不正常'
-      })
-    )
+  TargetSave(
+    saveItems.map((i) => ({
+      MID: i.MID,
+      MIDs: i.MIDs,
+      uid: i.UID,
+      cActValue: i.DataInput ? +i.DataInput : '',
+      cScoreProgramName: i.SelectName,
+      cResult: i.statusResult
+        ? i.statusResult
+        : i.DataInput >= i.cMinValue && i.DataInput <= i.cMaxValue
+          ? '正常'
+          : '不正常'
+    }))
   ).then((res) => {
-    if (res.filter((i) => i.success).length === res.length) {
+    if (res.success) {
       uni.showToast({
         icon: 'none',
         title: '操作成功'
       })
       uni.navigateBack({
         delta: 1
-      })
-    } else {
-      const errorItem = res.filter((i) => !i.success)?.[0]
-      uni.showToast({
-        icon: 'none',
-        title: errorItem?.msg ?? errorItem?.errmsg
       })
     }
   })
