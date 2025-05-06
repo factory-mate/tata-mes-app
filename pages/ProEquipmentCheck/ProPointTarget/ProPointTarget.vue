@@ -23,7 +23,7 @@
       <!-- <text  style="font-size: 16px;margin: 20px 30%;">暂无数据，请添加</text> -->
       <view
         class="listMain"
-        :style="'height:' + (h - 120) + 'px'"
+        :style="'height:' + (h - 150) + 'px'"
       >
         <view
           class="project"
