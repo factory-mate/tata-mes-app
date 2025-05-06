@@ -27,13 +27,7 @@
       >
         <view
           class="project"
-          v-for="(item, index) in TargetList.concat(TargetList)
-            .concat(TargetList)
-            .concat(TargetList)
-            .concat(TargetList)
-            .concat(TargetList)
-            .concat(TargetList)
-            .concat(TargetList)"
+          v-for="(item, index) in TargetList"
           :key="index"
         >
           <uni-row class="demo-uni-row">
