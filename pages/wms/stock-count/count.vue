@@ -14,7 +14,7 @@ const height = ref(getDeviceHeight().totalHeight)
 const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
   usePageParams()
 
-const isFocus = ref(true)
+const isFocus = ref('XM')
 const listData = ref([])
 const formData = ref({
   UID: '',
@@ -28,10 +28,10 @@ const inputData = ref({
 })
 const materialData = ref({})
 
-const setFocus = () => {
-  isFocus.value = false
+const setFocus = (type) => {
+  isFocus.value = type
   setTimeout(() => {
-    isFocus.value = true
+    isFocus.value = type
   }, 200)
 }
 
@@ -56,20 +56,25 @@ const scanCode = async () => {
         })
         resetMaterialData()
         resetInputData()
-        setFocus()
+        setFocus('XM')
         return
       }
       materialData.value = data
+      setFocus('HW')
     } else {
       resetMaterialData()
       resetInputData()
-      setFocus()
+      setFocus('XM')
     }
   } catch {
     resetMaterialData()
     resetInputData()
-    setFocus()
+    setFocus('XM')
   }
+}
+
+const scanHW = () => {
+  setFocus('NUM')
 }
 
 const handleConfirm = () => {
@@ -78,7 +83,7 @@ const handleConfirm = () => {
       title: '请填写物料编码',
       icon: 'none'
     })
-    setFocus()
+    setFocus('XM')
     return
   }
   if (!inputData.value.hw) {
@@ -86,7 +91,7 @@ const handleConfirm = () => {
       title: '请填写货位',
       icon: 'none'
     })
-    setFocus()
+    setFocus('HW')
     return
   }
   if (!inputData.value.num) {
@@ -94,7 +99,7 @@ const handleConfirm = () => {
       title: '请填写数量',
       icon: 'none'
     })
-    setFocus()
+    setFocus('NUM')
     return
   }
   listData.value.push({
@@ -105,7 +110,7 @@ const handleConfirm = () => {
     hw: inputData.value.hw
   })
   resetInputData()
-  setFocus()
+  setFocus('XM')
 }
 
 const handleDelete = (index) => {
@@ -186,7 +191,7 @@ onPullDownRefresh(async () => {
               <up-input
                 v-model="inputData.code"
                 @confirm="scanCode"
-                :focus="isFocus"
+                :focus="isFocus === 'XM'"
                 placeholder=""
                 border="surround"
                 clearable
@@ -204,6 +209,8 @@ onPullDownRefresh(async () => {
                 v-model="inputData.hw"
                 border="surround"
                 clearable
+                @confirm="scanHW"
+                :focus="isFocus === 'HW'"
               />
             </up-col>
           </up-row>
@@ -219,6 +226,7 @@ onPullDownRefresh(async () => {
                 placeholder=""
                 border="surround"
                 clearable
+                :focus="isFocus === 'NUM'"
               />
             </up-col>
           </up-row>
