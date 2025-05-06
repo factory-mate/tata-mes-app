@@ -151,6 +151,9 @@ onShow(() => {
   // #ifdef H5
   document.addEventListener('keyup', keypress)
   // #endif
+  List.value = []
+  currentPage.value = 1
+  getList()
 })
 onUnload(() => {
   // #ifdef APP-PLUS
@@ -180,8 +183,6 @@ onBackPress(() => {
 onLoad((option) => {
   objVal.value = option.UID
   h.value = uni.getSystemInfoSync().windowHeight
-
-  getList()
 })
 
 const getList = () => {
