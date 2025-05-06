@@ -51,12 +51,9 @@
           </button>
         </view>
         <view class="listMain">
-          <scroll-view
+          <up-list
             v-if="!Vtype"
-            :style="'height:' + (h - 200) + 'px'"
-            scroll-y="true"
-            lower-threshold="50"
-            show-scrollbar="true"
+            :height="h - 200 + 'px'"
             @scrolltolower="scrolltolower"
           >
             <view
@@ -105,7 +102,7 @@
               :status="more"
               v-if="PDAawaitList.length"
             ></uni-load-more>
-          </scroll-view>
+          </up-list>
           <view
             v-else
             :style="'height:' + (h - 200) + 'px'"
@@ -233,9 +230,9 @@
             </uni-row>
           </view>
         </view>
-        <view
+        <up-list
           class="listMain"
-          :style="'height:' + (h - 350) + 'px'"
+          :height="h - 350 + 'px'"
         >
           <view
             class="project"
@@ -277,7 +274,7 @@
               </uni-col>
             </uni-row>
           </view>
-        </view>
+        </up-list>
         <view class="two-button">
           <button
             class="mini-btn"
@@ -323,7 +320,7 @@
               </uni-col>
             </uni-row>
           </view>
-          <view
+          <up-list
             class="listMain"
             :style="'height:' + (h - 260) + 'px'"
           >
@@ -357,7 +354,7 @@
                 </uni-col>
               </uni-row>
             </view>
-          </view>
+          </up-list>
         </view>
       </view>
     </view>
@@ -839,7 +836,7 @@ const clickRight = () =>
       margin-top: 2px;
       width: 100%;
       height: calc(100% - 240rpx);
-      overflow-y: auto;
+      // overflow-y: auto;
       font-size: 14px;
 
       .RUlist {
