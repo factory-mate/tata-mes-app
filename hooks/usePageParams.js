@@ -42,7 +42,7 @@ export function usePageParams() {
   const handleScrollToLower = (cb) => {
     setPageStatus('loading')
     pageParams.value.pageIndex += 1
-    if (pageParams.value.pageIndex >= pageInfo.value.pageCount) {
+    if (pageParams.value.pageIndex > pageInfo.value.pageCount) {
       setPageStatus('nomore')
     } else {
       cb?.()

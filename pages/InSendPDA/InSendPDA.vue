@@ -20,6 +20,7 @@
       <up-list
         class="listMain"
         :style="'height:' + (h - 140) + 'px'"
+        @scrolltolower="handleScrollToLower(fetchList)"
       >
         <view
           class="project"
@@ -228,9 +229,7 @@ const fetchList = async () => {
     let dc = 0
     if (currentTabIndex.value == 0) {
       const {
-        data: { data },
-        dataCount,
-        pageCount
+        data: { data, dataCount, pageCount }
       } = await ErrorList({
         PageIndex: pageParams.value.pageIndex,
         PageSize: pageParams.value.pageSize
@@ -240,9 +239,7 @@ const fetchList = async () => {
       dc = dataCount
     } else if (currentTabIndex.value == 1) {
       const {
-        data: { data },
-        dataCount,
-        pageCount
+        data: { data, dataCount, pageCount }
       } = await RepairVouchList({
         bVerify: false,
         PageIndex: pageParams.value.pageIndex,
@@ -254,9 +251,7 @@ const fetchList = async () => {
       dc = dataCount
     } else if (currentTabIndex.value == 2) {
       const {
-        data: { data },
-        dataCount,
-        pageCount
+        data: { data, dataCount, pageCount }
       } = await RepairVouchList({
         bVerify: true,
         PageIndex: pageParams.value.pageIndex,
