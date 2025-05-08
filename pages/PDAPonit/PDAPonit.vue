@@ -184,7 +184,7 @@
                     <view class="demo-uni-col dark">故障名称：{{ item.cFaultName }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">指派时间：{{ item.cReportDate }}</view>
+                    <view class="demo-uni-col dark">指派时间：{{ item.cPARM07 }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
