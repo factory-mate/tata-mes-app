@@ -133,7 +133,7 @@
           </uni-row>
           <uni-row class="demo-uni-row">
             <uni-col :span="24">
-              <view class="demo-uni-col dark">申报人：{{ item.cCreateUserName }}</view>
+              <view class="demo-uni-col dark">申报人：{{ item.EndOperator }}</view>
             </uni-col>
           </uni-row>
           <uni-row class="demo-uni-row">

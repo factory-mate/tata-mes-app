@@ -165,7 +165,7 @@
         </view>
         <view
           class="listMain"
-          :style="'height:' + (h - 380) + 'px'"
+          :style="'height:' + (h - 420) + 'px'"
         >
           <view class="project">
             <view
