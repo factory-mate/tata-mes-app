@@ -645,7 +645,7 @@ const clickDel = (i) => {
 // 确定
 const clickNum = () => {
   // 数量必填，且大于 0
-  if (!slVal.value && slVal.value <= 0) {
+  if (!slVal.value || slVal.value <= 0) {
     uni.showToast({
       icon: 'none',
       title: '数量必填且大于 0'
