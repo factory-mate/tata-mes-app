@@ -205,21 +205,26 @@
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
-                  <uni-col :span="12">
+                  <uni-col :span="10">
                     <view class="demo-uni-col dark">设备位置：{{ item.cUsedAddress }}</view>
                   </uni-col>
-                  <uni-col :span="12">
-                    <view class="demo-uni-col light"></view>
+                  <uni-col :span="16">
+                    <view class="demo-uni-col dark">点检时间：{{ item.dEndTime }}</view>
                   </uni-col>
-                  <uni-col :span="12">
-                    <button
-                      class="mini-btn"
-                      type="warn"
-                      size="mini"
-                      @click="goCheck(item)"
-                    >
-                      查看
-                    </button>
+                </uni-row>
+                <uni-row class="demo-uni-row">
+                  <uni-col :span="24">
+                    <view style="display: flex; justify-content: end">
+                      <view style="padding-right: 30rpx">
+                        <button
+                          type="warn"
+                          size="mini"
+                          @click="goCheck(item)"
+                        >
+                          查看
+                        </button>
+                      </view>
+                    </view>
                   </uni-col>
                 </uni-row>
               </view>
