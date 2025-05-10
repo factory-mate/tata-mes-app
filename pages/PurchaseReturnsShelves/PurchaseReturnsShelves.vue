@@ -183,12 +183,13 @@ const currentPage = ref(1)
 const total = ref(0)
 //总页数
 const pageTotal = ref(0)
-onShow(() => {})
+onShow(() => {
+  danjuList.value = []
+  getlist()
+})
 //加载页面
 onLoad((option) => {
   h.value = uni.getSystemInfoSync().windowHeight
-  danjuList.value = []
-  getlist()
 })
 //货位输入框聚焦
 const setfocus = () => {
