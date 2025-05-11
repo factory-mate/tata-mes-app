@@ -246,7 +246,7 @@ const clickHome = (v) => {
           if (res.confirm) {
             console.log('用户点击确定')
             uni.switchTab({
-              url: '/pages/tabbar/home/index'
+              url: '/pages/tabbar/workHome/index'
             })
             uni.removeStorageSync('wuList')
           } else if (res.cancel) {
@@ -256,7 +256,7 @@ const clickHome = (v) => {
       })
     } else {
       uni.switchTab({
-        url: '/pages/tabbar/home/index'
+        url: '/pages/tabbar/workHome/index'
       })
       uni.removeStorageSync('wuList')
     }

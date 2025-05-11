@@ -453,27 +453,25 @@ const scrolltolower = () => {
   }
 }
 
-const clickHome = (v) => {
-  if (v.type) {
-    if (scanList.value.length) {
-      uni.showModal({
-        content: '已扫描条码未入库，确认退出？',
-        success: function (res) {
-          if (res.confirm) {
-            uni.switchTab({
-              url: '/pages/tabbar/home/index'
-            })
-            uni.removeStorageSync('wuList')
-          } else if (res.cancel) {
-          }
+const clickHome = () => {
+  if (scanList.value.length) {
+    uni.showModal({
+      content: '已扫描条码未入库，确认退出？',
+      success: function (res) {
+        if (res.confirm) {
+          uni.switchTab({
+            url: '/pages/tabbar/workHome/index'
+          })
+          uni.removeStorageSync('wuList')
+        } else if (res.cancel) {
         }
-      })
-    } else {
-      uni.switchTab({
-        url: '/pages/tabbar/home/index'
-      })
-      uni.removeStorageSync('wuList')
-    }
+      }
+    })
+  } else {
+    uni.switchTab({
+      url: '/pages/tabbar/workHome/index'
+    })
+    uni.removeStorageSync('wuList')
   }
 }
 //头部左侧,返回上一页

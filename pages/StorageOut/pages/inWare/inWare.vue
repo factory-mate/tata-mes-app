@@ -516,29 +516,27 @@ const options = [
     }
   }
 ]
-const clickHome = (v) => {
-  if (v.type) {
-    if (wuList.value.length) {
-      uni.showModal({
-        content: '已扫描条码未出库，确认退出？',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            uni.switchTab({
-              url: '/pages/tabbar/home/index'
-            })
-            uni.removeStorageSync('KuValue')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
+const clickHome = () => {
+  if (wuList.value.length) {
+    uni.showModal({
+      content: '已扫描条码未出库，确认退出？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          uni.switchTab({
+            url: '/pages/tabbar/workHome/index'
+          })
+          uni.removeStorageSync('KuValue')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
         }
-      })
-    } else {
-      uni.switchTab({
-        url: '/pages/tabbar/home/index'
-      })
-      uni.removeStorageSync('KuValue')
-    }
+      }
+    })
+  } else {
+    uni.switchTab({
+      url: '/pages/tabbar/workHome/index'
+    })
+    uni.removeStorageSync('KuValue')
   }
 }
 //头部左侧,返回上一页
