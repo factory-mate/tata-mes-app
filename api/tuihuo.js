@@ -9,6 +9,15 @@ export function changKuGetForList(data) {
     data
   })
 }
+// 库位
+export function changKuWeiGetForList(data) {
+  return service({
+    url: URLIP.BASE_URL_LOGO + '/api/WareHouse_Location/GetForList',
+    method: 'post',
+    data
+  })
+}
+
 // 箱码
 export function PDAGetStockByBarCode(data) {
   return service({

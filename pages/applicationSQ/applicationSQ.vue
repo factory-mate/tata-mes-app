@@ -16,7 +16,7 @@
         <view
           style="display: flex; text-align: center; justify-content: start; align-items: center"
         >
-          <view style="min-width: 60px; margin-top: 10px">仓库：</view>
+          <view style="min-width: 60px; margin-top: 10px">库位：</view>
           <view
             class=""
             style="height: 40px"
@@ -32,7 +32,7 @@
                 @blur="setfocus"
                 @confirm="getChangk"
                 v-model="CKval"
-                placeholder="请输入仓库"
+                placeholder="请输入库位"
                 class="searchIpu"
                 style="padding: 0"
               >
@@ -49,7 +49,7 @@
           class=""
           style="margin-top: 10px"
         >
-          仓库：{{ changkuData.cWareHouseName }}</view
+          库位：{{ changkuData.cWareHouseName }}</view
         >
       </uni-col>
     </uni-row>
@@ -506,6 +506,7 @@ import _ from 'lodash'
 import {
   PDAGetStockByBarCode,
   changKuGetForList,
+  changKuWeiGetForList,
   CheckApplyForAdd,
   CheckApplyForGetForPage,
   CheckApplyForClear,
@@ -592,9 +593,9 @@ const getChangk = () => {
 const getCangku = () => {
   let obj = {
     OrderByFileds: '',
-    Conditions: 'cWareHouseCode = ' + CKval.value
+    Conditions: 'cWareHouseLocationCode = ' + CKval.value
   }
-  changKuGetForList(obj).then((res) => {
+  changKuWeiGetForList(obj).then((res) => {
     changkuData.value = ''
     if (res.data.length) {
       changkuData.value = res.data[0]
@@ -832,8 +833,8 @@ const clickAdd = () => {
     s_Model: xiangMList.value,
     cVendorName: xiangMList.value[0].cVendorName,
     cVendorCode: xiangMList.value[0].cVendorCode,
-    cWareHouseCode: changkuData.value.cWareHouseCode, //编码
-    cWareHouseName: changkuData.value.cWareHouseName //名称
+    cDefindParm02: changkuData.value.cWareHouseLocationCode, //编码
+    cDefindParm03: changkuData.value.cWareHouseLocationName //名称
   }
   CheckApplyForAdd(obj)
     .then((res) => {
