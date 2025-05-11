@@ -446,11 +446,17 @@ onLoad((option) => {
 })
 //物料输入框聚焦
 const WLsetfocus = () => {
-  WLfocusType.value = true
+  WLfocusType.value = false
+  setTimeout(() => {
+    WLfocusType.value = true
+  }, 100)
 }
 
 const setfocus = () => {
-  focusType.value = true
+  focusType.value = false
+  setTimeout(() => {
+    focusType.value = true
+  }, 100)
 }
 
 const onFocus = () => {
@@ -767,7 +773,7 @@ const Search = async () => {
 //继续扫描
 const ScanXM = (item) => {
   current.value = 0
-  WsearchValue.value = item.cInWareHouseName
+  WsearchValue.value = item.cInWareHouseCode
   getWares()
   WLsetfocus()
 }
