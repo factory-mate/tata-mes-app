@@ -268,7 +268,7 @@ onPullDownRefresh(async () => {
             </up-row>
             <up-row justify="space-between">
               <up-col span="6"> 箱码：{{ item.cKeyCode }} </up-col>
-              <up-col span="6"> 货位：{{ item.hw }} </up-col>
+              <up-col span="6"> 货位：{{ item.cWareHouseLocationCode }} </up-col>
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">
