@@ -107,7 +107,7 @@ const handleConfirm = () => {
     cInvCode: materialData.value.cInvCode,
     cInvName: materialData.value.cInvName,
     cKeyCode: materialData.value.cKeyCode,
-    hw: inputData.value.hw
+    cWareHouseLocationCode: inputData.value.hw
   })
   resetInputData()
   setFocus('XM')
