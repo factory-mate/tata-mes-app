@@ -2,7 +2,7 @@
     "name" : "TATAMES",
     "appid" : "__UNI__605F22A",
     "description" : "",
-    "versionName" : "1.1.35",
+    "versionName" : "1.1.36",
     "versionCode" : "100",
     "transformPx" : false,
     "networkTimeout" : {
@@ -24,7 +24,8 @@
         "modules" : {
             "Barcode" : {},
             "Camera" : {},
-            "Bluetooth" : {}
+            "Bluetooth" : {},
+            "Push" : {}
         },
         "statusbar" : {
             "immersed" : false //关闭沉浸式:解决去掉原生导航后，主内容顶到状态栏的问题;扫码枪-输入框聚焦问题(原因未知)
@@ -60,7 +61,16 @@
                 "dSYMs" : false
             },
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "push" : {
+                    "unipush" : {
+                        "icons" : {
+                            "small" : {
+                                "hdpi" : "unpackage/res/icons/40x40.png"
+                            }
+                        }
+                    }
+                }
             },
             "icons" : {
                 "android" : {
