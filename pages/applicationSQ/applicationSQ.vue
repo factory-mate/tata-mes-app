@@ -25,18 +25,13 @@
               title=""
               type="line"
             >
-              <uni-search-bar
-                radius="100"
-                cancelButton="none"
+              <up-input
                 :focus="focusType"
                 @blur="setfocus"
                 @confirm="getChangk"
                 v-model="CKval"
                 placeholder="请输入库位"
-                class="searchIpu"
-                style="padding: 0"
-              >
-              </uni-search-bar>
+              />
             </uni-section>
             <!-- <input v-else class="inputSty" v-model="CKval" @input="getChangk"
 								:focus="focusType" @blur="setfocus"  placeholder="请扫描仓库"
