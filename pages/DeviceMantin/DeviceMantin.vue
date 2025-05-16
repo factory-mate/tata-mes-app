@@ -385,6 +385,9 @@ const getSearch = () => {
   if (Timerange.value) {
     BeginTime.value = Timerange.value
     EndTime.value = Timerange.value
+  } else {
+    BeginTime.value = undefined
+    EndTime.value = undefined
   }
   GetList()
 }
