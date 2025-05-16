@@ -324,13 +324,14 @@ const keypress = (e) => {
   }
 }
 const clickSave = () => {
-  if (!nDestoryQuantity.value) {
-    uni.showToast({
-      icon: 'none',
-      title: '请输入数量！'
-    })
-    return false
-  }
+  // if (!nDestoryQuantity.value) {
+  //   uni.showToast({
+  //     icon: 'none',
+  //     title: '请输入数量！'
+  //   })
+  //   return false
+  // }
+
   let obj = {
     UID: routeVal.value.UID,
     utfs: routeVal.value.utfs,
