@@ -16,6 +16,7 @@ const listData = ref([])
 async function getList() {
   try {
     const {
+      data
       // data: { data, dataCount, pageCount }
     } = await OtherStorageOutAPI.GetRDRECORD_SBySource({
       MATERIAL_APPLYFOR_UID: pageQuery.value.UID,
