@@ -138,8 +138,8 @@ const handleSave = async () => {
       title: '操作成功',
       icon: 'success'
     })
-    uni.navigateTo({
-      url: `/pages/wms/stock-count/index`
+    uni.navigateBack({
+      delta: 1
     })
   } catch {
     //
