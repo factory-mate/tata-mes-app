@@ -70,7 +70,7 @@
         </view>
         <view
           class="listMain"
-          :style="'height:' + (h - 180) + 'px'"
+          :style="'height:' + (h - 280) + 'px'"
         >
           <view class="project">
             <view
