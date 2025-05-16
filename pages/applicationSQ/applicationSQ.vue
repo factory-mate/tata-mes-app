@@ -115,6 +115,7 @@
                   @confirm=""
                   v-model="slVal"
                   placeholder="请输入数量"
+                  disabled
                 />
                 <!-- <input class="inputSty" v-model="slVal" @input=""
 									focus="" @blur=""  placeholder="请输入数量"
