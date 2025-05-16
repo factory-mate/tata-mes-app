@@ -157,7 +157,7 @@ import { filterModel } from '@/utils/flter.ts'
 const h = ref('100') //页面高度
 const more = ref('more') //加载更多
 const focusType = ref(true)
-const title = ref('采购退货下架')
+const title = ref('退货出库')
 const current = ref(0)
 const styleType = ref('button')
 const activeColor = ref('#ff0000')
@@ -224,16 +224,7 @@ const clickTab = (v) => {
     XMType.value = false
   }
 }
-const clickDan = () => {
-  console.log('单据')
-}
-const getXM = async () => {
-  await getCangku()
-  danjuList.value = []
-  await getlist()
-}
-// 仓库数据
-const getCangku = () => {
+const getXM = () => {
   let obj = {
     OrderByFileds: '',
     Conditions: 'cWareHouseCode = ' + XMsearchValue.value
@@ -241,7 +232,19 @@ const getCangku = () => {
   changKuGetForList(obj).then((res) => {
     changkuData.value = ''
     if (res.data.length) {
-      changkuData.value = res.data[0]
+      const currentData = res.data[0]
+      if (currentData.cWareHouseTypeCode !== '普通仓') {
+        uni.showToast({
+          icon: 'none',
+          title: '只能从普通仓下架'
+        })
+        return
+      }
+      changkuData.value = currentData
+      danjuList.value = []
+      getlist()
+    } else {
+      danjuList.value = []
     }
   })
 }
