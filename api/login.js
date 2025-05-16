@@ -1,11 +1,11 @@
 import service from '@/utils/request.js'
 import URLIP from '@/utils/serviceIP.js'
 export function Login(data) {
-	return service({
-		url: URLIP.BASE_URL_LOGO+`/api/Login/LoginIn`,
-		method: 'POST',
-		data,
-	})
+  return service({
+    url: URLIP.BASE_URL_LOGO + `/api/Login/LoginIn`,
+    method: 'POST',
+    data
+  })
 }
 // export function Login(data) {
 // 	return service({
@@ -14,8 +14,20 @@ export function Login(data) {
 // 	})
 // }
 export function getMue(data) {
-	return service({
-		url: URLIP.BASE_URL+`/api/Login/GetMenu?usercode=${data.usercode}&bMobile=${data.bMobile}&b_from_local=${data.b_from_local}`,
-		method: 'post',
-	})
+  return service({
+    url:
+      URLIP.BASE_URL +
+      `/api/Login/GetMenu?usercode=${data.usercode}&bMobile=${data.bMobile}&b_from_local=${data.b_from_local}`,
+    method: 'post'
+  })
+}
+
+export function setCID(CID) {
+  return service({
+    url: URLIP.BASE_URL_LOGO + '/api/Employee/SetCID',
+    method: 'post',
+    data: {
+      CID
+    }
+  })
 }

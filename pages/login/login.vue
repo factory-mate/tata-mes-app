@@ -81,7 +81,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { Login } from '../../api/login.js'
+import { Login, setCID } from '../../api/login.js'
 import { onLoad } from '@dcloudio/uni-app'
 
 const form = ref()
@@ -124,6 +124,14 @@ const submit = async () => {
         // uni.switchTab({
         //   url: '/pages/tabbar/home/index'
         // })
+
+        // #ifdef APP-PLUS
+        plus.push.getClientInfoAsync((info) => {
+          const cid = info['clientid']
+          console.log('cid', cid)
+          setCID(cid).catch(() => {})
+        })
+        // #endif
         uni.switchTab({
           url: '/pages/tabbar/workHome/index'
         })

@@ -28,9 +28,20 @@
     </view>
 
     <span
-      style="color: white; position: absolute; bottom: 8px; left: 0; right: 0; font-size: smaller"
+      style="
+        color: white;
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        right: 0;
+        font-size: smaller;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
     >
-      当前版本：{{ URLIP.VERSION_NAME }}v{{ version }}
+      <text>移动端CID：{{ cid }}</text>
+      <text>当前版本：{{ URLIP.VERSION_NAME }}v{{ version }}</text>
     </span>
 
     <!-- <web-view
@@ -49,6 +60,7 @@ import URLIP from '@/utils/serviceIP.js'
 const userName = ref('')
 const h = ref(100)
 const version = ref('')
+const cid = ref('')
 
 const logout = () => {
   uni.removeStorageSync('token')
@@ -126,6 +138,12 @@ onShow(() => {
   // #endif
   handleUpgradeApp()
   console.log(version.value)
+
+  // #ifdef APP-PLUS
+  plus.push.getClientInfoAsync((info) => {
+    cid.value = info['clientid']
+  })
+  // #endif
 })
 
 onLoad(() => {})
