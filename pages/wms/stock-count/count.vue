@@ -168,7 +168,7 @@ onPullDownRefresh(async () => {
 <template>
   <view :style="{ paddingTop: `${height}px` }">
     <up-navbar
-      title="盘点操作"
+      title="仓库盘点操作"
       bgColor="red"
       leftIconColor="white"
       :titleStyle="{ color: 'white' }"
