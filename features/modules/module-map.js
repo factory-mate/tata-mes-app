@@ -182,24 +182,24 @@ export const moduleMap = new Map([
       url: '/pages/ProductInwareOut/ProductInwareOut'
     }
   ],
-  // [
-  //   'MobileApp.StoreRoom.AllocateInput',
-  //   {
-  //     title: '调拨入库',
-  //     cModelCode: 'MobileApp.StoreRoom.AllocateInput',
-  //     src: getIcon('tuiliaosq.png'),
-  //     url: '/pages/wms/allocate-in/index'
-  //   }
-  // ],
-  // [
-  //   'MobileApp.StoreRoom.AllocateOutput',
-  //   {
-  //     title: '调拨出库',
-  //     cModelCode: 'MobileApp.StoreRoom.AllocateOutput',
-  //     src: getIcon('tuiliaosq.png'),
-  //     url: '/pages/wms/allocate-out/index'
-  //   }
-  // ],
+  [
+    'MobileApp.StoreRoom.AllocateInput',
+    {
+      title: '调拨入库',
+      cModelCode: 'MobileApp.StoreRoom.AllocateInput',
+      src: getIcon('tuiliaosq.png'),
+      url: '/pages/ToolAllotOutStorage/ToolAllotInStorage'
+    }
+  ],
+  [
+    'MobileApp.StoreRoom.AllocateOutput',
+    {
+      title: '调拨出库',
+      cModelCode: 'MobileApp.StoreRoom.AllocateOutput',
+      src: getIcon('tuiliaosq.png'),
+      url: '/pages/ToolAllotOutStorageCK/ToolAllotOutStorageCK'
+    }
+  ],
   [
     'MobileApp.StoreRoom.StorePrintAgain',
     {
