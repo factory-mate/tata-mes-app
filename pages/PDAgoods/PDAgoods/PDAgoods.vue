@@ -559,6 +559,10 @@ const DHDetailList = async (v) => {
         title: '暂无数据需要确认'
       })
       Vtype.value = false
+      DcurrentPage.value = 1
+      ConfirmList.value = []
+      total.value = 0
+      pageTotal.value = 0
       getDH()
     } else {
       Vtype.value = true
