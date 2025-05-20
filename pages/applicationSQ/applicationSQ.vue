@@ -27,7 +27,6 @@
             >
               <up-input
                 :focus="focusType"
-                @blur="setfocus"
                 @confirm="getChangk"
                 v-model="CKval"
                 placeholder="请输入库位"
@@ -81,7 +80,6 @@
                 <view style="width: 50px">箱码：</view>
 
                 <up-input
-                  @blur="setXMfocus"
                   @confirm="getXiangMa"
                   v-model="xmVal"
                   placeholder="请输入箱码"
