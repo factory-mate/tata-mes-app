@@ -474,6 +474,12 @@ const onClickItem = (e) => {
   if (current.value !== e.currentIndex) {
     current.value = e.currentIndex
   }
+  if (current.value == 0) {
+    currentPage.value = 1
+    total.value = 0
+    OutliST.value = []
+    getWaresList()
+  }
   if (current.value == 1 && JSON.stringify(OutInfo.value) == '{}') {
     // uni.showModal({
     //   showCancel: false,
