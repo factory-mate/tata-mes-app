@@ -298,7 +298,10 @@
               v-for="(item, index) in PageList"
               :key="index"
             >
-              <view class="wLIst">
+              <view
+                class="wLIst"
+                :class="item.iStatusName === '已完成' && 'list-item-finish'"
+              >
                 <uni-row class="demo-uni-row">
                   <uni-col :span="16">
                     <view class="demo-uni-col dark">报修单号：{{ item.cCode }}</view>
@@ -360,6 +363,7 @@
                 </uni-row>
                 <uni-row class="demo-uni-row">
                   <button
+                    v-if="item.iStatusName === '已完成'"
                     type="warn"
                     size="mini"
                     @click="onClickConfirmRepair(item)"
@@ -793,18 +797,21 @@ const getSearch = () => {
 //已报修
 // dCreateTime>= XXX && dCreateTime<=XXX && cDeviceName like XXX
 const getForPage = () => {
+  const conditions = ['iStatus!=4']
+  if (BeginTime.value) {
+    conditions.push(`dCreateTime>= ${BeginTime.value}`)
+  }
+  if (EndTime.value) {
+    conditions.push(`dCreateTime<= ${EndTime.value}`)
+  }
+  if (searchValue.value) {
+    conditions.push(`cDeviceName like ${searchValue.value}`)
+  }
   getRepairListByUser({
     PageIndex: currentPage.value,
     PageSize: pageSize.value,
-    OrderByFileds: 'dCreateTime desc',
-    Conditions:
-      BeginTime.value && searchValue.value
-        ? `dDate>= ${BeginTime.value} && dDate<=${EndTime.value} && cDeviceName like ${searchValue.value}`
-        : BeginTime.value
-          ? `dDate>= ${BeginTime.value} && dDate<=${EndTime.value}`
-          : searchValue.value
-            ? `cDeviceName like ${searchValue.value}`
-            : ''
+    OrderByFileds: 'iStatus desc',
+    Conditions: conditions.join(' && ')
   }).then((res) => {
     if (res.status == 200) {
       uni.stopPullDownRefresh()
@@ -1018,5 +1025,9 @@ const handleCameraScan = (status) => {
       margin: 0 10px;
     }
   }
+}
+
+.list-item-finish {
+  background-color: #95ed6b;
 }
 </style>
