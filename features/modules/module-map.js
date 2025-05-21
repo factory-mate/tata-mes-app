@@ -92,15 +92,15 @@ export const moduleMap = new Map([
       url: '/pages/PurchaseReturnsShelves/PurchaseReturnsShelves'
     }
   ],
-  [
-    'MobileApp.StoreRoom.MaterialCheck',
-    {
-      title: '物料盘点',
-      cModelCode: 'MobileApp.StoreRoom.MaterialCheck',
-      src: getIcon('wuliao.png'),
-      url: '/pages/checkBills/checkBills'
-    }
-  ],
+  // [
+  //   'MobileApp.StoreRoom.MaterialCheck',
+  //   {
+  //     title: '物料盘点',
+  //     cModelCode: 'MobileApp.StoreRoom.MaterialCheck',
+  //     src: getIcon('wuliao.png'),
+  //     url: '/pages/checkBills/checkBills'
+  //   }
+  // ],
   [
     'MobileApp.StoreRoom.BarcodeSplit',
     {

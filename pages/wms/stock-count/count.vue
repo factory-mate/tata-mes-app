@@ -151,7 +151,7 @@ onLoad((options) => {
   formData.value.UID = options.UID
   formData.value.cInvCode = options.cInvCode
   formData.value.cInvName = options.cInvName
-  formData.value.cWareHouseName = options.cWareHouseName
+  formData.value.cWareHouseName = options.cDefindParm02
   formData.value.cTakeTypeCode = options.cTakeTypeCode
 })
 onShow(() => {})

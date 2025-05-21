@@ -118,7 +118,7 @@ const handleFinish = (data) => {
 
 const handleCount = (data) =>
   uni.navigateTo({
-    url: `/pages/wms/stock-count/count?UID=${data.UID}&cInvCode=${data.cInvCode}&cInvName=${data.cInvName}&cWareHouseName=${data.cWareHouseName}&cTakeTypeCode=${data.cTakeTypeCode}`
+    url: `/pages/wms/stock-count/count?UID=${data.UID}&cInvCode=${data.cInvCode}&cInvName=${data.cInvName}&cWareHouseName=${data.cDefindParm02}&cTakeTypeCode=${data.cTakeTypeCode}`
   })
 
 const getType = async () => {
