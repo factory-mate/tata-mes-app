@@ -84,6 +84,7 @@
                   v-model="xmVal"
                   placeholder="请输入箱码"
                   clearable
+                  :focus="focusXM"
                 />
 
                 <!-- <input v-else class="inputSty" v-model="xmVal" @input="getXiangMa"
@@ -567,7 +568,6 @@ onLoad((option) => {
 })
 //货位输入框聚焦
 const setfocus = () => {
-  // console.log(111,"--33");
   focusType.value = false
   setTimeout(() => {
     focusType.value = true
@@ -579,20 +579,22 @@ const setXMfocus = () => {
     focusXM.value = true
   }, 200)
 }
-// 仓库
-const getChangk = () => {
-  getCangku()
-}
 // 仓库数据
-const getCangku = () => {
+const getChangk = () => {
   let obj = {
     OrderByFileds: '',
     Conditions: 'cWareHouseLocationCode = ' + CKval.value
   }
   changKuWeiGetForList(obj).then((res) => {
     changkuData.value = ''
-    if (res.data.length) {
+    if (res.success && res.data.length) {
       changkuData.value = res.data[0]
+      setXMfocus()
+    } else {
+      uni.showToast({
+        icon: 'none',
+        title: '没有该库位'
+      })
     }
   })
 }
