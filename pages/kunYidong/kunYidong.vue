@@ -70,7 +70,7 @@
         </view>
         <view
           class="listMain"
-          :style="'height:' + (h - 280) + 'px'"
+          :style="'height:' + (h - 380) + 'px'"
         >
           <view class="project">
             <view
@@ -153,7 +153,7 @@ const focusType = ref(false)
 const dhfocusType = ref(false)
 const focusXM = ref(false)
 const focusHW = ref(false)
-const title = ref('库位移动')
+const title = ref('货位移动')
 const current = ref(0)
 const styleType = ref('button')
 const activeColor = ref('#ff0000')
