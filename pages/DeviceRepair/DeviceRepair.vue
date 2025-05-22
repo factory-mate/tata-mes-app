@@ -769,13 +769,22 @@ const Save = () => {
       Authorization: 'Bearer' + ' ' + uni.getStorageSync('token')
     },
     success: (uploadFileRes) => {
-      uni.showToast({
-        icon: 'none',
-        title: '保存成功'
-      })
-      PicArr.value = []
-      DevData.value = {}
-      Textvalue.value = ''
+      const rawRes = JSON.parse(uploadFileRes.data)
+      const { success } = rawRes
+      if (success) {
+        uni.showToast({
+          icon: 'none',
+          title: '保存成功'
+        })
+        PicArr.value = []
+        DevData.value = {}
+        Textvalue.value = ''
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: rawRes.msg || rawRes.errmsg[0].Value
+        })
+      }
     }
   })
 }
