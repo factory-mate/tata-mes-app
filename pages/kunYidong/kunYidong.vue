@@ -112,17 +112,14 @@
             </view>
           </view>
         </view>
-        <view class="BTN-Two">
-          <button
-            class="mini-btn"
-            type="warn"
-            style="color: black; backgroundcolor: #ffff7f; bordercolor: #ffff7f"
-            size="mini"
+
+        <view style="position: fixed; bottom: 10px; left: 10px; right: 10px">
+          <up-button
+            text="提交"
+            type="error"
             :disabled="!xiangMList.length"
             @click="clickTJ"
-          >
-            提交
-          </button>
+          />
         </view>
       </view>
     </view>
