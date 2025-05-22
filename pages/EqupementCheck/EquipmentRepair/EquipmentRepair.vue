@@ -117,6 +117,7 @@
         type="warn"
         size="mini"
         @click="Save"
+        :disabled="isSaveLoading"
       >
         保存
       </button>
@@ -147,6 +148,7 @@ const more = ref('more') //加载更多
 const value = ref() //下拉故障
 const range = ref([]) //下拉故障数组
 const Textvalue = ref() //描述
+const isSaveLoading = ref(false)
 //页面条数
 const pageSize = ref(10)
 //当前页
@@ -284,6 +286,7 @@ const Save = () => {
     })
     return
   }
+  isSaveLoading.value = true
   PicArr.value.forEach((item) => {
     uni.uploadFile({
       url: URLIP.BASE_URL_PDEVICE + '/api/device_falutvouch/Add',
@@ -307,6 +310,7 @@ const Save = () => {
           icon: 'none',
           title: '保存成功'
         })
+        isSaveLoading.value = false
         PicArr.value = []
       }
     })
