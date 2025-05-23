@@ -60,6 +60,9 @@ const scanCode = async () => {
         return
       }
       materialData.value = data
+      if (data?.nSumQuinity) {
+        inputData.value.num = data.nSumQuinity
+      }
       setFocus('HW')
     } else {
       resetMaterialData()
