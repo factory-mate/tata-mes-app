@@ -47,7 +47,7 @@ const getTaskNum = () => {
   getRepairListByUser({
     PageIndex: 1,
     PageSize: 5,
-    Conditions: ''
+    Conditions: 'iStatus!=4'
   }).then((res) => {
     if (res.success) {
       taskNumData.value[1].num = res.data.dataCount ?? 0
