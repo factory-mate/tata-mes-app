@@ -34,7 +34,7 @@ async function getList() {
       OrderByFileds: '',
       Conditions: queryBuilder([
         { type: 'like', key: 'cCode', val: keyword.value },
-        { type: 'eq', key: 'cInWareHouseCode', val: storageData.value?.cWareHouseCode0 }
+        { type: 'eq', key: 'cInWareHouseCode', val: storageData.value?.cWareHouseCode }
       ])
     })
     listData.value = [...listData.value, ...data]

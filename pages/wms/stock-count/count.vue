@@ -151,7 +151,7 @@ onLoad((options) => {
   formData.value.UID = options.UID
   formData.value.cInvCode = options.cInvCode
   formData.value.cInvName = options.cInvName
-  formData.value.cWareHouseName = options.cDefindParm02
+  formData.value.cWareHouseName = options.cWareHouseName
   formData.value.cTakeTypeCode = options.cTakeTypeCode
 })
 onShow(() => {})
@@ -186,7 +186,7 @@ onPullDownRefresh(async () => {
           <up-gap height="8" />
 
           <up-row justify="space-between">
-            <up-col span="3">箱码</up-col>
+            <up-col span="3">箱码：</up-col>
             <up-col span="9">
               <up-input
                 v-model="inputData.code"
