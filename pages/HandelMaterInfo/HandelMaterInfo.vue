@@ -13,18 +13,18 @@
     />
     <view style="padding: 10px 20px">
       <view style="display: flex; align-items: center; justify-content: flex-start">
-        <view style="width: 60px">线边库:</view>
+        <view style="width: 60px; font-size: smaller">线边库:</view>
         <up-input
           :disabled="disabled"
           v-model="WsearchValue"
           @confirm="getWares"
           :focus="focusType"
           @focus="onFocus"
-          @blur="setfocus"
           placeholder="请扫描线边仓编码"
         />
         <view style="width: 80px">
           <button
+            style="margin-left: 4px; margin-top: 3px"
             class="mini-btn"
             type="warn"
             size="mini"
@@ -35,7 +35,11 @@
         </view>
       </view>
 
-      <view class="demo-uni-col dark">名称：{{ XBWare.cWareHouseName }}</view>
+      <view
+        class="demo-uni-col dark"
+        style="font-size: smaller"
+        >名称：{{ XBWare.cWareHouseName }}</view
+      >
     </view>
 
     <view class="uni-padding-wrap uni-common-mt">
@@ -103,14 +107,10 @@
               >
                 <view style="width: 100px">原因：</view>
                 <!-- 搜索框 -->
-                <view class="search-inpt">
-                  <input
-                    class="inputSty"
-                    v-model="ReasonsearchValue"
-                    placeholder="请输入与原因"
-                    placeholder-style="font-size:12px"
-                  />
-                </view>
+                <up-input
+                  v-model="ReasonsearchValue"
+                  placeholder="请输入原因"
+                />
               </view>
             </uni-col>
             <uni-col :span="6"></uni-col>
@@ -127,19 +127,16 @@
               >
                 <view style="width: 100px">数量：</view>
                 <!-- 搜索框 -->
-                <view class="search-inpt">
-                  <input
-                    class="inputSty"
-                    type="number"
-                    v-model="NUMsearchValue"
-                    placeholder="请输入数量"
-                    placeholder-style="font-size:12px"
-                  />
-                </view>
+                <up-input
+                  type="number"
+                  v-model="NUMsearchValue"
+                  placeholder="请输入数量"
+                />
               </view>
             </uni-col>
             <uni-col :span="6">
               <button
+                style="margin-left: 4px; margin-top: 3px"
                 class="mini-btn"
                 type="warn"
                 size="mini"
@@ -197,25 +194,21 @@
             </view>
           </view>
         </view>
-        <view class="BTN-Two">
-          <button
-            class="mini-btn"
-            style="color: black; background-color: #1aad19; border-color: #1aad19"
-            type="warn"
-            size="mini"
+
+        <view class="btn-area">
+          <up-button
+            size="small"
+            text="保存"
             @click="Save"
-          >
-            保存
-          </button>
-          <button
-            class="mini-btn"
-            type="warn"
-            style="color: black; background-color: #ffff7f; border-color: #ffff7f"
-            size="mini"
+            style="margin-right: 8px"
+          />
+          <up-button
+            type="error"
+            size="small"
+            text="提交"
             @click="Commit"
-          >
-            提交
-          </button>
+            style="margin-right: 8px"
+          />
         </view>
       </view>
       <view v-if="current === 1">
@@ -1048,5 +1041,14 @@ const clickRight = () =>
       margin-top: -15px;
     }
   }
+}
+
+.btn-area {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
