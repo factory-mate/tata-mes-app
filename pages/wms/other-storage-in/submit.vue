@@ -53,7 +53,6 @@ async function scanBox() {
       BarCode: scanCode.value,
       cWareHouseCode: pageQuery.value.cWareHouseCode
     })
-    console.log(data)
     if (!data) {
       uni.showToast({
         title: '未找到该箱码',
@@ -87,7 +86,7 @@ async function scanBox() {
       }
       return
     }
-    listData.value.unshift(data)
+    listData.value.unshift({ ...data, cBarCode: scanCode.value })
     scanResult.value = data
     getList()
   } catch {
@@ -145,7 +144,7 @@ async function handleSubmitData() {
         cWareHouseAreaCode: i.cWareHouseAreaCode,
         cBarCode: i.cBarCode,
         cBatch: i.cBatch,
-        nQuantity: i.nQuantity
+        nQuantity: i.nAvailableQuinity
       }))
     })
     listData.value = []
