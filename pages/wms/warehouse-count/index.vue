@@ -222,14 +222,16 @@ onPullDownRefresh(async () => {
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">
-              <view style="display: flex; align-items: flex-end; gap: 8px">
+              <view style="display: flex; align-items: flex-end">
                 <up-button
+                  style="margin-right: 4px"
                   text="开始"
                   type="error"
                   size="small"
                   @click="handleStart(item)"
                 />
                 <up-button
+                  style="margin-right: 4px"
                   text="完成"
                   type="error"
                   size="small"
