@@ -40,7 +40,7 @@
         align-items: center;
       "
     >
-      <text>移动端CID：{{ cid }}</text>
+      <text v-if="URLIP.ENV === 'prod'">移动端CID：{{ cid }}</text>
       <text>当前版本：{{ URLIP.VERSION_NAME }}v{{ version }}</text>
     </span>
 
@@ -140,9 +140,11 @@ onShow(() => {
   console.log(version.value)
 
   // #ifdef APP-PLUS
-  plus.push.getClientInfoAsync((info) => {
-    cid.value = info['clientid']
-  })
+  if (URLIP.ENV === 'prod') {
+    plus.push.getClientInfoAsync((info) => {
+      cid.value = info['clientid']
+    })
+  }
   // #endif
 })
 

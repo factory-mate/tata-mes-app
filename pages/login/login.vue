@@ -83,6 +83,7 @@
 import { reactive, ref } from 'vue'
 import { Login, setCID } from '../../api/login.js'
 import { onLoad } from '@dcloudio/uni-app'
+import URLIP from '@/utils/serviceIP.js'
 
 const form = ref()
 const formData = reactive({
@@ -126,11 +127,13 @@ const submit = async () => {
         // })
 
         // #ifdef APP-PLUS
-        plus.push.getClientInfoAsync((info) => {
-          const cid = info['clientid']
-          console.log('cid', cid)
-          setCID(cid).catch(() => {})
-        })
+        if (URLIP.ENV === 'prod') {
+          plus.push.getClientInfoAsync((info) => {
+            const cid = info['clientid']
+            console.log('cid', cid)
+            setCID(cid).catch(() => {})
+          })
+        }
         // #endif
         uni.switchTab({
           url: '/pages/tabbar/workHome/index'
