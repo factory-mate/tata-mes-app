@@ -127,6 +127,14 @@
         >
       </view>
 
+      <up-image
+        v-for="(item, i) in getByVal.ImageList"
+        :show-loading="false"
+        :src="item.cFilePath + item.cFileReName + item.cFileSuffix"
+        width="80px"
+        height="80px"
+      ></up-image>
+
       <view style="margin-left: 80%; margin-top: -30rpx; padding-bottom: 20rpx">
         <button
           class="mini-btn"
@@ -219,18 +227,15 @@
 
       <uni-row
         class="demo-uni-row"
-        style="display: flex; align-items: center; justify-content: flex-end"
+        style="position: fixed; bottom: 10px; left: 10px; right: 10px"
       >
-        <uni-col :span="14">
-          <button
-            class="mini-btn"
-            type="warn"
-            size="mini"
+        <uni-col :span="24">
+          <up-button
+            type="error"
+            size="small"
             @click="clickTJ"
-            style=""
-          >
-            提交
-          </button>
+            text="提交"
+          />
         </uni-col>
       </uni-row>
     </view>
