@@ -752,15 +752,22 @@ const close = (v) => {
   let obj = {
     UID: v.UID
   }
-  Close(obj).then((res) => {
-    uni.showToast({
-      icon: 'none',
-      title: res.msg || ''
-    })
-    if (res.status == '200') {
-      listData.value = []
-      currentPage.value = 1
-      getList()
+  uni.showModal({
+    content: '默认全部合格，是否继续?',
+    success: function (r) {
+      if (r.confirm) {
+        Close(obj).then((res) => {
+          uni.showToast({
+            icon: 'none',
+            title: res.msg || ''
+          })
+          if (res.success) {
+            listData.value = []
+            currentPage.value = 1
+            getList()
+          }
+        })
+      }
     }
   })
 }
@@ -769,7 +776,7 @@ const Check = (v) => {
     UID: v.UID
   }
   SetRealCheckVouch(obj).then((res) => {
-    if (res.status == '200') {
+    if (res.success) {
       current.value = 1
       listData.value = []
       currentPage.value = 1

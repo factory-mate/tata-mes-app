@@ -572,7 +572,7 @@
       type="dialog"
     >
       <uni-popup-dialog
-        title="您确定要执行该操作吗？"
+        title="默认全部合格，是否继续?"
         message="成功消息"
         :duration="2000"
         :before-close="true"
