@@ -144,7 +144,7 @@ async function handleSubmitData() {
         cWareHouseAreaCode: i.cWareHouseAreaCode,
         cBarCode: i.cBarCode,
         cBatch: i.cBatch,
-        nQuantity: i.nAvailableQuinity
+        nQuantity: i.nQuantity
       }))
     })
     listData.value = []

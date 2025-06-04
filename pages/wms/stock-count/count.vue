@@ -106,10 +106,11 @@ const handleConfirm = () => {
     return
   }
   listData.value.push({
+    ...materialData.value,
     nQuantity: inputData.value.num,
     cInvCode: materialData.value.cInvCode,
     cInvName: materialData.value.cInvName,
-    cKeyCode: materialData.value.cKeyCode,
+    cInvBarCode: materialData.value.cKeyCode,
     cWareHouseLocationCode: inputData.value.hw
   })
   resetInputData()
