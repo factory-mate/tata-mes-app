@@ -90,7 +90,7 @@ const handleConfirm = () => {
     return
   }
   listData.value.push({
-    ...materialData.value
+    ...materialData.value,
     nQuantity: inputData.value.num,
     cInvCode: materialData.value.cInvCode,
     cInvName: materialData.value.cInvName
