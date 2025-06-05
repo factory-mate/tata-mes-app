@@ -46,7 +46,10 @@ const resetMaterialData = () => {
 
 const scanCode = async () => {
   try {
-    const { data, success } = await API.getByBarcode({ val: inputData.value.code })
+    const { data, success } = await API.getByBarcode({
+      val: inputData.value.code,
+      UID: formData.value.UID
+    })
     if (success) {
       // 校验物料编码是否一致
       if (formData.value.cTakeTypeCode === 2 && data.cInvCode !== formData.value.cInvCode) {

@@ -73,7 +73,7 @@ async function scanBox() {
       cBarCode: scanCode.value
     })
     scanResult.value = data
-    getList()
+    // getList()
   } catch {
     //
   }
@@ -101,12 +101,10 @@ async function handleSubmit() {
       UID: pageQuery.value.MID,
       MID: pageQuery.value.UID,
       list_body: listData.value.map((i) => ({
-        WareHouse_LocationCode: i.cWareHouseCode,
-        WareHouse_LocationName: i.cWareHouseName,
-        cWareHouseAreaCode: i.cWareHouseAreaCode,
-        cBarCode: i.cBarCode,
-        cBatch: i.cBatch,
-        nQuantity: i.nAvailableQuinity
+        ...i,
+        WareHouse_LocationCode: i.cWareHouseLocationCode,
+        WareHouse_LocationName: i.cWareHouseLocationName,
+        nQuantity: i.nSumQuinity
       }))
     })
     listData.value = []
@@ -139,7 +137,7 @@ onUnload(() => {})
 
 onPullDownRefresh(() => {
   resetPageParams()
-  getList().then(() => uni.stopPullDownRefresh())
+  // getList().then(() => uni.stopPullDownRefresh())
 })
 </script>
 
@@ -194,8 +192,8 @@ onPullDownRefresh(() => {
             </up-row>
             <up-gap height="8" />
             <up-row justify="space-between">
-              <up-col span="6"> 货位：{{ item.cWareHouseAreaCode }} </up-col>
-              <up-col span="6"> 数量：{{ item.nQuantity }} </up-col>
+              <up-col span="6"> 货位：{{ item.cWareHouseLocationName }} </up-col>
+              <up-col span="6"> 数量：{{ item.nAvailableQuinity }} </up-col>
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">
@@ -206,7 +204,7 @@ onPullDownRefresh(() => {
                   size="small"
                   @click="
                     () => {
-                      currentItem.value = item
+                      currentItem = item
                       showDeleteModal = true
                     }
                   "
