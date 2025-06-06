@@ -3,6 +3,7 @@ import URLIP from '@/utils/serviceIP.js'
 
 const API_PREFIX = URLIP.BASE_URL_DAOHUO + '/api/STOCK_TAKE'
 const DICT_API_PREFIX = URLIP.BASE_URL_LOGO + '/api/Dictonary'
+const WAREHOUSE_API_PREFIX = URLIP.BASE_URL_LOGO + '/api/WareHouse_Location'
 
 export const API = {
   getList: (data) =>
@@ -43,5 +44,11 @@ export const API = {
         cTableCode: 'FM_WMS_STOCK_TAKE',
         cAttributeCode: 'cTakeTypeCode'
       }
+    }),
+  scanWareHouseLocation: (data) =>
+    service({
+      url: WAREHOUSE_API_PREFIX + '/GetForPage',
+      method: 'post',
+      data
     })
 }

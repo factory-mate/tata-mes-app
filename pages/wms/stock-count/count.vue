@@ -24,9 +24,11 @@ const formData = ref({
 })
 const inputData = ref({
   code: '',
+  hw: '',
   num: ''
 })
 const materialData = ref({})
+const warehouseData = ref({})
 
 const setFocus = (type) => {
   isFocus.value = type
@@ -37,6 +39,7 @@ const setFocus = (type) => {
 
 const resetInputData = () => {
   inputData.value.code = ''
+  inputData.value.hw = ''
   inputData.value.num = ''
 }
 
@@ -44,7 +47,19 @@ const resetMaterialData = () => {
   materialData.value = {}
 }
 
+const resetWarehouseData = () => {
+  inputData.value.hw = ''
+  warehouseData.value = {}
+}
+
 const scanCode = async () => {
+  if (!inputData.value.code) {
+    uni.showToast({
+      title: '请扫描箱码',
+      icon: 'none'
+    })
+    return
+  }
   try {
     const { data, success } = await API.getByBarcode({
       val: inputData.value.code,
@@ -79,8 +94,36 @@ const scanCode = async () => {
   }
 }
 
-const scanHW = () => {
-  setFocus('NUM')
+const scanHW = async () => {
+  if (!inputData.value.hw) {
+    uni.showToast({
+      title: '请扫描货位',
+      icon: 'none'
+    })
+    return
+  }
+  try {
+    const { data, success } = await API.scanWareHouseLocation({
+      PageIndex: 1,
+      PageSize: 10,
+      OrderByFileds: '',
+      Conditions: `cWareHouseLocationCode = ${inputData.value.hw}`
+    })
+    if (data.data.length === 0) {
+      uni.showToast({
+        title: '货位不存在',
+        icon: 'none'
+      })
+      resetWarehouseData()
+      setFocus('HW')
+      return
+    }
+    warehouseData.value = data.data[0]
+    setFocus('NUM')
+  } catch {
+    resetWarehouseData()
+    setFocus('HW')
+  }
 }
 
 const handleConfirm = () => {
@@ -111,10 +154,13 @@ const handleConfirm = () => {
   listData.value.push({
     ...materialData.value,
     nQuantity: inputData.value.num,
-    cInvCode: materialData.value.cInvCode,
-    cInvName: materialData.value.cInvName,
     cInvBarCode: materialData.value.cKeyCode,
-    cWareHouseLocationCode: inputData.value.hw
+    cWareHouseLocationCode: warehouseData.value.cWareHouseLocationCode,
+    cWareHouseLocationName: warehouseData.value.cWareHouseLocationName,
+    cWareHouseCode: warehouseData.value.cWareHouseCode,
+    cWareHouseName: warehouseData.value.cWareHouseName,
+    cWareHouseAreaCode: warehouseData.value.cWareHouseAreaCode,
+    cWareHouseAreaName: warehouseData.value.cWareHouseAreaName
   })
   resetInputData()
   setFocus('XM')
