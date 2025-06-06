@@ -70,7 +70,7 @@ onPullDownRefresh(() => {
             </up-row>
             <up-gap height="8" />
             <up-row justify="space-between">
-              <up-col span="6"> 箱码：{{ item.cWareHouseAreaCode }} </up-col>
+              <up-col span="6"> 箱码：{{ item.cBarCode }} </up-col>
               <up-col span="6"> 数量：{{ item.nQuantity }} </up-col>
             </up-row>
             <up-gap height="12" />
