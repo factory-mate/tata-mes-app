@@ -193,7 +193,7 @@ onPullDownRefresh(() => {
             <up-gap height="8" />
             <up-row justify="space-between">
               <up-col span="6"> 货位：{{ item.cWareHouseLocationName }} </up-col>
-              <up-col span="6"> 数量：{{ item.nAvailableQuinity }} </up-col>
+              <up-col span="6"> 数量：{{ item.nSumQuinity }} </up-col>
             </up-row>
             <up-gap height="12" />
             <up-row justify="flex-end">

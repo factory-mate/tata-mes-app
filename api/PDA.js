@@ -349,7 +349,7 @@ export function GetPicList(data) {
 //获取原因
 export function GetReason(data) {
   return service({
-    url: URLIP.BASE_URL_LOGO + '/api/MES_REASONCLASS/GetTree',
+    url: URLIP.BASE_URL_LOGO + '/api/MES_REASONCLASS/GetTreeAll',
     method: 'get',
     data
   })
