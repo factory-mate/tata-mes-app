@@ -46,7 +46,7 @@ onPullDownRefresh(() => {
 <template>
   <view :style="{ paddingTop: `${height}px` }">
     <up-navbar
-      title="其他出库 - 已出库"
+      title="其他入库 - 已入库"
       bgColor="red"
       leftIconColor="white"
       :titleStyle="{ color: 'white' }"

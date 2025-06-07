@@ -2,62 +2,58 @@
 import { ref } from 'vue'
 import { onLoad, onShow, onHide, onPullDownRefresh, onUnload } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
-import { usePageParams } from '@/hooks'
-import { OtherStorageInAPI } from '@/api'
+import { OtherStorageInAPI, WareHouseLocationAPI } from '@/api'
 import { urlQueryBuilder } from '@/features/query'
 
 const height = ref(getDeviceHeight().totalHeight)
 
-const { pageParams, pageInfo, handleScrollToLower, setPageInfo, clearPageParams, clearPageInfo } =
-  usePageParams()
-
-const scanCode = ref('')
-const scanResult = ref({})
+const isFocus = ref('XM')
+const xm = ref('')
+const hw = ref('')
 const showDeleteModal = ref(false)
 const pageQuery = ref({})
 const listData = ref([])
 const currentItem = ref(null)
+const currentScanXMData = ref({})
+const currentScanHWData = ref({})
 
-async function getList() {
-  try {
-    const { data, dataCount, pageCount } = await OtherStorageInAPI.list({
-      ...pageParams.value
-    })
-    listData.value = [...listData.value, ...data]
-    setPageInfo({ dataCount, pageCount })
-    uni.hideLoading()
-    uni.stopPullDownRefresh()
-  } catch (e) {
-    console.log(e)
-    uni.hideLoading()
-  }
-}
-
-function resetPageParams() {
-  clearPageParams()
-  clearPageInfo()
-  listData.value = []
+const setFocus = (type) => {
+  isFocus.value = type
+  setTimeout(() => {
+    isFocus.value = type
+  }, 200)
 }
 
 async function scanBox() {
-  if (!scanCode.value) {
+  if (!xm.value) {
     uni.showToast({
       title: '请扫描箱码',
       icon: 'none'
     })
+    resetXM()
     return
   }
   try {
-    const { data } = await OtherStorageInAPI.ScanningBarCode({
+    const { data, success, errmsg } = await OtherStorageInAPI.ScanningBarCode({
       MATERIALAPPLYFOR_S_UID: pageQuery.value.UID,
-      BarCode: scanCode.value,
+      BarCode: xm.value,
       cWareHouseCode: pageQuery.value.cWareHouseCode
     })
+    if (!success) {
+      const errmsgTitle = errmsg?.[0]?.msg || '未找到该箱码'
+      uni.showToast({
+        title: errmsgTitle,
+        icon: 'none'
+      })
+      resetXM()
+      return
+    }
     if (!data) {
       uni.showToast({
         title: '未找到该箱码',
         icon: 'none'
       })
+      resetXM()
       return
     }
     const { cInvCode, nQuantity } = data
@@ -66,6 +62,7 @@ async function scanBox() {
         title: '箱码物料与单据物料不匹配',
         icon: 'none'
       })
+      resetXM()
       return
     }
     if (pageQuery.value.nQuantity && pageQuery.value.nAccQuantity) {
@@ -77,22 +74,50 @@ async function scanBox() {
           cancelText: '取消',
           success: function (r) {
             if (r.confirm) {
-              listData.value.unshift(data)
-              scanResult.value = data
-              getList()
+              currentScanXMData.value = { ...data, cBarCode: xm.value }
+            } else {
+              resetXM()
             }
           }
         })
       }
       return
     }
-    listData.value.unshift({ ...data, cBarCode: scanCode.value })
-    scanResult.value = data
-    getList()
+    currentScanXMData.value = { ...data, cBarCode: xm.value }
   } catch {
     //
   }
-  scanCode.value = ''
+  xm.value = ''
+}
+
+async function scanHW() {
+  if (!hw.value) {
+    uni.showToast({
+      title: '请扫描货位',
+      icon: 'none'
+    })
+    return
+  }
+  try {
+    const { data, success } = await WareHouseLocationAPI.GetForPage({
+      PageIndex: 1,
+      PageSize: 10,
+      OrderByFileds: '',
+      Conditions: `cWareHouseLocationCode = ${hw.value}`
+    })
+    if (data.data.length === 0) {
+      uni.showToast({
+        title: '货位不存在',
+        icon: 'none'
+      })
+      resetHW()
+      return
+    }
+    currentScanHWData.value = data.data[0]
+    setFocus('XM')
+  } catch {
+    resetHW()
+  }
 }
 
 function removeBox() {
@@ -102,10 +127,17 @@ function removeBox() {
   showDeleteModal.value = false
 }
 
-async function handleSubmit() {
+async function onClickSave() {
   if (!listData.value.length) {
     uni.showToast({
       title: '请扫描箱码',
+      icon: 'none'
+    })
+    return
+  }
+  if (!hw.value) {
+    uni.showToast({
+      title: '请扫描货位',
       icon: 'none'
     })
     return
@@ -139,8 +171,8 @@ async function handleSubmitData() {
       UID: pageQuery.value.MID,
       MID: pageQuery.value.UID,
       list_body: listData.value.map((i) => ({
-        WareHouse_LocationCode: i.cWareHouseCode,
-        WareHouse_LocationName: i.cWareHouseName,
+        WareHouse_LocationCode: i.cWareHouseLocationCode,
+        WareHouse_LocationName: i.cWareHouseLocationName,
         cWareHouseAreaCode: i.cWareHouseAreaCode,
         cBarCode: i.cBarCode,
         cBatch: i.cBatch,
@@ -156,6 +188,46 @@ async function handleSubmitData() {
     console.error(e)
   }
   uni.hideLoading()
+}
+
+function resetXM() {
+  xm.value = ''
+  currentScanXMData.value = {}
+  setFocus('XM')
+}
+
+function resetHW() {
+  hw.value = ''
+  currentScanHWData.value = {}
+  setFocus('HW')
+}
+
+function confirmData() {
+  if (!currentScanXMData.value.cBarCode) {
+    uni.showToast({
+      title: '请扫描箱码',
+      icon: 'none'
+    })
+    setFocus('XM')
+    return
+  }
+  if (!currentScanHWData.value.cWareHouseLocationCode) {
+    uni.showToast({
+      title: '请扫描货位',
+      icon: 'none'
+    })
+    setFocus('HW')
+    return
+  }
+  listData.value.unshift({
+    ...currentScanXMData.value,
+    cWareHouseLocationCode: currentScanHWData.value.cWareHouseLocationCode,
+    cWareHouseLocationName: currentScanHWData.value.cWareHouseLocationName,
+    cWareHouseAreaCode: currentScanHWData.value.cWareHouseAreaCode
+  })
+  xm.value = ''
+  currentScanXMData.value = {}
+  setFocus('XM')
 }
 
 const navToDetail = () =>
@@ -174,11 +246,7 @@ onLoad((options) => {
 onShow(() => {})
 onHide(() => {})
 onUnload(() => {})
-
-onPullDownRefresh(() => {
-  resetPageParams()
-  getList().then(() => uni.stopPullDownRefresh())
-})
+onPullDownRefresh(() => {})
 </script>
 
 <template>
@@ -192,21 +260,26 @@ onPullDownRefresh(() => {
     />
 
     <view class="container">
-      <up-list
-        :height="`calc(100vh - ${height + 20}px)`"
-        @scrolltolower="handleScrollToLower(getList)"
-      >
+      <up-list :height="`calc(100vh - ${height + 20}px)`">
         <view class="fix-area">
+          <up-row justify="space-between">
+            <up-col span="6"> 物料编码：{{ pageQuery?.cInvCode }} </up-col>
+            <up-col span="6"> 物料名称：{{ pageQuery?.cInvName }} </up-col>
+          </up-row>
+
+          <up-gap height="8" />
+
           <up-row justify="space-between">
             <up-col span="12">
               <up-input
-                v-model="scanCode"
-                placeholder="请扫描箱码"
+                v-model="hw"
+                placeholder="请扫描货位"
                 border="surround"
                 suffixIcon="scan"
                 clearable
                 maxlength="30"
-                @confirm="scanBox"
+                @confirm="scanHW"
+                :focus="isFocus === 'HW'"
               />
             </up-col>
           </up-row>
@@ -214,14 +287,54 @@ onPullDownRefresh(() => {
           <up-gap height="8" />
 
           <up-row justify="space-between">
-            <up-col span="6"> 物料编码：{{ pageQuery?.cInvCode }} </up-col>
-            <up-col span="6"> 物料名称：{{ pageQuery?.cInvName }} </up-col>
+            <up-col span="12">
+              <up-input
+                v-model="xm"
+                placeholder="请扫描箱码"
+                border="surround"
+                suffixIcon="scan"
+                clearable
+                maxlength="30"
+                @confirm="scanBox"
+                :focus="isFocus === 'XM'"
+              />
+            </up-col>
+          </up-row>
+
+          <up-gap height="8" />
+
+          <up-row justify="space-between">
+            <up-col span="6"> 箱码：{{ currentScanXMData?.cBarCode }} </up-col>
+            <up-col span="6"> 货位：{{ currentScanHWData?.cWareHouseAreaCode }} </up-col>
+          </up-row>
+          <up-row justify="space-between">
+            <up-col span="6"> 数量：{{ currentScanXMData?.nQuantity }} </up-col>
+            <up-col span="6">
+              <view style="display: flex; justify-content: flex-end">
+                <view>
+                  <up-button
+                    type="error"
+                    size="small"
+                    text="重扫货位"
+                    @click="resetHW"
+                  />
+                </view>
+                <view style="margin-left: 10rpx">
+                  <up-button
+                    type="error"
+                    size="small"
+                    text="添加"
+                    @click="confirmData"
+                  />
+                </view>
+              </view>
+            </up-col>
           </up-row>
 
           <up-gap height="8" />
         </view>
 
-        <view style="padding-top: 100px">
+        <view style="padding-top: 120px">
           <up-list-item
             v-for="(item, index) in listData"
             :key="index"
@@ -254,8 +367,6 @@ onPullDownRefresh(() => {
             <up-divider />
           </up-list-item>
         </view>
-
-        <up-loadmore :status="pageInfo.status" />
       </up-list>
 
       <up-row
@@ -267,7 +378,7 @@ onPullDownRefresh(() => {
           <up-button
             type="error"
             size="small"
-            text="查看已库"
+            text="查看入库"
             @click="navToDetail"
           />
         </up-col>
@@ -276,7 +387,7 @@ onPullDownRefresh(() => {
             type="primary"
             size="small"
             text="保存"
-            @click="handleSubmit"
+            @click="onClickSave"
           />
         </up-col>
       </up-row>

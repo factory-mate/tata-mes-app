@@ -8,5 +8,11 @@ export const WareHouseLocationAPI = {
       url: URLIP.BASE_URL_LOGO + '/api/WareHouse_Location/GetByCode',
       method: 'get',
       data
+    }),
+  GetForPage: (data) =>
+    service({
+      url: URLIP.BASE_URL_LOGO + '/api/WareHouse_Location/GetForPage',
+      method: 'post',
+      data
     })
 }
