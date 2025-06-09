@@ -287,6 +287,7 @@ const clickLeft = () => {
 }
 //输入框获取条码信息
 const getWl = _.debounce(async () => {
+  uni.hideLoading()
   if (codeType.value !== 'enter') return false
   if (!searchValue.value) return false
   if (wuList.value.length) {

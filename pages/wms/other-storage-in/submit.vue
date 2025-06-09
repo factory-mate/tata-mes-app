@@ -174,6 +174,7 @@ async function handleSubmitData() {
         WareHouse_LocationCode: i.cWareHouseLocationCode,
         WareHouse_LocationName: i.cWareHouseLocationName,
         cWareHouseAreaCode: i.cWareHouseAreaCode,
+        cWareHouseAreaName: i.cWareHouseAreaName,
         cBarCode: i.cBarCode,
         cBatch: i.cBatch,
         nQuantity: i.nQuantity
@@ -357,7 +358,7 @@ onPullDownRefresh(() => {})
                   size="small"
                   @click="
                     () => {
-                      currentItem.value = item
+                      currentItem = item
                       showDeleteModal = true
                     }
                   "
