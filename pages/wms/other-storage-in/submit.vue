@@ -7,7 +7,7 @@ import { urlQueryBuilder } from '@/features/query'
 
 const height = ref(getDeviceHeight().totalHeight)
 
-const isFocus = ref('XM')
+const isFocus = ref('HW')
 const xm = ref('')
 const hw = ref('')
 const showDeleteModal = ref(false)
@@ -305,7 +305,7 @@ onPullDownRefresh(() => {})
 
           <up-row justify="space-between">
             <up-col span="6"> 箱码：{{ currentScanXMData?.cBarCode }} </up-col>
-            <up-col span="6"> 货位：{{ currentScanHWData?.cWareHouseAreaCode }} </up-col>
+            <up-col span="6"> 货位：{{ currentScanHWData?.cWareHouseLocationName }} </up-col>
           </up-row>
           <up-row justify="space-between">
             <up-col span="6"> 数量：{{ currentScanXMData?.nQuantity }} </up-col>
@@ -334,7 +334,7 @@ onPullDownRefresh(() => {})
           <up-gap height="8" />
         </view>
 
-        <view style="padding-top: 120px">
+        <view style="padding-top: 220px">
           <up-list-item
             v-for="(item, index) in listData"
             :key="index"
@@ -345,7 +345,7 @@ onPullDownRefresh(() => {})
             </up-row>
             <up-gap height="8" />
             <up-row justify="space-between">
-              <up-col span="6"> 货位：{{ item.cWareHouseAreaCode }} </up-col>
+              <up-col span="6"> 货位：{{ item.cWareHouseLocationName }} </up-col>
               <up-col span="6"> 数量：{{ item.nQuantity }} </up-col>
             </up-row>
             <up-gap height="12" />
