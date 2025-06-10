@@ -129,7 +129,7 @@ const scanHW = async () => {
 const handleConfirm = () => {
   if (!inputData.value.code) {
     uni.showToast({
-      title: '请填写物料编码',
+      title: '请扫描箱码',
       icon: 'none'
     })
     setFocus('XM')
@@ -149,6 +149,14 @@ const handleConfirm = () => {
       icon: 'none'
     })
     setFocus('NUM')
+    return
+  }
+  if (!materialData.value.cKeyCode) {
+    uni.showToast({
+      title: '缺少物料信息，请扫描箱码',
+      icon: 'none'
+    })
+    setFocus('XM')
     return
   }
   listData.value.push({
@@ -171,6 +179,7 @@ const handleDelete = (index) => {
 }
 
 const handleSave = async () => {
+  // formData.value.cTakeTypeCode != '2' &&
   if (!listData.value.length) {
     uni.showToast({
       title: '请添加盘点数据',
