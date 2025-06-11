@@ -48,10 +48,7 @@
           <view class="demo-uni-col">检验方法：{{ getByVal.cCheckTypeName }}</view>
         </uni-col>
         <uni-col :span="12">
-          <view
-            style="display: flex; align-items: center"
-            class="required"
-          >
+          <view style="display: flex; align-items: center">
             <view style="width: 90px">不良数量：</view>
             <view
               class="search-inpt"
@@ -410,7 +407,7 @@ const clickTJ = () => {
   let obj = {
     UID: routeVal.value.UID,
     nCheckQuantity: baoVal.value,
-    nNoPassQuantity: buslVal.value,
+    nNoPassQuantity: buslVal.value ?? 0,
     nNoQualificationRate: getByVal.nNoQualificationRate
   }
   SetSnNoPassQuantityTJ(obj).then((res) => {
