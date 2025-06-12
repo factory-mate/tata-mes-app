@@ -162,26 +162,14 @@
       type="dialog"
       background-color="#fff"
     >
-      <view class="viewCon">
-        <view class="tit">原因</view>
-        <uni-easyinput
-          class="inp"
-          v-model="yuanyin"
-          placeholder="请输入"
-        />
-        <button
-          class="butt"
-          @click="shenpi"
-        >
-          确认审批
-        </button>
-        <button
-          class="butt"
-          @click="() => inputDialog.close()"
-        >
-          取消
-        </button>
-      </view>
+      <uni-popup-dialog
+        mode="input"
+        title="原因"
+        placeholder="请输入原因"
+        @confirm="shenpi"
+        confirmText="确认"
+        cancelText="取消"
+      />
     </uni-popup>
   </view>
 </template>
@@ -205,7 +193,6 @@ import { SetPackageIsOk, GetForList_S, SHAdd } from '@/api/lailiao.js'
 let branch = ref()
 const inputDialog = ref()
 const inputClose = ref()
-const yuanyin = ref('')
 const slVal = ref('')
 const hege = ref('')
 const h = ref('100') //页面高度
@@ -357,8 +344,8 @@ const clickSave = () => {
     }
   })
 }
-const shenpi = () => {
-  if (!yuanyin.value) {
+const shenpi = (e) => {
+  if (!e) {
     uni.showToast({
       icon: 'none',
       title: '请输入原因'
@@ -368,7 +355,7 @@ const shenpi = () => {
   let obj = {
     MID: routeVal.value.UID,
     cVouchTypeCode: 4,
-    cPARM01: yuanyin.value
+    cPARM01: e
   }
   SHAdd(obj).then((res) => {
     if (res.status == '200') {
