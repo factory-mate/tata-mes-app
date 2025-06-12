@@ -17,6 +17,7 @@ async function getList() {
   try {
     const {
       // data: { data, dataCount, pageCount }
+      data
     } = await OtherStorageOutAPI.GetRDRECORD_SBySource({
       MATERIAL_APPLYFOR_UID: pageQuery.value.UID,
       cInvCode: pageQuery.value.cInvCode
