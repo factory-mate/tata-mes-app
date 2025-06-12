@@ -130,7 +130,7 @@
                     <view class="demo-uni-col dark">不良包号：{{ item.cPackageCode }}</view>
                   </uni-col>
                   <uni-col :span="12">
-                    <view class="demo-uni-col dark">质检结果：{{ item.cCheckResultTypeName }}</view>
+                    <view class="demo-uni-col dark">质检结果：{{ item.IsOkName }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row">
