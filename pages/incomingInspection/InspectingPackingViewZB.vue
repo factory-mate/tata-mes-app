@@ -167,7 +167,7 @@
         title="原因"
         placeholder="请输入原因"
         @confirm="shenpi"
-        confirmText="确认"
+        confirmText="审批"
         cancelText="取消"
       />
     </uni-popup>
