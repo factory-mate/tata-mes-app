@@ -23,13 +23,19 @@ async function getList() {
       cInvCode: pageQuery.value.cInvCode
     })
     listData.value = [...listData.value, ...data]
-    setPageInfo({ dataCount, pageCount })
+    // setPageInfo({ dataCount, pageCount })
     uni.hideLoading()
     uni.stopPullDownRefresh()
   } catch (e) {
     console.log(e)
     uni.hideLoading()
   }
+}
+
+function resetPageParams() {
+  clearPageParams()
+  clearPageInfo()
+  listData.value = []
 }
 
 onLoad((options) => {

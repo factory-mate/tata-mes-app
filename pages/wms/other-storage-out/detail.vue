@@ -32,6 +32,12 @@ async function getList() {
   }
 }
 
+function resetPageParams() {
+  clearPageParams()
+  clearPageInfo()
+  listData.value = []
+}
+
 onLoad((options) => {
   pageQuery.value = options
   console.log(options)
