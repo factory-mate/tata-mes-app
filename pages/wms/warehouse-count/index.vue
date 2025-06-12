@@ -224,6 +224,7 @@ onPullDownRefresh(async () => {
             <up-row justify="flex-end">
               <view style="display: flex; align-items: flex-end">
                 <up-button
+                  v-if="item.iStatus === 0"
                   style="margin-right: 4px"
                   text="开始"
                   type="error"
@@ -231,17 +232,19 @@ onPullDownRefresh(async () => {
                   @click="handleStart(item)"
                 />
                 <up-button
+                  v-if="item.iStatus === 10"
                   style="margin-right: 4px"
-                  text="完成"
-                  type="error"
-                  size="small"
-                  @click="handleFinish(item)"
-                />
-                <up-button
                   text="盘点"
                   type="error"
                   size="small"
                   @click="handleCount(item)"
+                />
+                <up-button
+                  v-if="item.iStatus === 10"
+                  text="完成"
+                  type="error"
+                  size="small"
+                  @click="handleFinish(item)"
                 />
               </view>
             </up-row>
