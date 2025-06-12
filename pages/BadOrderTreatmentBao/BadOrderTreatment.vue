@@ -718,14 +718,17 @@ const CheckEND = (obj) => {
   // 4 来料指标  /pages/incomingInspection/InspectingPackingYJViewZB
   // 5 库存  /pages/kuIncomingInspection/InspectingPackingYJView
   // 5 库存指标  /pages/kuIncomingInspection/InspectingPackingYJViewZB
-  obj.UID = obj.MID
+  const newObj = {
+    ...obj,
+    UID: obj.MID
+  }
   if (obj.cVouchTypeCode == 4) {
     uni.navigateTo({
-      url: '/pages/incomingInspection/InspectingPackingYJViewZB?obj=' + JSON.stringify(obj)
+      url: '/pages/incomingInspection/InspectingPackingYJViewZB?obj=' + JSON.stringify(newObj)
     })
   } else {
     uni.navigateTo({
-      url: '/pages/kuIncomingInspection/InspectingPackingYJViewZB?obj=' + JSON.stringify(obj)
+      url: '/pages/kuIncomingInspection/InspectingPackingYJViewZB?obj=' + JSON.stringify(newObj)
     })
   }
 }
