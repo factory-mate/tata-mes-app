@@ -65,24 +65,24 @@ async function scanBox() {
       resetXM()
       return
     }
-    if (pageQuery.value.nQuantity && pageQuery.value.nAccQuantity) {
-      if (nQuantity !== pageQuery.value.nQuantity / pageQuery.value.nAccQuantity) {
-        uni.showModal({
-          showCancel: true,
-          content: '箱码中数量是否与每包数量不一致，确定执行该操作吗',
-          confirmText: '确定',
-          cancelText: '取消',
-          success: function (r) {
-            if (r.confirm) {
-              currentScanXMData.value = { ...data, cBarCode: xm.value }
-            } else {
-              resetXM()
-            }
-          }
-        })
-      }
-      return
-    }
+    // if (pageQuery.value.nQuantity && pageQuery.value.nAccQuantity) {
+    //   if (nQuantity !== pageQuery.value.nQuantity / pageQuery.value.nAccQuantity) {
+    //     uni.showModal({
+    //       showCancel: true,
+    //       content: '箱码中数量是否与每包数量不一致，确定执行该操作吗',
+    //       confirmText: '确定',
+    //       cancelText: '取消',
+    //       success: function (r) {
+    //         if (r.confirm) {
+    //           currentScanXMData.value = { ...data, cBarCode: xm.value }
+    //         } else {
+    //           resetXM()
+    //         }
+    //       }
+    //     })
+    //   }
+    //   return
+    // }
     currentScanXMData.value = { ...data, cBarCode: xm.value }
   } catch {
     //
@@ -147,7 +147,7 @@ async function onClickSave() {
   listData.value.forEach((i) => {
     allCount += i.nQuantity ?? 0
   })
-  if (pageQuery.value.nQuantity !== allCount) {
+  if (pageQuery.value.nQuantity != allCount) {
     uni.showModal({
       showCancel: true,
       content: '通知数量与所有箱码内数量总数不一致，确定执行该操作吗',
