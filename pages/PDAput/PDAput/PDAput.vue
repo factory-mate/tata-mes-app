@@ -18,7 +18,6 @@
         :style-type="styleType"
         :active-color="activeColor"
         @clickItem="onClickItem"
-        @click="ChangTab"
       />
     </view>
     <view class="content">
@@ -452,13 +451,7 @@ const keypress = (e) => {
     getcCode()
   }
 }
-const ChangTab = () => {
-  if (current.value == 0) {
-    Vtype.value = false
-    PDAawaitList.value = []
-    WaitList()
-  }
-}
+
 //Tab切换
 const onClickItem = (e) => {
   Vtype.value = false
@@ -466,9 +459,9 @@ const onClickItem = (e) => {
     current.value = e.currentIndex
   }
   if (current.value == 0) {
-    if (!PDAawaitList.value.length) {
-      WaitList()
-    }
+    currentPage.value = 1
+    PDAawaitList.value = []
+    WaitList()
   }
   if (current.value == 1 && JSON.stringify(PUTiNFO.value) == '{}') {
     uni.showModal({
@@ -492,7 +485,6 @@ const onClickItem = (e) => {
 }
 //待上架列表
 const WaitList = async () => {
-  PDAawaitList.value = []
   uni.showLoading({
     title: '加载中'
   })
@@ -540,6 +532,8 @@ const getcCode = async () => {
       content: res.msg || '货单号错误，请重新输入！',
       success: function (res) {
         if (res.confirm) {
+          PDAawaitList.value = []
+          currentPage.value = 1
           WaitList()
           console.log('用户点击 确定')
         } else if (res.cancel) {
