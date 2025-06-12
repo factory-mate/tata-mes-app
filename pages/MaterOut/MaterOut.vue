@@ -246,9 +246,7 @@
                     <up-input
                       v-model="XMsearchValue"
                       :focus="XMfocusType"
-                      :disabled="xmdisabled"
                       @confirm="getXM"
-                      @blur="XMsetfocus"
                       clearable
                       placeholder="请扫描箱码"
                     />
@@ -415,7 +413,6 @@ const WsearchValue = ref('') //仓库输入框
 const focusType = ref(true)
 const XMfocusType = ref(false) //箱码输入框
 const disabled = ref(false)
-const xmdisabled = ref(true)
 const title = ref('领料出库')
 const Vtype = ref(false)
 //输入框值
@@ -621,8 +618,6 @@ const OutWare = (i) => {
         }
         OutInfo.value = obj
         current.value = 1
-        //箱码输入框解除禁用
-        xmdisabled.value = false
         XMsetfocus()
       }
     }
