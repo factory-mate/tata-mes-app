@@ -224,7 +224,8 @@ function confirmData() {
     ...currentScanXMData.value,
     cWareHouseLocationCode: currentScanHWData.value.cWareHouseLocationCode,
     cWareHouseLocationName: currentScanHWData.value.cWareHouseLocationName,
-    cWareHouseAreaCode: currentScanHWData.value.cWareHouseAreaCode
+    cWareHouseAreaCode: currentScanHWData.value.cWareHouseAreaCode,
+    cWareHouseAreaName: currentScanHWData.value.cWareHouseAreaName
   })
   xm.value = ''
   currentScanXMData.value = {}
