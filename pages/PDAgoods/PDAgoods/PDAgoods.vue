@@ -221,9 +221,9 @@
                 </uni-col>
               </uni-row>
               <uni-row class="demo-uni-row">
-                <uni-col :span="12">
+                <!-- <uni-col :span="12">
                   <view class="demo-uni-col dark">每包数量：{{ item.nAccReceiveQuantity }}</view>
-                </uni-col>
+                </uni-col> -->
                 <uni-col :span="12">
                   <view class="demo-uni-col dark">箱数：{{ item.nAccQuantity }}</view>
                 </uni-col>
