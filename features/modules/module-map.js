@@ -188,7 +188,7 @@ export const moduleMap = new Map([
       title: '调拨入库',
       cModelCode: 'MobileApp.StoreRoom.AllocateInput',
       src: getIcon('tuiliaosq.png'),
-      url: '/pages/ToolAllotOutStorage/ToolAllotInStorage'
+      url: '/pages/wms/db-in/index'
     }
   ],
   [
@@ -197,7 +197,7 @@ export const moduleMap = new Map([
       title: '调拨出库',
       cModelCode: 'MobileApp.StoreRoom.AllocateOutput',
       src: getIcon('tuiliaosq.png'),
-      url: '/pages/ToolAllotOutStorageCK/ToolAllotOutStorageCK'
+      url: '/pages/wms/db-out/index'
     }
   ],
   [

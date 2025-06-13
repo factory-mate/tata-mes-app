@@ -2346,6 +2346,62 @@
       }
     },
     {
+      "path": "pages/wms/db-in/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/db-in/material",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/db-in/submit",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/wms/db-in/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/db-out/index",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/wms/db-out/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "onPullDownRefresh": true,
+        "onReachBottom": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
       "path": "pages/wms/product-move/index",
       "style": {
         "navigationStyle": "custom",
