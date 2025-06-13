@@ -336,11 +336,12 @@ const clickSave = () => {
       }
       return false
     }
-    if (res.success === true) {
+    if (res.success) {
       uni.showToast({
         icon: 'none',
         title: res.msg || '成功'
       })
+      uni.navigateBack({ delta: 1 })
     }
   })
 }
@@ -358,7 +359,7 @@ const shenpi = (e) => {
     cPARM01: e
   }
   SHAdd(obj).then((res) => {
-    if (res.status == '200') {
+    if (res.success) {
       uni.showToast({
         icon: 'none',
         title: res.msg || '开始审批'
@@ -366,6 +367,7 @@ const shenpi = (e) => {
       inputDialog.value.close()
       hege.value = ''
       slVal.value = ''
+      uni.navigateBack({ delta: 1 })
     }
   })
 }
