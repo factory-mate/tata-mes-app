@@ -853,18 +853,10 @@ const clickbaocun = (v) => {
         SetCheckVouchIsOK(obj).then((res) => {
           if (res.success === false) {
             let msgval = res.errmsg ? JSON.parse(res.errmsg[0].Value) : []
-            // console.log(msgval,"--666");
             if (msgval.length && msgval[0].isFlow) {
-              console.log(111)
-              uni.showToast({
-                icon: 'none',
-                title: null,
-                duration: 0
-              })
               inputDialog.value.open()
               return false
             } else {
-              console.log(22)
               uni.showToast({
                 icon: 'none',
                 title: res.msg || msgval[0].msg || '失败'
@@ -876,7 +868,6 @@ const clickbaocun = (v) => {
             }
           }
           if (res.success === true) {
-            console.log(33)
             uni.showToast({
               icon: 'none',
               title: res.msg || '成功'
