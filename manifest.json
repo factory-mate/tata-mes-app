@@ -6,7 +6,7 @@
     "versionCode" : "100",
     "transformPx" : false,
     "networkTimeout" : {
-        "request" : 10000, //请求时间限制
+        "request" : 10000,
         "uploadFile" : 60000,
         "downloadFile" : 60000
     },

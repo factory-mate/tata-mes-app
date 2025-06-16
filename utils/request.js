@@ -11,7 +11,7 @@ const request = (options) =>
       header: {
         Authorization: `Bearer ${uni.getStorageSync('token') || ''}`
       },
-      timeout: 60000, // 接口请求超时时间设置
+      timeout: 10000, // 接口请求超时时间设置
       data: options.data || {},
       success: (res) => {
         const data = res.data

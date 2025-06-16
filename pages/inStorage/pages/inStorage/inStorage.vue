@@ -7,35 +7,19 @@
       status-bar
       left-icon="left"
       rightText="已扫描"
-      :title="title"
+      title="物料信息"
       @clickLeft="clickLeft"
       @clickRight="clickRight"
     />
     <view class="search-wl">
-      <!-- 搜索框 -->
-      <uni-section
-        v-if="branch != 'alps'"
-        title=""
-        type="line"
-      >
-        <uni-search-bar
-          radius="100"
-          cancelButton="none"
-          @confirm="getWl"
-          v-model="searchValue"
-          placeholder="请输入物料条码"
-        >
-        </uni-search-bar>
-      </uni-section>
-      <input
-        v-else
+      <up-input
         class="inputSty"
+        prefixIcon="scan"
         v-model="searchValue"
         :focus="focusType"
-        @blur="setfocus"
-        @input="getWl"
-        placeholder="请输入物料条码"
-        placeholder-style="font-size:12px"
+        @confirm="scanWL"
+        placeholder="请扫描物料条码"
+        clearable
       />
     </view>
     <view class="wu-detail">
@@ -100,105 +84,22 @@
         </uni-row>
       </view>
     </view>
-    <view class="button-wl">
-      <!-- <button class="canel-btn" plain="true" @click="WLcancel">取消</button> -->
-      <!-- <button class="confirm-btn" type="primary" @click="clickScanCode">扫描条码</button> -->
-    </view>
   </view>
 </template>
 
 <script setup>
-import { TimeCha, time } from '@/utils/time.js'
+import { time } from '@/utils/time.js'
 import { ref } from 'vue'
 import permision from '@/common/permission.js'
 import _ from 'lodash'
 import { onLoad, onShow, onUnload, onHide, onBackPress } from '@dcloudio/uni-app'
-import { getWLInfo, getInfoList, errLog } from '../../../../api/inStorage.js'
+import { getWLInfo, getInfoList, errLog } from '@/api/inStorage.js'
+
 const focusType = ref(true)
-const codeType = ref('')
-//输入框值
 const searchValue = ref('')
-const title = ref('物料信息')
-let detailMsg = ref({})
-let branch = ref()
+const detailMsg = ref({})
 const wuList = ref([])
-onShow(() => {
-  branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
-  // branch = uni.getStorageSync('unit')
-  // setInterval(function(){
-  //         uni.hideKeyboard();//隐藏软键盘
-  // },60);
-  setfocus()
-  // #ifdef APP-PLUS
-  plus.key.addEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.addEventListener('keyup', keypress)
-  // #endif
-
-  if (uni.getStorageSync('wuList')) {
-    wuList.value = JSON.parse(uni.getStorageSync('wuList')) ?? []
-  } else {
-    wuList.value = []
-  }
-})
-
-onLoad((val) => {
-  // console.log(uni.getSystemInfoSync().windowWidth,'wwwwws');
-  // console.log(uni.getSystemInfoSync().windowHeight,"hhhh");
-  // branch = uni.getStorageSync('unit')
-  // console.log(branch.brand,'000000000000000');
-  // console.log(uni.getDeviceInfo(),'机型uni.getDeviceInfo()');
-  // // #ifdef APP-PLUS
-  // plus.key.addEventListener("keyup", keypress);
-  // // #endif
-  // // #ifdef H5
-  // document.addEventListener("keyup", keypress);
-  // // #endif
-})
-onUnload(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onHide(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-onBackPress(() => {
-  // #ifdef APP-PLUS
-  plus.key.removeEventListener('keyup', keypress)
-  // #endif
-  // #ifdef H5
-  document.removeEventListener('keyup', keypress)
-  // #endif
-})
-//时间
-const TimeData = () => {
-  var date, year
-  var d = new Date()
-  year = d.getYear() < 1900 ? 1900 + d.getYear() : d.getYear()
-  date =
-    '【--当前时间】：' +
-    (d.getMonth() + 1) +
-    '月' +
-    d.getDate() +
-    '日 ' +
-    d.getHours() +
-    '时' +
-    d.getMinutes() +
-    '分' +
-    d.getSeconds() +
-    '秒'
-  return date
-}
+const isScanning = ref(false)
 
 const setfocus = () => {
   focusType.value = false
@@ -206,90 +107,50 @@ const setfocus = () => {
     focusType.value = true
   }, 200)
 }
-const keypress = (e) => {
-  codeType.value = ''
-  console.log(e, '按键码')
-  if (e.keyCode === 102 || e.keyCode === 103 || e.keyCode === 104) {
-    codeType.value = 'enter'
-    getWl()
-  }
-  if (e.keyCode == 66 || e.key == 'Enter') {
-    codeType.value = 'enter'
-    getWl()
-  }
-}
 
-//已扫描跳转
-const clickRight = () => {
-  // uni.showModal({
-  // 	// title: '提示',
-  // 	showCancel: false,
-  // 	content: '请扫描条码！',
-  // 	success: function(res) {
-  // 		if (res.confirm) {
-  // 			console.log('用户点击确定');
-  // 		} else if (res.cancel) {
-  // 			console.log('用户点击取消');
-  // 		}
-  // 	}
-  // })
-  uni.navigateTo({
-    url: '/pages/inStorage/pages/components/scanWulIst/scanWulIst'
-  })
-}
-const clickHome = (v) => {
-  if (v.type) {
-    if (wuList.value.length) {
-      uni.showModal({
-        content: '已扫描条码未入库，确认退出？',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            uni.switchTab({
-              url: '/pages/tabbar/workHome/index'
-            })
-            uni.removeStorageSync('wuList')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-    } else {
-      uni.switchTab({
-        url: '/pages/tabbar/workHome/index'
-      })
-      uni.removeStorageSync('wuList')
-    }
-  }
-}
-//头部左侧,返回上一页
+// 返回
 const clickLeft = () => {
   if (wuList.value.length) {
     uni.showModal({
       content: '已扫描条码未入库，确认退出？',
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
-          uni.navigateBack({
-            delta: 1
-          })
+          uni.navigateBack({ delta: 1 })
           uni.removeStorageSync('wuList')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
         }
       }
     })
   } else {
-    uni.navigateBack({
-      delta: 1
-    })
+    uni.navigateBack({ delta: 1 })
+    uni.removeStorageSync('wuList')
   }
 }
-//输入框获取条码信息
-const getWl = _.debounce(async () => {
-  uni.hideLoading()
-  if (codeType.value !== 'enter') return false
-  if (!searchValue.value) return false
+
+//已扫描跳转
+const clickRight = () =>
+  uni.navigateTo({
+    url: '/pages/inStorage/pages/components/scanWulIst/scanWulIst'
+  })
+
+const scanWL = async () => {
+  if (!searchValue.value) {
+    uni.showToast({
+      icon: 'error',
+      title: '请扫描物料条码'
+    })
+    setfocus()
+    return
+  }
+
+  if (isScanning.value) {
+    uni.showToast({
+      icon: 'error',
+      title: '服务器正在处理数据'
+    })
+    setfocus()
+    return
+  }
+
   if (wuList.value.length) {
     if (wuList.value.some((item) => item.Pbarcode == searchValue.value)) {
       uni.showModal({
@@ -297,25 +158,28 @@ const getWl = _.debounce(async () => {
         content: searchValue.value + '已存在'
       })
       searchValue.value = ''
-      return false
+      setfocus()
+      return
     }
   }
+
   uni.showLoading({
     title: '加载中'
   })
 
-  try {
-    const WLMsg = await getWLInfo({
-      pbarcode: searchValue.value
-    })
+  isScanning.value = true
 
+  try {
+    const WLMsg = await getWLInfo({ pbarcode: searchValue.value })
     if (!WLMsg.data) {
       uni.showToast({
         icon: 'error',
         title: '条码数据不正确'
       })
       uni.hideLoading()
-      return false
+      isScanning.value = false
+      setfocus()
+      return
     }
     if (wuList.value.length > 0) {
       if (wuList.value[0].cPosCode !== WLMsg.data.cPosCode) {
@@ -324,22 +188,24 @@ const getWl = _.debounce(async () => {
           content: `当前条码库位号(${WLMsg.data.cPosCode})和之前的库位号(${wuList.value[0].cPosCode})不一致，无法录入`
         })
         uni.hideLoading()
-        return false
+        isScanning.value = false
+        setfocus()
+        return
       }
     }
     if (WLMsg.data.InType === '已入库') {
       uni.showToast({
-        icon: 'error',
+        icon: 'none',
         title: '该条码已入库，不能重复入库'
       })
       uni.hideLoading()
+      isScanning.value = false
+      setfocus()
       return false
     }
-    if (WLMsg.status == '200') {
-      codeType.value = ''
+    if (WLMsg.success) {
       WLMsg.data.ScanTime = time()
       detailMsg.value = WLMsg.data || {}
-      searchValue.value = ''
       uni.showToast({
         icon: 'none',
         title: `扫描成功：${detailMsg.value.Pbarcode}`
@@ -350,91 +216,32 @@ const getWl = _.debounce(async () => {
       uni.setStorageSync('wuList', JSON.stringify(wuList.value))
     } else {
       uni.showModal({
-        // title: '提示',
         showCancel: false,
         content: WLMsg.msg
       })
-      searchValue.value = ''
-      codeType.value = ''
     }
-    uni.hideLoading()
   } catch {
-    uni.hideLoading()
+    //
   }
+  searchValue.value = ''
   uni.hideLoading()
-}, 300)
-
-//扫描条码
-const clickScanCode = async () => {
-  focusType.value = true
-  return false
-  // #ifdef APP-PLUS
-  let status = await checkPermission()
-  if (status !== 1) {
-    return
-  }
-  // #endif
-  uni.scanCode({
-    success: (res) => {
-      // console.log(res, "条码");
-      if (res.result != '') {
-        // 接口数据
-        getWLInfo({
-          pbarcode: res.result,
-          cposcode: res.cposcode,
-          ctype: 1
-        }).then((res) => {
-          if (res.RspCode === 'Successed') {
-            detailMsg.value = res.RspData
-          } else {
-            uni.showToast({
-              icon: 'none',
-              title: res.msg
-            })
-          }
-        })
-      } else {
-        uni.showToast({
-          icon: 'none',
-          title: res.msg
-        })
-      }
-    },
-    fail: (err) => {
-      // 需要注意的是小程序扫码不需要申请相机权限
-    }
-  })
+  isScanning.value = false
+  setfocus()
 }
-// #ifdef APP-PLUS
 
-const checkPermission = async (code) => {
-  let status = permision.isIOS
-    ? await permision.requestIOS('camera')
-    : await permision.requestAndroid('android.permission.CAMERA')
-
-  if (status === null || status === 1) {
-    status = 1
+onShow(() => {
+  setfocus()
+  if (uni.getStorageSync('wuList')) {
+    wuList.value = JSON.parse(uni.getStorageSync('wuList')) ?? []
   } else {
-    uni.showModal({
-      content: '需要相机权限',
-      confirmText: '设置',
-      success: function (res) {
-        if (res.confirm) {
-          permision.gotoAppSetting()
-        }
-      }
-    })
+    wuList.value = []
   }
-  return status
-}
-// #endif
+})
 
-//取消返回
-const WLcancel = () => {
-  uni.navigateTo({
-    url: '/pages/inStorage/pages/inStorage/inStorage'
-  })
-}
+onLoad(() => {})
+onUnload(() => {})
+onHide(() => {})
+onBackPress(() => {})
 </script>
 
 <style scoped lang="scss">
@@ -442,27 +249,12 @@ const WLcancel = () => {
   width: 100%;
   padding-bottom: 10rpx;
 
-  //输入框
   .search-wl {
     text-align: center;
     margin: 30rpx 0;
     border-bottom: 1px solid #bbb;
-
-    .wu-text {
-      font-size: 36rpx;
-      margin: 0 10rpx;
-      text-align: center;
-      color: #fff;
-    }
-
-    .uni-input {
-      border: 1px solid black;
-      border-radius: 30rpx;
-      height: 50rpx;
-    }
   }
 
-  //物料详情
   .wu-detail {
     margin: 20rpx;
 
@@ -491,26 +283,6 @@ const WLcancel = () => {
         justify-content: space-between;
         padding: 20rpx;
       }
-    }
-  }
-
-  //底部按钮
-  .button-wl {
-    width: 100%;
-    position: absolute;
-    bottom: 70rpx;
-
-    .canel-btn {
-      border-radius: 60rpx;
-      margin-bottom: 10rpx;
-      margin: 20rpx;
-    }
-
-    .confirm-btn {
-      border-radius: 60rpx;
-      margin-bottom: 10rpx;
-      margin: 20rpx;
-      background: red;
     }
   }
 }

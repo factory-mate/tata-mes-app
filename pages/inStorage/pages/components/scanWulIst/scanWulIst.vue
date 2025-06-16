@@ -6,8 +6,7 @@
       background-color="red"
       status-bar
       left-icon="left"
-      rightText=""
-      :title="title"
+      title="已扫描列表"
       @clickLeft="clickLeft"
       right-icon="home"
       @clickRight="clickHome"
@@ -22,7 +21,6 @@
       </view>
       <view class="wastation">
         库位：
-        <!-- <text>{{ListData.length!=0?ListData[0].cPosCode:''}}</text> -->
         <text>{{ ListData.length != 0 ? ListData[0].cPosCode : '' }}</text>
         <text
           v-if="ListData.length ? ListData[0].PosTypeName == '待分配' : ''"
@@ -51,8 +49,7 @@
       </view>
     </view>
     <view class="content">
-      <scroll-view
-        scroll-y="true"
+      <up-list
         lower-threshold="50"
         show-scrollbar="true"
         @scrolltolower="scrolltolower"
@@ -67,7 +64,6 @@
             <uni-swipe-action-item
               :right-options="options"
               @click="onClick(item.PBARCODE)"
-              @change="change"
             >
               <view class="index-demo">
                 <view class="total">{{ index + 1 }}</view>
@@ -75,41 +71,38 @@
 
               <view class="project">
                 <view class="project-fir">
-                  <view
-                    >单号：<text>{{ item.cCode }}</text></view
-                  >
+                  <view>
+                    单号：<text>{{ item.cCode }}</text>
+                  </view>
                   <view>{{ item.ScanTime }}</view>
                 </view>
                 <view class="project-sec">
-                  <view
-                    >单内序号：<text>{{ item.ProductIndex }}</text></view
-                  >
-                  <view
-                    >包号：<text>{{ item.Pbarcode }}</text></view
-                  >
+                  <view>
+                    单内序号：<text>{{ item.ProductIndex }}</text>
+                  </view>
+                  <view>
+                    包号：<text>{{ item.Pbarcode }}</text>
+                  </view>
                 </view>
                 <view class="project-thre">
-                  <view
-                    >发货批号：<text>{{ item.SendBatch }}</text></view
-                  >
-                  <view
-                    >仓位：<text>{{ item.cPosCode }}</text></view
-                  >
+                  <view>
+                    发货批号：<text>{{ item.SendBatch }}</text>
+                  </view>
+                  <view>
+                    仓位：<text>{{ item.cPosCode }}</text>
+                  </view>
                 </view>
               </view>
             </uni-swipe-action-item>
           </uni-swipe-action>
         </view>
         <uni-load-more
-          :status="more"
           v-if="ListData.length"
-        ></uni-load-more>
-      </scroll-view>
+          :status="more"
+        />
+      </up-list>
     </view>
-    <view
-      class="button-wl"
-      :style="'bottom:' + branch != 'alps' ? '0' : '30px'"
-    >
+    <view class="button-wl">
       <button
         class="canel-btn"
         plain="true"
@@ -117,35 +110,21 @@
       >
         清空
       </button>
-      <!-- 搜索框 -->
       <view class="buttSty">
         <uni-section
           title=""
           type="line"
           class="buttInp"
         >
-          <!-- @confirm="getsTATION" -->
-          <uni-search-bar
-            v-if="branch != 'alps'"
-            radius="100"
-            cancelButton="none"
-            clearButton="none"
-            v-model="searchValue"
-            placeholder="请库位条码"
-          >
-          </uni-search-bar>
-          <input
-            v-else
+          <up-input
             class="inputSty"
+            prefixIcon="scan"
             v-model="searchValue"
             :focus="focusType"
-            @blur="setfocus"
-            placeholder="请输入库位条码"
-            placeholder-style="font-size:12px"
+            placeholder="请扫描库位"
           />
         </uni-section>
 
-        <!-- @click="clickScanCode" -->
         <button
           class="scan-btn"
           type="primary"
@@ -171,9 +150,8 @@ import {
   CleartAll,
   putRuKU,
   errLog
-} from '../../../../../api/inStorage.js'
+} from '@/api/inStorage.js'
 
-const title = ref('已扫描列表')
 const focusType = ref(true)
 const options = [
   {
@@ -183,44 +161,7 @@ const options = [
     }
   }
 ]
-let branch = ref('')
-const timeVal = ref('')
-onShow(() => {
-  branch.value = uni.getStorageSync('unit').brand ? uni.getStorageSync('unit').brand : ''
-  ListData.value = uni.getStorageSync('wuList') ? JSON.parse(uni.getStorageSync('wuList')) : []
-  totalPages.value = ListData.value.length
-  // branch = uni.getStorageSync('unit')
-  // setInterval(function(){
-  //         uni.hideKeyboard();//隐藏软键盘
-  // },60);
-  setfocus()
-})
-//加载页面
-onLoad((option) => {
-  currentPage.value = 1
-  // listAjaxData()
-  h.value = uni.getSystemInfoSync().windowHeight
-  // console.log(h.value, "2222");
-})
-//时间
-const TimeData = () => {
-  var date, year
-  var d = new Date()
-  year = d.getYear() < 1900 ? 1900 + d.getYear() : d.getYear()
-  date =
-    '【--当前时间】：' +
-    (d.getMonth() + 1) +
-    '月' +
-    d.getDate() +
-    '日 ' +
-    d.getHours() +
-    '时' +
-    d.getMinutes() +
-    '分' +
-    d.getSeconds() +
-    '秒'
-  return date
-}
+
 const clickHome = () => {
   if (ListData.value.length) {
     uni.showModal({
@@ -244,28 +185,19 @@ const clickHome = () => {
     ListData.value = []
   }
 }
-//头部左侧,返回上一页
-const clickLeft = () => {
-  uni.navigateBack({
-    delta: 1
-  })
-}
-//滑动删除数据
+
+const clickLeft = () => uni.navigateBack({ delta: 1 })
+
 const onClick = _.debounce((val) => {
   uni.showModal({
-    // title: '提示',
     content: '确认删除？',
     success: function (res) {
       if (res.confirm) {
         deleteScanInfo([val], 1).then((res) => {
           if (res.success) {
-            uni.showToast({
-              title: '删除成功'
-            })
+            uni.showToast({ title: '删除成功' })
             ListData.value = []
             currentPage.value = 1
-
-            //再次获取已扫描列表，刷新 数据页面
             listAjaxData()
           } else {
             uni.showToast({
@@ -278,10 +210,6 @@ const onClick = _.debounce((val) => {
   })
 }, 300)
 
-const change = (e) => {
-  console.log(e)
-}
-
 //列表数据
 const more = ref('no-more')
 const pageSize = ref(5)
@@ -290,10 +218,10 @@ const currentPage = ref(1)
 const totalPages = ref(0)
 //总页数
 const KpageTotal = ref(0)
-let ListData = ref([])
+const ListData = ref([])
 //页面高度
 const h = ref('100')
-let list = []
+
 const setfocus = () => {
   focusType.value = false
   setTimeout(() => {
@@ -325,12 +253,14 @@ const listAjaxData = _.debounce(() => {
     })
     .finally(() => uni.hideLoading())
 }, 0)
+
 onPullDownRefresh(() => {
   currentPage.value = 1
   totalPages.value = 0
   ListData.value = []
   listAjaxData()
 })
+
 const scrolltolower = () => {
   // more.value = 'loading'
   // currentPage.value++
@@ -340,6 +270,7 @@ const scrolltolower = () => {
   // 	listAjaxData()
   // }
 }
+
 //清空
 const DeleteAll = _.debounce(() => {
   if (ListData.value.length == 0) return false
@@ -375,7 +306,7 @@ const getsTATION = _.debounce((res) => {
   if (searchValue.value == '') {
     uni.showToast({
       icon: 'none',
-      title: '确认扫描库位'
+      title: '请扫描库位'
     })
     return false
   }
@@ -384,9 +315,8 @@ const getsTATION = _.debounce((res) => {
   })
   if (lisLen.length) {
     uni.showModal({
-      // title: res.RspMsg,
       showCancel: false,
-      content: searchValue.value + '-库位不同，请检查库位！',
+      content: searchValue.value + '库位不同，请检查库位！',
       success: function (res) {}
     })
     searchValue.value = ''
@@ -397,78 +327,19 @@ const getsTATION = _.debounce((res) => {
     searchValue.value = ''
   }
 }, 500)
-//扫描库位条码
-const clickScanCode = async () => {
-  // #ifdef APP-PLUS
-  let status = await checkPermission()
-  if (status !== 1) {
-    return
-  }
-  // #endif
-  uni.scanCode({
-    success: (res) => {
-      if (res.result != '') {
-        // 库位接口数据
-        // getStationInfo({
-        // 	cposcode: res.result
-        // }).then(res => {
-        // 	// uni.navigateTo({
-        // 	// 	url: '/pages/inStorage/pages/components/listStation/listStation?detailDate=' +
-        // 	// 		JSON.stringify(res.RspData)
-        // 	// })
 
-        // })
-        // if(res.result!=ListData[0].PBARCODE){
-        // 	uni.showToast({
-        // 		icon: "none",
-        // 		title: res.RspMsg
-        // 	})
-        // }
-        if (res.result != ListData.value[0].cposname) {
-          uni.showToast({
-            icon: 'none',
-            title: '库位不同，请重新扫描库位'
-          })
-        } else {
-          uni.navigateTo({
-            url: '/pages/inStorage/pages/components/listStation/listStation?code=' + res.result
-          })
-        }
-      } else {
-        uni.showToast({
-          icon: 'none',
-          title: res.RspMsg
-        })
-      }
-    },
-    fail: (err) => {
-      // 需要注意的是小程序扫码不需要申请相机权限
-    }
-  })
-}
-// #ifdef APP-PLUS
+onShow(() => {
+  ListData.value = uni.getStorageSync('wuList') ? JSON.parse(uni.getStorageSync('wuList')) : []
+  totalPages.value = ListData.value.length
+  setfocus()
+})
 
-const checkPermission = async (code) => {
-  let status = permision.isIOS
-    ? await permision.requestIOS('camera')
-    : await permision.requestAndroid('android.permission.CAMERA')
-
-  if (status === null || status === 1) {
-    status = 1
-  } else {
-    uni.showModal({
-      content: '需要相机权限',
-      confirmText: '设置',
-      success: function (res) {
-        if (res.confirm) {
-          permision.gotoAppSetting()
-        }
-      }
-    })
-  }
-  return status
-}
-// #endif
+//加载页面
+onLoad((option) => {
+  currentPage.value = 1
+  // listAjaxData()
+  h.value = uni.getSystemInfoSync().windowHeight
+})
 </script>
 
 <style scoped lang="scss">
