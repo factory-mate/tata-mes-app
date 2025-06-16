@@ -35,4 +35,5 @@ if (CURRENT_ENV === 'prod') {
   URLIP.BASE_URL_APS = 'http://171.13.38.94:12000'
   URLIP.VERSION_NAME = '正式环境'
 }
+
 export default URLIP
