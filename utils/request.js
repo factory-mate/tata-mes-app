@@ -11,7 +11,7 @@ const request = (options) =>
       header: {
         Authorization: `Bearer ${uni.getStorageSync('token') || ''}`
       },
-      timeout: 10000, // 接口请求超时时间设置
+      timeout: 30000, // 接口请求超时时间设置
       data: options.data || {},
       success: (res) => {
         const data = res.data
@@ -83,7 +83,7 @@ const request = (options) =>
         ) {
           uni.showModal({
             showCancel: false,
-            content: '请求超时，请重新扫描！'
+            content: '请求超时，请检查网络或联系管理员！'
           })
         } else {
           uni.showModal({
