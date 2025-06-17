@@ -124,7 +124,7 @@
                     <view class="demo-uni-col dark">检验方法：{{ item.cCheckTypeName }}</view>
                   </uni-col>
                   <uni-col :span="14">
-                    <view class="demo-uni-col light">检验时间：{{ item.dDate }}</view>
+                    <view class="demo-uni-col light">检验时间：{{ item.dModifyTime }}</view>
                   </uni-col>
                 </uni-row>
                 <uni-row class="demo-uni-row itemTxt">
