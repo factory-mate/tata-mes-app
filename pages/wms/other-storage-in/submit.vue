@@ -18,7 +18,7 @@ const currentScanXMData = ref({})
 const currentScanHWData = ref({})
 
 const setFocus = (type) => {
-  isFocus.value = type
+  isFocus.value = ''
   setTimeout(() => {
     isFocus.value = type
   }, 200)
