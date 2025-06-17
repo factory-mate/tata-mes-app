@@ -137,7 +137,6 @@
             type="warn"
             size="mini"
             @click="clickTJ"
-            style=""
           >
             提交
           </button>
@@ -278,6 +277,7 @@ const clickTJ = () => {
     })
     Product.value = ''
     memo.value = ''
+    uni.navigateBack({ delta: 1 })
   })
 }
 
