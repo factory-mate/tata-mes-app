@@ -22,7 +22,7 @@
               :focus="focusType"
               @blur="setfocus"
               @confirm="searchWu()"
-              placeholder="请输入物料条码"
+              placeholder="请扫描物料条码"
               prefixIcon="scan"
             />
             <up-input
@@ -32,7 +32,7 @@
               :focus="focusType"
               @blur="setfocus"
               @confirm="searchKu()"
-              placeholder="请输入库位条码"
+              placeholder="请扫描库位条码"
               prefixIcon="scan"
             />
           </view>
@@ -97,6 +97,16 @@
                   {{ kuList.length ? kuList[0].PosTypeName : '' }}
                 </text>
               </text>
+              <view
+                v-else
+                style="float: right"
+              >
+                <up-button
+                  size="small"
+                  @click="onClickShowAll"
+                  >{{ isShowAll ? '折叠' : '显示全部' }}
+                </up-button>
+              </view>
             </view>
             <!-- 分割线 -->
             <view class="color"> </view>
@@ -115,7 +125,7 @@
               >
                 <up-list-item
                   class="scan-list"
-                  v-for="(item, index) in wuList"
+                  v-for="(item, index) in isShowAll ? wuList : [wuList.at(0)]"
                   :key="item.Pbarcode"
                 >
                   <uni-swipe-action>
@@ -308,7 +318,10 @@ const KpageTotal = ref(0)
 const Ktotal = ref(0)
 const more = ref('more')
 const moreW = ref('more')
-
+const isShowAll = ref(false)
+function onClickShowAll() {
+  isShowAll.value = !isShowAll.value
+}
 onShow((val) => {
   setfocus()
   Ypage.value = 1
@@ -563,16 +576,16 @@ const searchWu = () => {
     wuValue.value = ''
     return
   }
-  if (wuList.value.length) {
-    if (wuList.value.some((item) => item.Pbarcode == wuValue.value)) {
-      uni.showModal({
-        showCancel: false,
-        content: wuValue.value + '已存在'
-      })
-      wuValue.value = ''
-      return false
-    }
-  }
+  // if (wuList.value.length) {
+  //   if (wuList.value.some((item) => item.Pbarcode == wuValue.value)) {
+  //     uni.showModal({
+  //       showCancel: false,
+  //       content: wuValue.value + '已存在'
+  //     })
+  //     wuValue.value = ''
+  //     return false
+  //   }
+  // }
   uni.showLoading({ title: '加载中' })
   // 接口数据
   getWLInfo({ pbarcode: wuValue.value })

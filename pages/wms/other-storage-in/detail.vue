@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { onLoad, onPullDownRefresh } from '@dcloudio/uni-app'
+import { onLoad, onPullDownRefresh, onShow } from '@dcloudio/uni-app'
 import { getDeviceHeight } from '@/features/device'
 import { usePageParams } from '@/hooks'
 import { OtherStorageOutAPI } from '@/api'
