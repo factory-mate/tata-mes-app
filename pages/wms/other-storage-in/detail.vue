@@ -41,6 +41,10 @@ function resetPageParams() {
 onLoad((options) => {
   pageQuery.value = options
   console.log(options)
+})
+
+onShow(() => {
+  resetPageParams()
   getList()
 })
 
