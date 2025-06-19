@@ -33,8 +33,8 @@ export const DBInAPI = {
   // 已入库
   finishedList: (data) =>
     service({
-      url: URLIP.BASE_URL_DAOHUO + '/api/Transfer_Vouch/GetRDRECORD_SBySource',
-      method: 'get',
+      url: URLIP.BASE_URL_DAOHUO + '/api/RDRecord/GetMSForPage',
+      method: 'post',
       data
     })
 }

@@ -187,6 +187,7 @@ const scanWL = async () => {
           showCancel: false,
           content: `当前条码库位号(${WLMsg.data.cPosCode})和之前的库位号(${wuList.value[0].cPosCode})不一致，无法录入`
         })
+        searchValue.value = ''
         uni.hideLoading()
         isScanning.value = false
         setfocus()
@@ -198,6 +199,7 @@ const scanWL = async () => {
         icon: 'none',
         title: '该条码已入库，不能重复入库'
       })
+      searchValue.value = ''
       uni.hideLoading()
       isScanning.value = false
       setfocus()
